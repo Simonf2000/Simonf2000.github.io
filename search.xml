@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Loombook命名的坑</title>
-    <url>/2023/10/01/Loombook%E5%91%BD%E5%90%8D%E7%9A%84%E5%9D%91/</url>
-    <content><![CDATA[<p>在写一个后台用户模块时，为了区分系统管理员和用户，命名时用使用了sUsername来命名系统管理员的名字，但是数据库注册管理员时一直没法注册成功。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Schema(description = &quot;系统管理员&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SystemUser</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Schema(description = &quot;管理员姓名&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String sUsername;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Schema(description = &quot;管理员手机号码&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String phone;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>经查源码发现sUsername的set方法在loombook中被命名为setSUsername，也就是说loombook中所有的属性的前两个字母必须小写！</p>
-]]></content>
-      <tags>
-        <tag>Loombook</tag>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hello World</title>
     <url>/2024/03/17/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -30,5 +17,18 @@
 
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>Loombook命名的坑</title>
+    <url>/2023/10/01/Loombook%E5%91%BD%E5%90%8D%E7%9A%84%E5%9D%91/</url>
+    <content><![CDATA[<p>在写一个后台用户模块时，为了区分系统管理员和用户，命名时用使用了sUsername来命名系统管理员的名字，但是数据库注册管理员时一直没法注册成功。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Schema(description = &quot;系统管理员&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SystemUser</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Schema(description = &quot;管理员姓名&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String sUsername;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Schema(description = &quot;管理员手机号码&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String phone;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>经查源码发现sUsername的set方法在loombook中被命名为setSUsername，也就是说loombook中所有的属性的前两个字母必须小写！</p>
+]]></content>
+      <tags>
+        <tag>Loombook</tag>
+        <tag>Java</tag>
+      </tags>
   </entry>
 </search>
