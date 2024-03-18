@@ -6,14 +6,16 @@
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/santa_claus_32px_1302574_easyicon.net.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/santa_claus_16px_1302574_easyicon.net.png">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
@@ -117,6 +119,21 @@
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
 
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
@@ -153,7 +170,7 @@
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/17/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.jpg">
       <meta itemprop="name" content="simonf">
       <meta itemprop="description" content="Ŭ��ѧϰ�ĺ�˹���ʦ">
     </span>
@@ -283,6 +300,8 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="simonf"
+      src="/images/avatar.jpg">
   <p class="site-author-name" itemprop="name">simonf</p>
   <div class="site-description" itemprop="description">Ŭ��ѧϰ�ĺ�˹���ʦ</div>
 </div>
@@ -297,8 +316,29 @@
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Simonf2000" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Simonf2000" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/FENGBOKE?spm=1011.2124.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;FENGBOKE?spm&#x3D;1011.2124.3001.5343" rel="noopener" target="_blank"><i class="codiepie fa-fw"></i>CSDN</a>
+      </span>
+  </div>
 
 
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="link fa-fw"></i>
+      ������վ
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://baidu.com/" title="https:&#x2F;&#x2F;baidu.com" rel="noopener" target="_blank">CSDN</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://fishc.com.cn/" title="https:&#x2F;&#x2F;fishc.com.cn" rel="noopener" target="_blank">��C��̳</a>
+        </li>
+    </ul>
+  </div>
 
       </div>
 
@@ -318,7 +358,7 @@
 
 <div class="copyright">
   
-  &copy; 
+  &copy; 2020-02 – 
   <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
@@ -342,6 +382,8 @@
   </div>
 
   
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
   <script src="/lib/anime.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
