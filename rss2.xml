@@ -34,5 +34,32 @@
       
     </item>
     
+    <item>
+      <title>Loombook命名的坑</title>
+      <link>http://example.com/2023/10/01/Loombook%E5%91%BD%E5%90%8D%E7%9A%84%E5%9D%91/</link>
+      <guid>http://example.com/2023/10/01/Loombook%E5%91%BD%E5%90%8D%E7%9A%84%E5%9D%91/</guid>
+      <pubDate>Sun, 01 Oct 2023 12:37:58 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;在写一个后台用户模块时，为了区分系统管理员和用户，命名时用使用了sUsername来命名系统管理员的名字，但是数据库注册管理员时一直没法注册成功。&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>在写一个后台用户模块时，为了区分系统管理员和用户，命名时用使用了sUsername来命名系统管理员的名字，但是数据库注册管理员时一直没法注册成功。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Schema(description = &quot;系统管理员&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SystemUser</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Schema(description = &quot;管理员姓名&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String sUsername;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Schema(description = &quot;管理员手机号码&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String phone;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>经查源码发现sUsername的set方法在loombook中被命名为setSUsername，也就是说loombook中所有的属性的前两个字母必须小写！</p>]]></content:encoded>
+      
+      
+      
+      <category domain="http://example.com/tags/Loombook/">Loombook</category>
+      
+      <category domain="http://example.com/tags/Java/">Java</category>
+      
+      
+      <comments>http://example.com/2023/10/01/Loombook%E5%91%BD%E5%90%8D%E7%9A%84%E5%9D%91/#disqus_thread</comments>
+      
+    </item>
+    
   </channel>
 </rss>
