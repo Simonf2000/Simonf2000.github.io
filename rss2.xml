@@ -3,12 +3,12 @@
   xmlns:atom="http://www.w3.org/2005/Atom"
   xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>SimonFeng��ľ��</title>
+    <title>SimonFeng的木屋</title>
     <link>http://example.com/</link>
     
     <atom:link href="http://example.com/rss2.xml" rel="self" type="application/rss+xml"/>
     
-    <description>Ŭ��ѧϰ�ĺ�˹���ʦ</description>
+    <description>努力学习的后端工程师</description>
     <pubDate>Sat, 26 Oct 1985 08:15:00 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
