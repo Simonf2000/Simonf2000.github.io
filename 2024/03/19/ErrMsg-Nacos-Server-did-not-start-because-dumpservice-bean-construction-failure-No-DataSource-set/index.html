@@ -22,17 +22,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="努力学习的后端工程师">
-<meta property="og:type" content="website">
-<meta property="og:title" content="SimonFeng的木屋">
-<meta property="og:url" content="http://example.com/archives/2024/index.html">
+  <meta name="description" content="Nacos有时候虽然可以正常启动，但是一访问http:&#x2F;&#x2F;127.0.0.1:8848&#x2F;进程就会stopped。查看日志有这么一句报错：   1ErrMsg:Nacos Server did not start because dumpservice bean construction failure :No DataSource set  这有可能是数据库的连接没有释放导致的，可以尝试在数据库中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ErrMsg:Nacos Server did not start because dumpservice bean construction failure :No DataSource set">
+<meta property="og:url" content="http://example.com/2024/03/19/ErrMsg-Nacos-Server-did-not-start-because-dumpservice-bean-construction-failure-No-DataSource-set/index.html">
 <meta property="og:site_name" content="SimonFeng的木屋">
-<meta property="og:description" content="努力学习的后端工程师">
+<meta property="og:description" content="Nacos有时候虽然可以正常启动，但是一访问http:&#x2F;&#x2F;127.0.0.1:8848&#x2F;进程就会stopped。查看日志有这么一句报错：   1ErrMsg:Nacos Server did not start because dumpservice bean construction failure :No DataSource set  这有可能是数据库的连接没有释放导致的，可以尝试在数据库中">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-03-19T03:33:18.000Z">
+<meta property="article:modified_time" content="2024-03-19T03:40:20.246Z">
 <meta property="article:author" content="simonf">
+<meta property="article:tag" content="Nacos">
+<meta property="article:tag" content="微服务">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/archives/2024/">
+<link rel="canonical" href="http://example.com/2024/03/19/ErrMsg-Nacos-Server-did-not-start-because-dumpservice-bean-construction-failure-No-DataSource-set/">
 
 
 <script id="page-configurations">
@@ -40,12 +44,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>归档 | SimonFeng的木屋</title>
+  <title>ErrMsg:Nacos Server did not start because dumpservice bean construction failure :No DataSource set | SimonFeng的木屋</title>
   
 
 
@@ -188,116 +192,192 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 5 篇日志。 继续努力。</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/19/ErrMsg-Nacos-Server-did-not-start-because-dumpservice-bean-construction-failure-No-DataSource-set/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="simonf">
+      <meta itemprop="description" content="努力学习的后端工程师">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SimonFeng的木屋">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ErrMsg:Nacos Server did not start because dumpservice bean construction failure :No DataSource set
+        </h1>
+
+        <div class="post-meta">
+		
+		  
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-03-19 11:33:18 / 修改时间：11:40:20" itemprop="dateCreated datePublished" datetime="2024-03-19T11:33:18+08:00">2024-03-19</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>461</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2024</span>
+        <p><a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=Nacos&spm=1001.2101.3001.7020">Nacos</a>有时候虽然可以正常启动，但是一访问<a target="_blank" rel="noopener" href="http://192.168.6.100:8848/">http://127.0.0.1:8848/</a>进程就会stopped。<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97&spm=1001.2101.3001.7020">查看日志</a>有这么一句报错：  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ErrMsg:Nacos Server did not start because dumpservice bean construction failure :No DataSource set</span><br></pre></td></tr></table></figure>
+
+<p>这有可能是数据库的连接没有释放导致的，可以尝试在数据库中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flush hosts</span><br></pre></td></tr></table></figure>
+
+<p>再尝试连接</p>
+<p>然后可以查询下远程权限是否开放</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select host,user from user</span><br></pre></td></tr></table></figure>
+
+<p>如果没有开放</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update user set host=&#x27;%&#x27; where user=&#x27;root&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>开放远程权限再尝试启动Nacos，这时再访问Nacos问题得以解决。<br>————————————————</p>
+<pre><code>                        版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。
+</code></pre>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/FENGBOKE/article/details/136579894">https://blog.csdn.net/FENGBOKE/article/details/136579894</a></p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-03-19T11:33:18+08:00"
-              content="2024-03-19">
-          03-19
-        </time>
+    
+    
+    
+	
+    
+      <div>
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      </div>
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="simonf 微信支付">
+        <p>微信支付</p>
       </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2024/03/19/ErrMsg-Nacos-Server-did-not-start-because-dumpservice-bean-construction-failure-No-DataSource-set/" itemprop="url">
-            <span itemprop="name">ErrMsg:Nacos Server did not start because dumpservice bean construction failure :No DataSource set</span>
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>simonf
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2024/03/19/ErrMsg-Nacos-Server-did-not-start-because-dumpservice-bean-construction-failure-No-DataSource-set/" title="ErrMsg:Nacos Server did not start because dumpservice bean construction failure :No DataSource set">http://example.com/2024/03/19/ErrMsg-Nacos-Server-did-not-start-because-dumpservice-bean-construction-failure-No-DataSource-set/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
           </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-03-19T11:19:31+08:00"
-              content="2024-03-19">
-          03-19
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2024/03/19/Nacos%E5%BC%82%E5%B8%B8%EF%BC%9ANo-DataSource-set%E5%92%8CClient-not-connected-current-status-STARTING/" itemprop="url">
-            <span itemprop="name">Nacos异常：No DataSource set和Client not connected, current status:STARTING</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-03-18T21:06:28+08:00"
-              content="2024-03-18">
-          03-18
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2024/03/18/Hexo%E6%95%99%E7%A8%8B-%E4%B8%80-%E5%A6%82%E4%BD%95%E5%86%99%E6%96%87%E7%AB%A0%E5%B9%B6%E5%8F%91%E5%B8%83/" itemprop="url">
-            <span itemprop="name">Hexo教程(一)|如何写文章并发布</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2024-03-17T23:57:32+08:00"
-              content="2024-03-17">
-          03-17
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2024/03/17/hello-world/" itemprop="url">
-            <span itemprop="name">Hello World</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-
+        </div>
     </div>
   </div>
-  
-  
-  
 
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Nacos/" rel="tag"># Nacos</a>
+              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag"># 微服务</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/03/19/Nacos%E5%BC%82%E5%B8%B8%EF%BC%9ANo-DataSource-set%E5%92%8CClient-not-connected-current-status-STARTING/" rel="prev" title="Nacos异常：No DataSource set和Client not connected, current status:STARTING">
+      <i class="fa fa-chevron-left"></i> Nacos异常：No DataSource set和Client not connected, current status:STARTING
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
 
           </div>
           
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81OTY0OC8zNjExMA=="></div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -549,6 +629,21 @@ $(document).ready(function() {
 
   
 
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
 
 </body>
 </html>

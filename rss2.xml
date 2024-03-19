@@ -9,8 +9,34 @@
     <atom:link href="http://example.com/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>努力学习的后端工程师</description>
-    <pubDate>Tue, 19 Mar 2024 03:27:56 GMT</pubDate>
+    <pubDate>Tue, 19 Mar 2024 03:40:20 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>ErrMsg:Nacos Server did not start because dumpservice bean construction failure :No DataSource set</title>
+      <link>http://example.com/2024/03/19/ErrMsg-Nacos-Server-did-not-start-because-dumpservice-bean-construction-failure-No-DataSource-set/</link>
+      <guid>http://example.com/2024/03/19/ErrMsg-Nacos-Server-did-not-start-because-dumpservice-bean-construction-failure-No-DataSource-set/</guid>
+      <pubDate>Tue, 19 Mar 2024 03:33:18 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;&lt;a href=&quot;https://so.csdn.net/so/search?q=Nacos&amp;spm=1001.2101.3001.7020&quot;&gt;Nacos&lt;/a&gt;有时候虽然可以正常启动，但是一访问&lt;a href=&quot;http://192.168.6.100:8848/&quot;&gt;ht</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p><a href="https://so.csdn.net/so/search?q=Nacos&spm=1001.2101.3001.7020">Nacos</a>有时候虽然可以正常启动，但是一访问<a href="http://192.168.6.100:8848/">http://127.0.0.1:8848/</a>进程就会stopped。<a href="https://so.csdn.net/so/search?q=%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97&spm=1001.2101.3001.7020">查看日志</a>有这么一句报错：  </p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ErrMsg:Nacos Server did not start because dumpservice bean construction failure :No DataSource set</span><br></pre></td></tr></table></figure><p>这有可能是数据库的连接没有释放导致的，可以尝试在数据库中</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flush hosts</span><br></pre></td></tr></table></figure><p>再尝试连接</p><p>然后可以查询下远程权限是否开放</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select host,user from user</span><br></pre></td></tr></table></figure><p>如果没有开放</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update user set host=&#x27;%&#x27; where user=&#x27;root&#x27;</span><br></pre></td></tr></table></figure><p>开放远程权限再尝试启动Nacos，这时再访问Nacos问题得以解决。<br>————————————————</p><pre><code>                        版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。</code></pre><p>原文链接：<a href="https://blog.csdn.net/FENGBOKE/article/details/136579894">https://blog.csdn.net/FENGBOKE/article/details/136579894</a></p>]]></content:encoded>
+      
+      
+      
+      <category domain="http://example.com/tags/Nacos/">Nacos</category>
+      
+      <category domain="http://example.com/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</category>
+      
+      
+      <comments>http://example.com/2024/03/19/ErrMsg-Nacos-Server-did-not-start-because-dumpservice-bean-construction-failure-No-DataSource-set/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>Nacos异常：No DataSource set和Client not connected, current status:STARTING</title>

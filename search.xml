@@ -1,33 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Nacos异常：No DataSource set和Client not connected, current status:STARTING</title>
-    <url>/2024/03/19/Nacos%E5%BC%82%E5%B8%B8%EF%BC%9ANo-DataSource-set%E5%92%8CClient-not-connected-current-status-STARTING/</url>
-    <content><![CDATA[<p>今天遇到一个很有意思的问题：Nacos工作的好好的，一运行程序，nacos就自动stopped了。</p>
-<p>首先日志排查，linux命令：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker logs nacos</span><br></pre></td></tr></table></figure>
+    <title>ErrMsg:Nacos Server did not start because dumpservice bean construction failure :No DataSource set</title>
+    <url>/2024/03/19/ErrMsg-Nacos-Server-did-not-start-because-dumpservice-bean-construction-failure-No-DataSource-set/</url>
+    <content><![CDATA[<p><a href="https://so.csdn.net/so/search?q=Nacos&spm=1001.2101.3001.7020">Nacos</a>有时候虽然可以正常启动，但是一访问<a href="http://192.168.6.100:8848/">http://127.0.0.1:8848/</a>进程就会stopped。<a href="https://so.csdn.net/so/search?q=%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97&spm=1001.2101.3001.7020">查看日志</a>有这么一句报错：  </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ErrMsg:Nacos Server did not start because dumpservice bean construction failure :No DataSource set</span><br></pre></td></tr></table></figure>
 
-<p>初步怀疑是nacos启动后资源不足，但是日志里没有OutOfMemoryError等错误，但是日志里有这么一句：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">2024-03-08 22:07:25,713 ERROR Application run failed</span><br><span class="line"></span><br><span class="line">Nacos Server did not start because dumpservice bean construction failure : No DataSource set</span><br></pre></td></tr></table></figure>
+<p>这有可能是数据库的连接没有释放导致的，可以尝试在数据库中</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flush hosts</span><br></pre></td></tr></table></figure>
 
-<p>百度了一下发现是mysql配置文件出了问题，mysql8.0之后的版本, 需要在官网文档配置mysql的基础上加上<strong>mysql时区的设置。</strong></p>
-<p><strong>像这样：</strong></p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">datasource:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">com.zaxxer.hikari.HikariDataSource</span></span><br><span class="line">  <span class="attr">driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">  <span class="attr">url:</span> <span class="string">jdbc:mysql://127.0.0.1:3306/db_spzx?characterEncoding=utf-8&amp;serverTimezone=UTC&amp;useSSL=false&amp;allowPublicKeyRetrieval=true</span></span><br></pre></td></tr></table></figure>
+<p>再尝试连接</p>
+<p>然后可以查询下远程权限是否开放</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select host,user from user</span><br></pre></td></tr></table></figure>
 
-<p>运行程序后报了新的错误：  </p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Caused by: com.alibaba.nacos.api.exception.NacosException: Client not connected, current status:STARTING</span><br></pre></td></tr></table></figure>
+<p>如果没有开放</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">update user set host=&#x27;%&#x27; where user=&#x27;root&#x27;</span><br></pre></td></tr></table></figure>
 
-<p>依旧是百度了一下，发现nocos不仅需要配置中心地址，还得配置服务注册中心的地址。像这样：  </p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">simonf</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8848</span></span><br><span class="line">      <span class="attr">config:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8848</span></span><br></pre></td></tr></table></figure>
-
-<p>加入了服务注册中心的地址重启项目，运行成功！</p>
-<pre><code>版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。
+<p>开放远程权限再尝试启动Nacos，这时再访问Nacos问题得以解决。<br>————————————————</p>
+<pre><code>                        版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。
 </code></pre>
-<p>原文链接：<a href="https://blog.csdn.net/FENGBOKE/article/details/136573527">https://blog.csdn.net/FENGBOKE/article/details/136573527</a></p>
+<p>原文链接：<a href="https://blog.csdn.net/FENGBOKE/article/details/136579894">https://blog.csdn.net/FENGBOKE/article/details/136579894</a></p>
 ]]></content>
       <tags>
         <tag>Nacos</tag>
         <tag>微服务</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Loombook命名的坑</title>
+    <url>/2023/10/01/Loombook%E5%91%BD%E5%90%8D%E7%9A%84%E5%9D%91/</url>
+    <content><![CDATA[<p>在写一个后台用户模块时，为了区分系统管理员和用户，命名时用使用了sUsername来命名系统管理员的名字，但是数据库注册管理员时一直没法注册成功。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Schema(description = &quot;系统管理员&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SystemUser</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Schema(description = &quot;管理员姓名&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String sUsername;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Schema(description = &quot;管理员手机号码&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String phone;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>经查源码发现sUsername的set方法在loombook中被命名为setSUsername，也就是说loombook中所有的属性的前两个字母必须小写！</p>
+]]></content>
+      <tags>
+        <tag>Loombook</tag>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -69,16 +78,33 @@
 ]]></content>
   </entry>
   <entry>
-    <title>Loombook命名的坑</title>
-    <url>/2023/10/01/Loombook%E5%91%BD%E5%90%8D%E7%9A%84%E5%9D%91/</url>
-    <content><![CDATA[<p>在写一个后台用户模块时，为了区分系统管理员和用户，命名时用使用了sUsername来命名系统管理员的名字，但是数据库注册管理员时一直没法注册成功。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Schema(description = &quot;系统管理员&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SystemUser</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Schema(description = &quot;管理员姓名&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String sUsername;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Schema(description = &quot;管理员手机号码&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String phone;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <title>Nacos异常：No DataSource set和Client not connected, current status:STARTING</title>
+    <url>/2024/03/19/Nacos%E5%BC%82%E5%B8%B8%EF%BC%9ANo-DataSource-set%E5%92%8CClient-not-connected-current-status-STARTING/</url>
+    <content><![CDATA[<p>今天遇到一个很有意思的问题：Nacos工作的好好的，一运行程序，nacos就自动stopped了。</p>
+<p>首先日志排查，linux命令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker logs nacos</span><br></pre></td></tr></table></figure>
 
-<p>经查源码发现sUsername的set方法在loombook中被命名为setSUsername，也就是说loombook中所有的属性的前两个字母必须小写！</p>
+<p>初步怀疑是nacos启动后资源不足，但是日志里没有OutOfMemoryError等错误，但是日志里有这么一句：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">2024-03-08 22:07:25,713 ERROR Application run failed</span><br><span class="line"></span><br><span class="line">Nacos Server did not start because dumpservice bean construction failure : No DataSource set</span><br></pre></td></tr></table></figure>
+
+<p>百度了一下发现是mysql配置文件出了问题，mysql8.0之后的版本, 需要在官网文档配置mysql的基础上加上<strong>mysql时区的设置。</strong></p>
+<p><strong>像这样：</strong></p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">datasource:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">com.zaxxer.hikari.HikariDataSource</span></span><br><span class="line">  <span class="attr">driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">  <span class="attr">url:</span> <span class="string">jdbc:mysql://127.0.0.1:3306/db_spzx?characterEncoding=utf-8&amp;serverTimezone=UTC&amp;useSSL=false&amp;allowPublicKeyRetrieval=true</span></span><br></pre></td></tr></table></figure>
+
+<p>运行程序后报了新的错误：  </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Caused by: com.alibaba.nacos.api.exception.NacosException: Client not connected, current status:STARTING</span><br></pre></td></tr></table></figure>
+
+<p>依旧是百度了一下，发现nocos不仅需要配置中心地址，还得配置服务注册中心的地址。像这样：  </p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">simonf</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8848</span></span><br><span class="line">      <span class="attr">config:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8848</span></span><br></pre></td></tr></table></figure>
+
+<p>加入了服务注册中心的地址重启项目，运行成功！</p>
+<pre><code>版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。
+</code></pre>
+<p>原文链接：<a href="https://blog.csdn.net/FENGBOKE/article/details/136573527">https://blog.csdn.net/FENGBOKE/article/details/136573527</a></p>
 ]]></content>
       <tags>
-        <tag>Loombook</tag>
-        <tag>Java</tag>
+        <tag>Nacos</tag>
+        <tag>微服务</tag>
       </tags>
   </entry>
 </search>
