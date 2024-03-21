@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Loombook命名的坑</title>
-    <url>/2023/10/01/Loombook%E5%91%BD%E5%90%8D%E7%9A%84%E5%9D%91/</url>
-    <content><![CDATA[<p>在写一个后台用户模块时，为了区分系统管理员和用户，命名时用使用了sUsername来命名系统管理员的名字，但是数据库注册管理员时一直没法注册成功。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Schema(description = &quot;系统管理员&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SystemUser</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Schema(description = &quot;管理员姓名&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String sUsername;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Schema(description = &quot;管理员手机号码&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String phone;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>经查源码发现sUsername的set方法在loombook中被命名为setSUsername，也就是说loombook中所有的属性的前两个字母必须小写！</p>
-]]></content>
-      <tags>
-        <tag>Loombook</tag>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ErrMsg:Nacos Server did not start because dumpservice bean construction failure :No DataSource set</title>
     <url>/2024/03/19/ErrMsg-Nacos-Server-did-not-start-because-dumpservice-bean-construction-failure-No-DataSource-set/</url>
     <content><![CDATA[<p><a href="https://so.csdn.net/so/search?q=Nacos&spm=1001.2101.3001.7020">Nacos</a>有时候虽然可以正常启动，但是一访问<a href="http://192.168.6.100:8848/">http://127.0.0.1:8848/</a>进程就会stopped。<a href="https://so.csdn.net/so/search?q=%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97&spm=1001.2101.3001.7020">查看日志</a>有这么一句报错：  </p>
@@ -60,6 +47,38 @@
 ]]></content>
   </entry>
   <entry>
+    <title>Servlet学习时遇到的问题</title>
+    <url>/2020/10/01/Servlet%E5%AD%A6%E4%B9%A0%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h2 id="由于文件没有被设置成Resoureces-Root导致的空指针异常"><a href="#由于文件没有被设置成Resoureces-Root导致的空指针异常" class="headerlink" title="由于文件没有被设置成Resoureces Root导致的空指针异常"></a>由于文件没有被设置成Resoureces Root导致的空指针异常</h2><p>在前端输入信息后，点击提交按钮，控制台报错:</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">java.lang.NullPointerException: inStream parameter is null</span><br></pre></td></tr></table></figure>
+
+<p>检查后发现输入流没有读取到properties文件，将类加载器改为当前类的加载器(当前类为JDBCTools.class)，将properties文件移入到resources文件夹目录下（一定记得将resources文件夹右键Mark Directory as Resources Root），该问题解决。以下是Java代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">pro.load((JDBCTools.class.getClassLoader().getResourceAsStream(<span class="string">&quot;db.properties&quot;</span>)));</span><br></pre></td></tr></table></figure>
+
+<h2 id="泛型使用"><a href="#泛型使用" class="headerlink" title="泛型使用"></a>泛型使用</h2><p>从前端获取的数据用UserDao工具类的getBean语句在数据库内查询，但是返回值是Object类。</p>
+<p>通过在BaseBao后面加泛型可以获取查询到对象是User对象，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserDao</span> <span class="keyword">extends</span> <span class="title class_">BaseDao</span>&lt;User&gt;</span><br><span class="line"><span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> <span class="built_in">this</span>.getBean(User.class,<span class="string">&quot;select password from userreg where id = ?&quot;</span> ,id);</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>Servlet</tag>
+        <tag>JavaWeb</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Loombook命名的坑</title>
+    <url>/2023/10/01/Loombook%E5%91%BD%E5%90%8D%E7%9A%84%E5%9D%91/</url>
+    <content><![CDATA[<p>在写一个后台用户模块时，为了区分系统管理员和用户，命名时用使用了sUsername来命名系统管理员的名字，但是数据库注册管理员时一直没法注册成功。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Schema(description = &quot;系统管理员&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SystemUser</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Schema(description = &quot;管理员姓名&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String sUsername;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Schema(description = &quot;管理员手机号码&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String phone;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>经查源码发现sUsername的set方法在loombook中被命名为setSUsername，也就是说loombook中所有的属性的前两个字母必须小写！</p>
+]]></content>
+      <tags>
+        <tag>Loombook</tag>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Nacos异常：No DataSource set和Client not connected, current status:STARTING</title>
     <url>/2024/03/19/Nacos%E5%BC%82%E5%B8%B8%EF%BC%9ANo-DataSource-set%E5%92%8CClient-not-connected-current-status-STARTING/</url>
     <content><![CDATA[<p>今天遇到一个很有意思的问题：Nacos工作的好好的，一运行程序，nacos就自动stopped了。</p>
@@ -90,22 +109,16 @@
       </tags>
   </entry>
   <entry>
-    <title>Servlet学习时遇到的问题</title>
-    <url>/2020/10/01/Servlet%E5%AD%A6%E4%B9%A0%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h2 id="由于文件没有被设置成Resoureces-Root导致的空指针异常"><a href="#由于文件没有被设置成Resoureces-Root导致的空指针异常" class="headerlink" title="由于文件没有被设置成Resoureces Root导致的空指针异常"></a>由于文件没有被设置成Resoureces Root导致的空指针异常</h2><p>在前端输入信息后，点击提交按钮，控制台报错:</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">java.lang.NullPointerException: inStream parameter is null</span><br></pre></td></tr></table></figure>
+    <title>浏览器将路径自动转换为小写导致跳过路由守卫</title>
+    <url>/2021/12/01/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%B0%86%E8%B7%AF%E5%BE%84%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%B0%8F%E5%86%99%E5%AF%BC%E8%87%B4%E8%B7%B3%E8%BF%87%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB/</url>
+    <content><![CDATA[<p>路由设置路径中出现大写，浏览器将路径自动转换为小写导致跳过路由守卫</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> router = <span class="title function_">createRouter</span>(&#123;</span><br><span class="line">     <span class="attr">history</span>:<span class="title function_">createWebHashHistory</span>(),</span><br><span class="line"></span><br><span class="line">    <span class="attr">routes</span>:[</span><br><span class="line">        &#123;<span class="attr">path</span>:<span class="string">&#x27;/ShowSchedule&#x27;</span>,<span class="attr">component</span>:<span class="title class_">ShowSchedule</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">path</span>:<span class="string">&#x27;/Login&#x27;</span>,<span class="attr">component</span>:<span class="title class_">Login</span>&#125;,</span><br><span class="line">    ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
-<p>检查后发现输入流没有读取到properties文件，将类加载器改为当前类的加载器(当前类为JDBCTools.class)，将properties文件移入到resources文件夹目录下（一定记得将resources文件夹右键Mark Directory as Resources Root），该问题解决。以下是Java代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">pro.load((JDBCTools.class.getClassLoader().getResourceAsStream(<span class="string">&quot;db.properties&quot;</span>)));</span><br></pre></td></tr></table></figure>
-
-<h2 id="泛型使用"><a href="#泛型使用" class="headerlink" title="泛型使用"></a>泛型使用</h2><p>从前端获取的数据用UserDao工具类的getBean语句在数据库内查询，但是返回值是Object类。</p>
-<p>通过在BaseBao后面加泛型可以获取查询到对象是User对象，代码如下：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserDao</span> <span class="keyword">extends</span> <span class="title class_">BaseDao</span>&lt;User&gt;</span><br><span class="line"><span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> <span class="built_in">this</span>.getBean(User.class,<span class="string">&quot;select password from userreg where id = ?&quot;</span> ,id);</span><br></pre></td></tr></table></figure>
-
+<p>浏览器输入URL：<a href="view-source:http://localhost:5174/#/showschedule">view-source:localhost:5174&#x2F;#&#x2F;showschedule</a>路径自动全部转换为小写导致跳过了路由守卫，建议以后Path全小写，component首字母大写。</p>
 ]]></content>
       <tags>
-        <tag>Servlet</tag>
-        <tag>JavaWeb</tag>
+        <tag>vue</tag>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
 </search>

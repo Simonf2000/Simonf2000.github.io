@@ -117,6 +117,33 @@
     </item>
     
     <item>
+      <title>浏览器将路径自动转换为小写导致跳过路由守卫</title>
+      <link>http://example.com/2021/12/01/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%B0%86%E8%B7%AF%E5%BE%84%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%B0%8F%E5%86%99%E5%AF%BC%E8%87%B4%E8%B7%B3%E8%BF%87%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB/</link>
+      <guid>http://example.com/2021/12/01/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%B0%86%E8%B7%AF%E5%BE%84%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%B0%8F%E5%86%99%E5%AF%BC%E8%87%B4%E8%B7%B3%E8%BF%87%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB/</guid>
+      <pubDate>Wed, 01 Dec 2021 09:08:53 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;路由设置路径中出现大写，浏览器将路径自动转换为小写导致跳过路由守卫&lt;/p&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>路由设置路径中出现大写，浏览器将路径自动转换为小写导致跳过路由守卫</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> router = <span class="title function_">createRouter</span>(&#123;</span><br><span class="line">     <span class="attr">history</span>:<span class="title function_">createWebHashHistory</span>(),</span><br><span class="line"></span><br><span class="line">    <span class="attr">routes</span>:[</span><br><span class="line">        &#123;<span class="attr">path</span>:<span class="string">&#x27;/ShowSchedule&#x27;</span>,<span class="attr">component</span>:<span class="title class_">ShowSchedule</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">path</span>:<span class="string">&#x27;/Login&#x27;</span>,<span class="attr">component</span>:<span class="title class_">Login</span>&#125;,</span><br><span class="line">    ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><p>浏览器输入URL：<a href="view-source:http://localhost:5174/#/showschedule">view-source:localhost:5174&#x2F;#&#x2F;showschedule</a>路径自动全部转换为小写导致跳过了路由守卫，建议以后Path全小写，component首字母大写。</p>]]></content:encoded>
+      
+      
+      
+      <category domain="http://example.com/tags/vue/">vue</category>
+      
+      <category domain="http://example.com/tags/JavaScript/">JavaScript</category>
+      
+      
+      <comments>http://example.com/2021/12/01/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%B0%86%E8%B7%AF%E5%BE%84%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%B0%8F%E5%86%99%E5%AF%BC%E8%87%B4%E8%B7%B3%E8%BF%87%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
       <title>Servlet学习时遇到的问题</title>
       <link>http://example.com/2020/10/01/Servlet%E5%AD%A6%E4%B9%A0%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</link>
       <guid>http://example.com/2020/10/01/Servlet%E5%AD%A6%E4%B9%A0%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
