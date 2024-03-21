@@ -90,28 +90,6 @@
     </item>
     
     <item>
-      <title>Hello World</title>
-      <link>http://example.com/2024/03/17/hello-world/</link>
-      <guid>http://example.com/2024/03/17/hello-world/</guid>
-      <pubDate>Sun, 17 Mar 2024 15:57:32 GMT</pubDate>
-      
-        
-        
-      <description>&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content:encoded>
-      
-      
-      
-      
-      <comments>http://example.com/2024/03/17/hello-world/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
       <title>Loombook命名的坑</title>
       <link>http://example.com/2023/10/01/Loombook%E5%91%BD%E5%90%8D%E7%9A%84%E5%9D%91/</link>
       <guid>http://example.com/2023/10/01/Loombook%E5%91%BD%E5%90%8D%E7%9A%84%E5%9D%91/</guid>
@@ -135,6 +113,32 @@
       
       
       <comments>http://example.com/2023/10/01/Loombook%E5%91%BD%E5%90%8D%E7%9A%84%E5%9D%91/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Servlet学习时遇到的问题</title>
+      <link>http://example.com/2020/10/01/Servlet%E5%AD%A6%E4%B9%A0%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</link>
+      <guid>http://example.com/2020/10/01/Servlet%E5%AD%A6%E4%B9%A0%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
+      <pubDate>Thu, 01 Oct 2020 08:56:31 GMT</pubDate>
+      
+        
+        
+      <description>&lt;h2 id=&quot;由于文件没有被设置成Resoureces-Root导致的空指针异常&quot;&gt;&lt;a href=&quot;#由于文件没有被设置成Resoureces-Root导致的空指针异常&quot; class=&quot;headerlink&quot; title=&quot;由于文件没有被设置成Resoureces Root导</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<h2 id="由于文件没有被设置成Resoureces-Root导致的空指针异常"><a href="#由于文件没有被设置成Resoureces-Root导致的空指针异常" class="headerlink" title="由于文件没有被设置成Resoureces Root导致的空指针异常"></a>由于文件没有被设置成Resoureces Root导致的空指针异常</h2><p>在前端输入信息后，点击提交按钮，控制台报错:</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.lang.NullPointerException: inStream parameter is null</span><br></pre></td></tr></table></figure><p>检查后发现输入流没有读取到properties文件，将类加载器改为当前类的加载器(当前类为JDBCTools.class)，将properties文件移入到resources文件夹目录下（一定记得将resources文件夹右键Mark Directory as Resources Root），该问题解决。以下是Java代码：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pro.load((JDBCTools.class.getClassLoader().getResourceAsStream(<span class="string">&quot;db.properties&quot;</span>)));</span><br></pre></td></tr></table></figure><h2 id="泛型使用"><a href="#泛型使用" class="headerlink" title="泛型使用"></a>泛型使用</h2><p>从前端获取的数据用UserDao工具类的getBean语句在数据库内查询，但是返回值是Object类。</p><p>通过在BaseBao后面加泛型可以获取查询到对象是User对象，代码如下：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserDao</span> <span class="keyword">extends</span> <span class="title class_">BaseDao</span>&lt;User&gt;</span><br><span class="line"><span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> <span class="built_in">this</span>.getBean(User.class,<span class="string">&quot;select password from userreg where id = ?&quot;</span> ,id);</span><br></pre></td></tr></table></figure>]]></content:encoded>
+      
+      
+      
+      <category domain="http://example.com/tags/Servlet/">Servlet</category>
+      
+      <category domain="http://example.com/tags/JavaWeb/">JavaWeb</category>
+      
+      
+      <comments>http://example.com/2020/10/01/Servlet%E5%AD%A6%E4%B9%A0%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/#disqus_thread</comments>
       
     </item>
     
