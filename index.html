@@ -194,6 +194,115 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://simonf.cn/2024/03/29/%E6%8E%92%E4%BB%96%E9%94%81%E7%90%86%E8%A7%A3%EF%BC%8CMySQL%E5%AE%9E%E8%B7%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="simonf">
+      <meta itemprop="description" content="努力学习的后端工程师">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SimonFeng的木屋">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/03/29/%E6%8E%92%E4%BB%96%E9%94%81%E7%90%86%E8%A7%A3%EF%BC%8CMySQL%E5%AE%9E%E8%B7%B5/" class="post-title-link" itemprop="url">排他锁理解，MySQL实践</a>
+        </h2>
+
+        <div class="post-meta">
+		
+		  
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-03-29 10:59:24 / 修改时间：11:54:33" itemprop="dateCreated datePublished" datetime="2024-03-29T10:59:24+08:00">2024-03-29</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>先上定义：</p>
+<p>排他锁又称为写锁，简称X锁，顾名思义，排他锁就是不能与其他锁并存，如一个事务获取了一个数据行的排他锁，其他事务就不能再获取该行的其他锁，包括共享锁和排他锁，但是获取排他锁的事务是可以对数据就行读取和修改。</p>
+<p>在此先引入MySQL中锁的分类：    </p>
+<p><img src="/images/HexoBlog_2024-03-29_11-16-17.png">  </p>
+<p>其中，独占锁是写锁，可理解为传统意义上的读写锁，读读不互斥，读写互斥，写写互斥。</p>
+<p>排他锁用法：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT ... FROM UPDATE;</span><br></pre></td></tr></table></figure>
+
+<p>排他锁的申请前提：没有线程对该结果集中的任何行数据使用排他锁或共享锁，否则申请会阻塞。  </p>
+<p>for update仅适用于InnoDB，且必须在事务块(BEGIN&#x2F;COMMIT)中才能生效。在进行事务操作时，通过“for update”语句，MySQL会对查询结果集中每行数据都添加排他锁，其他线程对该记录的更新与删除操作都会阻塞。排他锁包含行锁、表锁。    </p>
+<p>验证排他锁，设计一张表：<br><img src="/images/HexoBlog_2024-03-29_11-19-17.png">            																														                 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/* 开启事务1 */</span><br><span class="line">BEGIN;</span><br><span class="line">/* 查询name为张三的数据并加上排他锁 */</span><br><span class="line">SELECT * FROM test WHERE name = &#x27;张三&#x27; FOR UPDATE;</span><br><span class="line">/* 延迟10秒执行 */</span><br><span class="line">SELECT SLEEP(10);</span><br><span class="line">/* 尝试修改  name = &#x27;张三&#x27; 的数据 */</span><br><span class="line">UPDATE test SET balance = 5000 WHERE name = &#x27;张三&#x27;;</span><br><span class="line">/* 延迟15秒执行 */</span><br><span class="line">SELECT SLEEP(15);</span><br><span class="line">/* 提交事务1 */</span><br><span class="line">COMMIT;</span><br></pre></td></tr></table></figure>
+
+<p>开启事务1的执行过程如下：  </p>
+<p><img src="/images/HexoBlog_2024-03-29_11-27-17.png">  </p>
+<p>同时开启事务二：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/* 开启事务2 */</span><br><span class="line">BEGIN;</span><br><span class="line">/* 普通查询name = &#x27;张三&#x27;的数据 */</span><br><span class="line">SELECT * FROM test WHERE name = &#x27;张三&#x27;;</span><br><span class="line">/* 提交事务2 */</span><br><span class="line">COMMIT;</span><br></pre></td></tr></table></figure>
+
+<p>事务二很快执行完成了，执行结果如下：</p>
+<p><img src="/images/HexoBlog_2024-03-29_11-33-17.png">    </p>
+<p>可以看出在事务一开启了排他锁以后，其他事务(事务二)仍然可以进行读操作，并产生了不可重复读的结果（在事务一没提交之前，事务一修改张三的余额为5000，事务二读取的张三的余额却为7000，待事务一执行完毕后，事务二读取的张三的余额变为5000）。  </p>
+<p>如果事务一不变的情况下    </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/* 开启事务1 */</span><br><span class="line">BEGIN;</span><br><span class="line">/* 查询name为张三的数据并加上排他锁 */</span><br><span class="line">SELECT * FROM test WHERE name = &#x27;张三&#x27; FOR UPDATE;</span><br><span class="line">/* 延迟10秒执行 */</span><br><span class="line">SELECT SLEEP(10);</span><br><span class="line">/* 尝试修改  name = &#x27;张三&#x27; 的数据 */</span><br><span class="line">UPDATE test SET balance = 5000 WHERE name = &#x27;张三&#x27;;</span><br><span class="line">/* 延迟15秒执行 */</span><br><span class="line">SELECT SLEEP(15);</span><br><span class="line">/* 提交事务1 */</span><br><span class="line">COMMIT;</span><br></pre></td></tr></table></figure>
+
+<p>事务二对张三的余额进行修改操作  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/* 开启事务2 */</span><br><span class="line">BEGIN;</span><br><span class="line">/* 尝试修改  name = &#x27;张三&#x27; 的数据 */</span><br><span class="line">UPDATE test SET balance = 2000 WHERE name = &#x27;张三&#x27;;</span><br><span class="line">/* 提交事务2 */</span><br><span class="line">COMMIT;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/HexoBlog_2024-03-29_11-48-17.png">    </p>
+<p>可以看到在事务一开启排他锁的期间，事务二无法进行修改操作，等待20多秒事务一提交后才执行了事务二。事务二在事务一后执行，所以张三的余额被修改为2000。  </p>
+<p><img src="/images/HexoBlog_2024-03-29_11-50-17.png"><br>————————————————</p>
+<pre><code>版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。
+</code></pre>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/FENGBOKE/article/details/136166260">https://blog.csdn.net/FENGBOKE/article/details/136166260</a></p>
+
+      
+    </div>
+
+    
+    
+    
+	
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://simonf.cn/2024/03/19/ErrMsg-Nacos-Server-did-not-start-because-dumpservice-bean-construction-failure-No-DataSource-set/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -219,10 +328,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-03-19 11:33:18 / 修改时间：11:40:20" itemprop="dateCreated datePublished" datetime="2024-03-19T11:33:18+08:00">2024-03-19</time>
+              <time title="创建时间：2024-03-19 11:33:18" itemprop="dateCreated datePublished" datetime="2024-03-19T11:33:18+08:00">2024-03-19</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-29 11:54:52" itemprop="dateModified" datetime="2024-03-29T11:54:52+08:00">2024-03-29</time>
+              </span>
 
           <br>
             <span class="post-meta-item" title="本文字数">
@@ -263,7 +378,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update user set host=&#x27;%&#x27; where user=&#x27;root&#x27;</span><br></pre></td></tr></table></figure>
 
 <p>开放远程权限再尝试启动Nacos，这时再访问Nacos问题得以解决。<br>————————————————</p>
-<pre><code>                        版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。
+<pre><code>版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。
 </code></pre>
 <p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/FENGBOKE/article/details/136579894">https://blog.csdn.net/FENGBOKE/article/details/136579894</a></p>
 
@@ -803,14 +918,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -867,12 +982,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">3k</span>
+    <span title="站点总字数">4k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3 分钟</span>
+    <span title="站点阅读时长">4 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
@@ -880,7 +995,7 @@
 <div class="theme-info">
   <div class="powered-by"></div>
   <span class="post-meta-divider">|</span>
-  <span class="post-count">博客全站共1.1k字</span>
+  <span class="post-count">博客全站共1.9k字</span>
 </div>
 
 
