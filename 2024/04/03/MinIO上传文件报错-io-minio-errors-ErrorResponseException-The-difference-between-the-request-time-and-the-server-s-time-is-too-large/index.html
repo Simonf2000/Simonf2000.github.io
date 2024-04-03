@@ -22,17 +22,20 @@
     var CONFIG = {"hostname":"simonf.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="努力学习的后端工程师">
-<meta property="og:type" content="website">
-<meta property="og:title" content="SimonFeng的木屋">
-<meta property="og:url" content="https://simonf.cn/tags/%E6%9E%9A%E4%B8%BE%E5%92%8C%E5%8C%85%E8%A3%85%E7%B1%BB/index.html">
+  <meta name="description" content="使用MinIO上传图片时报错： 1io.minio.errors.ErrorResponseException: The difference between the request time and the server&amp;#x27;s time is too large.  这可能是因为linux服务器时间与windows时间不一致造成的。 在linux服务器里同步时间，方法如下： 123456">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MinIO上传文件报错:io.minio.errors.ErrorResponseException: The difference between the request time and the server&#39;s time is too large.">
+<meta property="og:url" content="https://simonf.cn/2024/04/03/MinIO%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E6%8A%A5%E9%94%99-io-minio-errors-ErrorResponseException-The-difference-between-the-request-time-and-the-server-s-time-is-too-large/index.html">
 <meta property="og:site_name" content="SimonFeng的木屋">
-<meta property="og:description" content="努力学习的后端工程师">
+<meta property="og:description" content="使用MinIO上传图片时报错： 1io.minio.errors.ErrorResponseException: The difference between the request time and the server&amp;#x27;s time is too large.  这可能是因为linux服务器时间与windows时间不一致造成的。 在linux服务器里同步时间，方法如下： 123456">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-03T06:24:50.000Z">
+<meta property="article:modified_time" content="2024-04-03T06:30:16.688Z">
 <meta property="article:author" content="simonf">
+<meta property="article:tag" content="MinIO">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://simonf.cn/tags/%E6%9E%9A%E4%B8%BE%E5%92%8C%E5%8C%85%E8%A3%85%E7%B1%BB/">
+<link rel="canonical" href="https://simonf.cn/2024/04/03/MinIO%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E6%8A%A5%E9%94%99-io-minio-errors-ErrorResponseException-The-difference-between-the-request-time-and-the-server-s-time-is-too-large/">
 
 
 <script id="page-configurations">
@@ -40,12 +43,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>标签: 枚举和包装类 | SimonFeng的木屋</title>
+  <title>MinIO上传文件报错:io.minio.errors.ErrorResponseException: The difference between the request time and the server's time is too large. | SimonFeng的木屋</title>
   
 
 
@@ -188,57 +191,181 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">枚举和包装类
-          <small>标签</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://simonf.cn/2024/04/03/MinIO%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E6%8A%A5%E9%94%99-io-minio-errors-ErrorResponseException-The-difference-between-the-request-time-and-the-server-s-time-is-too-large/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="simonf">
+      <meta itemprop="description" content="努力学习的后端工程师">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SimonFeng的木屋">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MinIO上传文件报错:io.minio.errors.ErrorResponseException: The difference between the request time and the server's time is too large.
+        </h1>
+
+        <div class="post-meta">
+		
+		  
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-04-03 14:24:50 / 修改时间：14:30:16" itemprop="dateCreated datePublished" datetime="2024-04-03T14:24:50+08:00">2024-04-03</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>413</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2022</span>
+        <p>使用MinIO上传图片时报错：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">io.minio.errors.ErrorResponseException: The difference between the request time and the server<span class="string">&#x27;s time is too large.</span></span><br></pre></td></tr></table></figure>
+
+<p>这可能是因为linux服务器时间与windows时间不一致造成的。</p>
+<p>在linux服务器里同步时间，方法如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">第一步：安装ntp服务</span><br><span class="line">yum -y install ntp</span><br><span class="line">第二步：开启开机启动服务</span><br><span class="line">systemctl enable ntpd</span><br><span class="line">第三步：启动服务  Tips:联网正常前提下如果定时同步失败，先停止服务，再启动</span><br><span class="line">systemctl stop ntpd</span><br><span class="line">systemctl start ntpd</span><br><span class="line">第四步：更改时区</span><br><span class="line">timedatectl set-timezone Asia/Shanghai</span><br><span class="line">第五步：启用ntp同步</span><br><span class="line">timedatectl set-ntp yes</span><br><span class="line">第六步：同步时间</span><br><span class="line">ntpq -p</span><br></pre></td></tr></table></figure>
+
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-04-01T18:50:07+08:00"
-              content="2022-04-01">
-          04-01
-        </time>
+    
+    
+    
+	
+    
+      <div>
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      </div>
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="simonf 微信支付">
+        <p>微信支付</p>
       </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/04/01/%E6%9E%9A%E4%B8%BE%E5%92%8C%E5%8C%85%E8%A3%85%E7%B1%BB%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90/" itemprop="url">
-            <span itemprop="name">枚举和包装类案例分析</span>
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>simonf
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://simonf.cn/2024/04/03/MinIO%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E6%8A%A5%E9%94%99-io-minio-errors-ErrorResponseException-The-difference-between-the-request-time-and-the-server-s-time-is-too-large/" title="MinIO上传文件报错:io.minio.errors.ErrorResponseException: The difference between the request time and the server&#39;s time is too large.">https://simonf.cn/2024/04/03/MinIO上传文件报错-io-minio-errors-ErrorResponseException-The-difference-between-the-request-time-and-the-server-s-time-is-too-large/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
           </a>
-      </div>
-
-    </header>
-  </article>
-
+        </div>
     </div>
   </div>
-  
-  
-  
 
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/MinIO/" rel="tag"># MinIO</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/03/29/%E6%8E%92%E4%BB%96%E9%94%81%E7%90%86%E8%A7%A3%EF%BC%8CMySQL%E5%AE%9E%E8%B7%B5/" rel="prev" title="排他锁理解，MySQL实践">
+      <i class="fa fa-chevron-left"></i> 排他锁理解，MySQL实践
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
 
           </div>
           
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81OTY0OC8zNjExMA=="></div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -490,6 +617,21 @@ $(document).ready(function() {
 
   
 
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
 
 </body>
 </html>
