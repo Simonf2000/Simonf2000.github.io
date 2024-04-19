@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>ErrMsg:Nacos Server did not start because dumpservice bean construction failure :No DataSource set</title>
+    <url>/2024/03/19/ErrMsg-Nacos-Server-did-not-start-because-dumpservice-bean-construction-failure-No-DataSource-set/</url>
+    <content><![CDATA[<p><a href="https://so.csdn.net/so/search?q=Nacos&spm=1001.2101.3001.7020">Nacos</a>有时候虽然可以正常启动，但是一访问<a href="http://192.168.6.100:8848/">http://127.0.0.1:8848/</a>进程就会stopped。<a href="https://so.csdn.net/so/search?q=%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97&spm=1001.2101.3001.7020">查看日志</a>有这么一句报错：  </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ErrMsg:Nacos Server did not start because dumpservice bean construction failure :No DataSource set</span><br></pre></td></tr></table></figure>
+
+<p>这有可能是数据库的连接没有释放导致的，可以尝试在数据库中</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flush hosts</span><br></pre></td></tr></table></figure>
+
+<p>再尝试连接</p>
+<p>然后可以查询下远程权限是否开放</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select host,user from user</span><br></pre></td></tr></table></figure>
+
+<p>如果没有开放</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">update user set host=&#x27;%&#x27; where user=&#x27;root&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>开放远程权限再尝试启动Nacos，这时再访问Nacos问题得以解决。<br>————————————————</p>
+<pre><code>版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。
+</code></pre>
+<p>原文链接：<a href="https://blog.csdn.net/FENGBOKE/article/details/136579894">https://blog.csdn.net/FENGBOKE/article/details/136579894</a></p>
+]]></content>
+      <tags>
+        <tag>Nacos</tag>
+        <tag>微服务</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo教程(一)|如何写文章并发布</title>
     <url>/2024/03/18/Hexo%E6%95%99%E7%A8%8B-%E4%B8%80-%E5%A6%82%E4%BD%95%E5%86%99%E6%96%87%E7%AB%A0%E5%B9%B6%E5%8F%91%E5%B8%83/</url>
     <content><![CDATA[<h3 id="创建新文章"><a href="#创建新文章" class="headerlink" title="创建新文章"></a><strong>创建新文章</strong></h3><p>在根目录下打开命令行，使用如下命令创建新文章：</p>
@@ -56,6 +82,43 @@
       </tags>
   </entry>
   <entry>
+    <title>Java中数组的值传递</title>
+    <url>/2024/04/19/Java%E4%B8%AD%E6%95%B0%E7%BB%84%E7%9A%84%E5%80%BC%E4%BC%A0%E9%80%92/</url>
+    <content><![CDATA[<p>今天在做LeetCode27题（<a href="https://leetcode.cn/problems/remove-element/%EF%BC%89%E6%97%B6%E5%8F%91%E7%8E%B0%E4%BA%86%E4%B8%80%E4%B8%AA%E9%97%AE%E9%A2%98%EF%BC%8C%E6%88%91%E8%87%AA%E5%B7%B1%E7%9A%84%E8%A7%A3%E6%B3%95%E5%A6%82%E4%B8%8B%EF%BC%9A">https://leetcode.cn/problems/remove-element/）时发现了一个问题，我自己的解法如下：</a></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created with IntelliJ IDEA.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: smionf</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2024/04/19/16:40</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LC27RemoveElement</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">removeElement</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> val)</span> &#123;</span><br><span class="line">        <span class="type">int</span>[] newNums = <span class="keyword">new</span> <span class="title class_">int</span>[nums.length];</span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>,j=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] == val) &#123;</span><br><span class="line">                count++;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            newNums[j]=nums[i];</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line">        nums = newNums;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> nums.length-count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span>[] nums = &#123;<span class="number">3</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br><span class="line">        <span class="type">int</span> <span class="variable">lg</span> <span class="operator">=</span> removeElement(nums, <span class="number">3</span>);</span><br><span class="line">        System.out.println(lg);</span><br><span class="line">        System.out.println(<span class="string">&quot;------------&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            System.out.println(nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上代码的打印结果是[3,2,2,3]而不是[2,2,0,0]，没有通过debug发现原因。</p>
+<p>查询资料（参考链接：<a href="https://www.cnblogs.com/PopShow/p/5207974.html">java 值传递 数组传递 - The_PopCore - 博客园 (cnblogs.com)</a>）发现原因如下：</p>
+<p>以上代码中，虽然在<code>removeElement</code>方法中将符合条件的元素替换为0，但是在<code>main</code>方法中打印数组时，打印的仍然是原始的<code>nums</code>数组，而没有打印替换后的<code>nums</code>数组。这是因为Java中的数组是按值传递的，所以在<code>removeElement</code>方法中修改<code>nums</code>数组并不会影响<code>main</code>方法中的<code>nums</code>数组。</p>
+<p>事例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span>&#123;</span><br><span class="line">     </span><br><span class="line">    <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;good&quot;</span>);</span><br><span class="line">    <span class="type">char</span>[] ch = &#123;<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>&#125;;</span><br><span class="line">    <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">change</span><span class="params">(String str,<span class="type">char</span> ch,<span class="type">int</span> i)</span>&#123;</span><br><span class="line">     </span><br><span class="line">        str = <span class="string">&quot;test ok&quot;</span>;</span><br><span class="line">        ch = <span class="string">&#x27;g&#x27;</span>;</span><br><span class="line">        <span class="built_in">this</span>.i = i+<span class="number">1</span>;   </span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">     </span><br><span class="line">        <span class="type">Test</span> <span class="variable">tt</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Test</span>();</span><br><span class="line">        tt.change(tt.str,tt.ch[<span class="number">0</span>],tt.i);</span><br><span class="line">        System.out.println(tt.i);</span><br><span class="line">        System.out.print(tt.str+<span class="string">&quot; and &quot;</span>);</span><br><span class="line">        System.out.println(tt.ch);    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>change()方法里的入参为char ch;</p>
+<p>传递的是个char值的单个数组元素，此时ch&#x3D;’g’;是不影响源数组元素的。</p>
+<p>this.i &#x3D; i+1;这里面等号左边的i是属性i，等号右边的i是局部变量（入参里的i）；</p>
+<p>此时i+1后赋值给属性的i，自然会改变属性i的值，同时17行，tt.i又是调用属性的i，输出的结果是：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="number">11</span></span><br><span class="line"></span><br><span class="line">good and abc</span><br></pre></td></tr></table></figure>
+
+<p>顺带附上LeetCode27题我的解法：</p>
+<p>题目：</p>
+<p>给你一个数组 <code>nums</code> 和一个值 <code>val</code>，你需要 <strong><a href="https://baike.baidu.com/item/%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95">原地</a></strong> 移除所有数值等于 <code>val</code> 的元素，并返回移除后数组的新长度。</p>
+<p>不要使用额外的数组空间，你必须仅使用 <code>O(1)</code> 额外空间并 <strong><a href="https://baike.baidu.com/item/%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95">原地 </a>修改输入数组</strong>。</p>
+<p>元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [3,2,2,3], val = 3</span><br><span class="line">输出：2, nums = [2,2]</span><br><span class="line">解释：函数应该返回新的长度 2, 并且 nums 中的前两个元素均为 2。你不需要考虑数组中超出新长度后面的元素。例如，函数返回的新长度为 2 ，而 nums = [2,2,3,3] 或 nums = [2,2,0,0]，也会被视作正确答案。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [0,1,2,2,3,0,4,2], val = 2</span><br><span class="line">输出：5, nums = [0,1,3,0,4]</span><br><span class="line">解释：函数应该返回新的长度 5, 并且 nums 中的前五个元素为 0, 1, 3, 0, 4。注意这五个元素可为任意顺序。你不需要考虑数组中超出新长度后面的元素。</span><br></pre></td></tr></table></figure>
+
+<p>这道题可以用双指针解法(快指针寻找新数组的元素 ，新数组就是不含有目标元素的数组，慢指针指向更新 新数组下标的位置)：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.simonf.array;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created with IntelliJ IDEA.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: smionf</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2024/04/19/16:40</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LC27RemoveElement</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">removeElement</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> val)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">slowIndex</span> <span class="operator">=</span> <span class="number">0</span>;<span class="comment">//新数值元素的更新位置</span></span><br><span class="line">        <span class="type">int</span> fastIndex ;</span><br><span class="line">        <span class="keyword">for</span> (fastIndex = <span class="number">0</span>; fastIndex &lt; nums.length; fastIndex++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[fastIndex] == val) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            nums[slowIndex] = nums[fastIndex];</span><br><span class="line">            slowIndex++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> slowIndex;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span>[] nums = &#123;<span class="number">3</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line">        <span class="type">int</span> <span class="variable">lg</span> <span class="operator">=</span> removeElement(nums, <span class="number">3</span>);</span><br><span class="line">        System.out.println(lg);</span><br><span class="line">        System.out.println(<span class="string">&quot;------------&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            System.out.println(nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Loombook命名的坑</title>
     <url>/2023/10/01/Loombook%E5%91%BD%E5%90%8D%E7%9A%84%E5%9D%91/</url>
     <content><![CDATA[<p>在写一个后台用户模块时，为了区分系统管理员和用户，命名时用使用了sUsername来命名系统管理员的名字，但是数据库注册管理员时一直没法注册成功。</p>
@@ -64,30 +127,49 @@
 <p>经查源码发现sUsername的set方法在loombook中被命名为setSUsername，也就是说loombook中所有的属性的前两个字母必须小写！</p>
 ]]></content>
       <tags>
-        <tag>Loombook</tag>
         <tag>Java</tag>
+        <tag>Loombook</tag>
       </tags>
   </entry>
   <entry>
-    <title>ErrMsg:Nacos Server did not start because dumpservice bean construction failure :No DataSource set</title>
-    <url>/2024/03/19/ErrMsg-Nacos-Server-did-not-start-because-dumpservice-bean-construction-failure-No-DataSource-set/</url>
-    <content><![CDATA[<p><a href="https://so.csdn.net/so/search?q=Nacos&spm=1001.2101.3001.7020">Nacos</a>有时候虽然可以正常启动，但是一访问<a href="http://192.168.6.100:8848/">http://127.0.0.1:8848/</a>进程就会stopped。<a href="https://so.csdn.net/so/search?q=%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97&spm=1001.2101.3001.7020">查看日志</a>有这么一句报错：  </p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ErrMsg:Nacos Server did not start because dumpservice bean construction failure :No DataSource set</span><br></pre></td></tr></table></figure>
+    <title>MinIO上传文件报错:io.minio.errors.ErrorResponseException: The difference between the request time and the server&#39;s time is too large.</title>
+    <url>/2024/04/03/MinIO%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E6%8A%A5%E9%94%99-io-minio-errors-ErrorResponseException-The-difference-between-the-request-time-and-the-server-s-time-is-too-large/</url>
+    <content><![CDATA[<p>使用MinIO上传图片时报错：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">io.minio.errors.ErrorResponseException: The difference between the request time and the server<span class="string">&#x27;s time is too large.</span></span><br></pre></td></tr></table></figure>
 
-<p>这有可能是数据库的连接没有释放导致的，可以尝试在数据库中</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flush hosts</span><br></pre></td></tr></table></figure>
+<p>这可能是因为linux服务器时间与windows时间不一致造成的。</p>
+<p>在linux服务器里同步时间，方法如下：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">第一步：安装ntp服务</span><br><span class="line">yum -y install ntp</span><br><span class="line">第二步：开启开机启动服务</span><br><span class="line">systemctl enable ntpd</span><br><span class="line">第三步：启动服务  Tips:联网正常前提下如果定时同步失败，先停止服务，再启动</span><br><span class="line">systemctl stop ntpd</span><br><span class="line">systemctl start ntpd</span><br><span class="line">第四步：更改时区</span><br><span class="line">timedatectl set-timezone Asia/Shanghai</span><br><span class="line">第五步：启用ntp同步</span><br><span class="line">timedatectl set-ntp yes</span><br><span class="line">第六步：同步时间</span><br><span class="line">ntpq -p</span><br></pre></td></tr></table></figure>
 
-<p>再尝试连接</p>
-<p>然后可以查询下远程权限是否开放</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select host,user from user</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>MinIO</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Nacos异常：No DataSource set和Client not connected, current status:STARTING</title>
+    <url>/2024/03/19/Nacos%E5%BC%82%E5%B8%B8%EF%BC%9ANo-DataSource-set%E5%92%8CClient-not-connected-current-status-STARTING/</url>
+    <content><![CDATA[<p>今天遇到一个很有意思的问题：Nacos工作的好好的，一运行程序，nacos就自动stopped了。</p>
+<p>首先日志排查，linux命令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker logs nacos</span><br></pre></td></tr></table></figure>
 
-<p>如果没有开放</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">update user set host=&#x27;%&#x27; where user=&#x27;root&#x27;</span><br></pre></td></tr></table></figure>
+<p>初步怀疑是nacos启动后资源不足，但是日志里没有OutOfMemoryError等错误，但是日志里有这么一句：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">2024-03-08 22:07:25,713 ERROR Application run failed</span><br><span class="line"></span><br><span class="line">Nacos Server did not start because dumpservice bean construction failure : No DataSource set</span><br></pre></td></tr></table></figure>
 
-<p>开放远程权限再尝试启动Nacos，这时再访问Nacos问题得以解决。<br>————————————————</p>
+<p>百度了一下发现是mysql配置文件出了问题，mysql8.0之后的版本, 需要在官网文档配置mysql的基础上加上<strong>mysql时区的设置。</strong></p>
+<p><strong>像这样：</strong></p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">datasource:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">com.zaxxer.hikari.HikariDataSource</span></span><br><span class="line">  <span class="attr">driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">  <span class="attr">url:</span> <span class="string">jdbc:mysql://127.0.0.1:3306/db_spzx?characterEncoding=utf-8&amp;serverTimezone=UTC&amp;useSSL=false&amp;allowPublicKeyRetrieval=true</span></span><br></pre></td></tr></table></figure>
+
+<p>运行程序后报了新的错误：  </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Caused by: com.alibaba.nacos.api.exception.NacosException: Client not connected, current status:STARTING</span><br></pre></td></tr></table></figure>
+
+<p>依旧是百度了一下，发现nocos不仅需要配置中心地址，还得配置服务注册中心的地址。像这样：  </p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">simonf</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8848</span></span><br><span class="line">      <span class="attr">config:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8848</span></span><br></pre></td></tr></table></figure>
+
+<p>加入了服务注册中心的地址重启项目，运行成功！</p>
 <pre><code>版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。
 </code></pre>
-<p>原文链接：<a href="https://blog.csdn.net/FENGBOKE/article/details/136579894">https://blog.csdn.net/FENGBOKE/article/details/136579894</a></p>
+<p>原文链接：<a href="https://blog.csdn.net/FENGBOKE/article/details/136573527">https://blog.csdn.net/FENGBOKE/article/details/136573527</a></p>
 ]]></content>
       <tags>
         <tag>Nacos</tag>
@@ -111,21 +193,6 @@
       <tags>
         <tag>Servlet</tag>
         <tag>JavaWeb</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MinIO上传文件报错:io.minio.errors.ErrorResponseException: The difference between the request time and the server&#39;s time is too large.</title>
-    <url>/2024/04/03/MinIO%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E6%8A%A5%E9%94%99-io-minio-errors-ErrorResponseException-The-difference-between-the-request-time-and-the-server-s-time-is-too-large/</url>
-    <content><![CDATA[<p>使用MinIO上传图片时报错：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">io.minio.errors.ErrorResponseException: The difference between the request time and the server<span class="string">&#x27;s time is too large.</span></span><br></pre></td></tr></table></figure>
-
-<p>这可能是因为linux服务器时间与windows时间不一致造成的。</p>
-<p>在linux服务器里同步时间，方法如下：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">第一步：安装ntp服务</span><br><span class="line">yum -y install ntp</span><br><span class="line">第二步：开启开机启动服务</span><br><span class="line">systemctl enable ntpd</span><br><span class="line">第三步：启动服务  Tips:联网正常前提下如果定时同步失败，先停止服务，再启动</span><br><span class="line">systemctl stop ntpd</span><br><span class="line">systemctl start ntpd</span><br><span class="line">第四步：更改时区</span><br><span class="line">timedatectl set-timezone Asia/Shanghai</span><br><span class="line">第五步：启用ntp同步</span><br><span class="line">timedatectl set-ntp yes</span><br><span class="line">第六步：同步时间</span><br><span class="line">ntpq -p</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>MinIO</tag>
       </tags>
   </entry>
   <entry>
@@ -184,36 +251,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Nacos异常：No DataSource set和Client not connected, current status:STARTING</title>
-    <url>/2024/03/19/Nacos%E5%BC%82%E5%B8%B8%EF%BC%9ANo-DataSource-set%E5%92%8CClient-not-connected-current-status-STARTING/</url>
-    <content><![CDATA[<p>今天遇到一个很有意思的问题：Nacos工作的好好的，一运行程序，nacos就自动stopped了。</p>
-<p>首先日志排查，linux命令：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker logs nacos</span><br></pre></td></tr></table></figure>
-
-<p>初步怀疑是nacos启动后资源不足，但是日志里没有OutOfMemoryError等错误，但是日志里有这么一句：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">2024-03-08 22:07:25,713 ERROR Application run failed</span><br><span class="line"></span><br><span class="line">Nacos Server did not start because dumpservice bean construction failure : No DataSource set</span><br></pre></td></tr></table></figure>
-
-<p>百度了一下发现是mysql配置文件出了问题，mysql8.0之后的版本, 需要在官网文档配置mysql的基础上加上<strong>mysql时区的设置。</strong></p>
-<p><strong>像这样：</strong></p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">datasource:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">com.zaxxer.hikari.HikariDataSource</span></span><br><span class="line">  <span class="attr">driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">  <span class="attr">url:</span> <span class="string">jdbc:mysql://127.0.0.1:3306/db_spzx?characterEncoding=utf-8&amp;serverTimezone=UTC&amp;useSSL=false&amp;allowPublicKeyRetrieval=true</span></span><br></pre></td></tr></table></figure>
-
-<p>运行程序后报了新的错误：  </p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Caused by: com.alibaba.nacos.api.exception.NacosException: Client not connected, current status:STARTING</span><br></pre></td></tr></table></figure>
-
-<p>依旧是百度了一下，发现nocos不仅需要配置中心地址，还得配置服务注册中心的地址。像这样：  </p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">simonf</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8848</span></span><br><span class="line">      <span class="attr">config:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8848</span></span><br></pre></td></tr></table></figure>
-
-<p>加入了服务注册中心的地址重启项目，运行成功！</p>
-<pre><code>版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。
-</code></pre>
-<p>原文链接：<a href="https://blog.csdn.net/FENGBOKE/article/details/136573527">https://blog.csdn.net/FENGBOKE/article/details/136573527</a></p>
-]]></content>
-      <tags>
-        <tag>Nacos</tag>
-        <tag>微服务</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>枚举和包装类案例分析</title>
     <url>/2022/04/01/%E6%9E%9A%E4%B8%BE%E5%92%8C%E5%8C%85%E8%A3%85%E7%B1%BB%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90/</url>
     <content><![CDATA[<h2 id="枚举和包装类"><a href="#枚举和包装类" class="headerlink" title="枚举和包装类"></a>枚举和包装类</h2><h3 id="阅读代码，分析运行结果："><a href="#阅读代码，分析运行结果：" class="headerlink" title="阅读代码，分析运行结果："></a>阅读代码，分析运行结果：</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">	<span class="type">Integer</span> <span class="variable">i1</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line">	<span class="type">Integer</span> <span class="variable">i2</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line">	<span class="type">int</span> <span class="variable">i3</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line">	<span class="type">int</span> <span class="variable">i4</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line">	System.out.println(i1 == i2);</span><br><span class="line">	System.out.println(i3 == i4);</span><br><span class="line">	System.out.println(i1 == i3);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -237,6 +274,19 @@
         <tag>JavaSE</tag>
         <tag>Java</tag>
         <tag>枚举和包装类</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>提高代码运算效率，增加LeetCode代码通过率几种方法</title>
+    <url>/2024/04/19/%E6%8F%90%E9%AB%98%E4%BB%A3%E7%A0%81%E8%BF%90%E7%AE%97%E6%95%88%E7%8E%87%EF%BC%8C%E5%A2%9E%E5%8A%A0LeetCode%E4%BB%A3%E7%A0%81%E9%80%9A%E8%BF%87%E7%8E%87%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h2 id="note1"><a href="#note1" class="headerlink" title="note1"></a>note1</h2><p>用位运算代替乘除法提高运算效率，例如:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.out.println(<span class="number">8</span>&gt;&gt;<span class="number">1</span>); <span class="comment">//4 相当于8%(2^1)</span></span><br><span class="line">System.out.println(<span class="number">8</span>&gt;&gt;<span class="number">2</span>); <span class="comment">//2 相当于8%(2^2)</span></span><br><span class="line">System.out.println(<span class="number">8</span>&gt;&gt;<span class="number">3</span>); <span class="comment">//1 相当于8%(2^3)</span></span><br><span class="line">System.out.println(<span class="number">2</span>&lt;&lt;<span class="number">1</span>); <span class="comment">//4 相当于2*(2^1)</span></span><br><span class="line">System.out.println(<span class="number">2</span>&lt;&lt;<span class="number">2</span>); <span class="comment">//8 相当于2*(2^2)</span></span><br><span class="line">System.out.println(<span class="number">2</span>&lt;&lt;<span class="number">3</span>); <span class="comment">//16 相当于2*(2^3)</span></span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <tags>
+        <tag>LeetCode</tag>
       </tags>
   </entry>
   <entry>

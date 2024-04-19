@@ -22,20 +22,20 @@
     var CONFIG = {"hostname":"simonf.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="如果想在service层通过request获取请求报文中的信息，可以通过RequestContextHolder得到request对象。 用法： 12345678&#x2F;&#x2F;  获取请求对象RequestAttributes requestAttributes &#x3D; RequestContextHolder.getRequestAttributes();&#x2F;&#x2F;  转化为ServletRequestAttrib">
+  <meta name="description" content="今天在做LeetCode27题（https:&#x2F;&#x2F;leetcode.cn&#x2F;problems&#x2F;remove-element&#x2F;）时发现了一个问题，我自己的解法如下： 12345678910111213141516171819202122232425262728293031323334&#x2F;** * Created with IntelliJ IDEA. * * @Author: smionf * @Date">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RequestContextHolder类:持有上下文的Request容器">
-<meta property="og:url" content="https://simonf.cn/2024/04/08/RequestContextHolder%E7%B1%BB-%E6%8C%81%E6%9C%89%E4%B8%8A%E4%B8%8B%E6%96%87%E7%9A%84Request%E5%AE%B9%E5%99%A8/index.html">
+<meta property="og:title" content="Java中数组的值传递">
+<meta property="og:url" content="https://simonf.cn/2024/04/19/Java%E4%B8%AD%E6%95%B0%E7%BB%84%E7%9A%84%E5%80%BC%E4%BC%A0%E9%80%92/index.html">
 <meta property="og:site_name" content="SimonFeng的木屋">
-<meta property="og:description" content="如果想在service层通过request获取请求报文中的信息，可以通过RequestContextHolder得到request对象。 用法： 12345678&#x2F;&#x2F;  获取请求对象RequestAttributes requestAttributes &#x3D; RequestContextHolder.getRequestAttributes();&#x2F;&#x2F;  转化为ServletRequestAttrib">
+<meta property="og:description" content="今天在做LeetCode27题（https:&#x2F;&#x2F;leetcode.cn&#x2F;problems&#x2F;remove-element&#x2F;）时发现了一个问题，我自己的解法如下： 12345678910111213141516171819202122232425262728293031323334&#x2F;** * Created with IntelliJ IDEA. * * @Author: smionf * @Date">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-04-08T02:50:36.000Z">
-<meta property="article:modified_time" content="2024-04-08T03:02:08.734Z">
+<meta property="article:published_time" content="2024-04-19T12:28:16.000Z">
+<meta property="article:modified_time" content="2024-04-19T12:42:53.727Z">
 <meta property="article:author" content="simonf">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://simonf.cn/2024/04/08/RequestContextHolder%E7%B1%BB-%E6%8C%81%E6%9C%89%E4%B8%8A%E4%B8%8B%E6%96%87%E7%9A%84Request%E5%AE%B9%E5%99%A8/">
+<link rel="canonical" href="https://simonf.cn/2024/04/19/Java%E4%B8%AD%E6%95%B0%E7%BB%84%E7%9A%84%E5%80%BC%E4%BC%A0%E9%80%92/">
 
 
 <script id="page-configurations">
@@ -48,7 +48,7 @@
   };
 </script>
 
-  <title>RequestContextHolder类:持有上下文的Request容器 | SimonFeng的木屋</title>
+  <title>Java中数组的值传递 | SimonFeng的木屋</title>
   
 
 
@@ -198,7 +198,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://simonf.cn/2024/04/08/RequestContextHolder%E7%B1%BB-%E6%8C%81%E6%9C%89%E4%B8%8A%E4%B8%8B%E6%96%87%E7%9A%84Request%E5%AE%B9%E5%99%A8/">
+    <link itemprop="mainEntityOfPage" href="https://simonf.cn/2024/04/19/Java%E4%B8%AD%E6%95%B0%E7%BB%84%E7%9A%84%E5%80%BC%E4%BC%A0%E9%80%92/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -211,7 +211,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          RequestContextHolder类:持有上下文的Request容器
+          Java中数组的值传递
         </h1>
 
         <div class="post-meta">
@@ -224,7 +224,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-04-08 10:50:36 / 修改时间：11:02:08" itemprop="dateCreated datePublished" datetime="2024-04-08T10:50:36+08:00">2024-04-08</time>
+              <time title="创建时间：2024-04-19 20:28:16 / 修改时间：20:42:53" itemprop="dateCreated datePublished" datetime="2024-04-19T20:28:16+08:00">2024-04-19</time>
             </span>
 
           
@@ -240,14 +240,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.9k</span>
+              <span>2.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -259,34 +259,35 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>如果想在service层通过request获取请求报文中的信息，可以通过RequestContextHolder得到request对象。</p>
-<p>用法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  获取请求对象</span></span><br><span class="line"><span class="type">RequestAttributes</span> <span class="variable">requestAttributes</span> <span class="operator">=</span> RequestContextHolder.getRequestAttributes();</span><br><span class="line"><span class="comment">//  转化为ServletRequestAttributes</span></span><br><span class="line"><span class="type">ServletRequestAttributes</span> <span class="variable">sra</span> <span class="operator">=</span> (ServletRequestAttributes) requestAttributes;</span><br><span class="line"><span class="comment">//  获取到HttpServletRequest 对象</span></span><br><span class="line"><span class="type">HttpServletRequest</span> <span class="variable">request</span> <span class="operator">=</span> sra.getRequest();</span><br><span class="line"><span class="comment">//	获取到HttpServletResponse 对象</span></span><br><span class="line"><span class="type">HttpServletResponse</span> <span class="variable">response</span> <span class="operator">=</span> sra.getResponse();</span><br></pre></td></tr></table></figure>
+        <p>今天在做LeetCode27题（<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/remove-element/%EF%BC%89%E6%97%B6%E5%8F%91%E7%8E%B0%E4%BA%86%E4%B8%80%E4%B8%AA%E9%97%AE%E9%A2%98%EF%BC%8C%E6%88%91%E8%87%AA%E5%B7%B1%E7%9A%84%E8%A7%A3%E6%B3%95%E5%A6%82%E4%B8%8B%EF%BC%9A">https://leetcode.cn/problems/remove-element/）时发现了一个问题，我自己的解法如下：</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created with IntelliJ IDEA.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: smionf</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2024/04/19/16:40</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LC27RemoveElement</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">removeElement</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> val)</span> &#123;</span><br><span class="line">        <span class="type">int</span>[] newNums = <span class="keyword">new</span> <span class="title class_">int</span>[nums.length];</span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>,j=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] == val) &#123;</span><br><span class="line">                count++;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            newNums[j]=nums[i];</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line">        nums = newNums;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> nums.length-count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span>[] nums = &#123;<span class="number">3</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br><span class="line">        <span class="type">int</span> <span class="variable">lg</span> <span class="operator">=</span> removeElement(nums, <span class="number">3</span>);</span><br><span class="line">        System.out.println(lg);</span><br><span class="line">        System.out.println(<span class="string">&quot;------------&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            System.out.println(nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>request 和 response 如何与RequestContextHolder进行挂钩的？看底层源码</p>
-<p>首先分析RequestContextHolder这个类,里面有两个ThreadLocal保存当前线程下的request</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">RequestContextHolder</span> &#123;</span><br><span class="line">    <span class="comment">// 得到存储进去的request</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ThreadLocal&lt;RequestAttributes&gt; requestAttributesHolder = <span class="keyword">new</span> <span class="title class_">NamedThreadLocal</span>(<span class="string">&quot;Request attributes&quot;</span>);</span><br><span class="line">    <span class="comment">//可被子线程继承的reques</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ThreadLocal&lt;RequestAttributes&gt; inheritableRequestAttributesHolder = <span class="keyword">new</span> <span class="title class_">NamedInheritableThreadLocal</span>(<span class="string">&quot;Request context&quot;</span>);			</span><br></pre></td></tr></table></figure>
+<p>以上代码的打印结果是[3,2,2,3]而不是[2,2,0,0]，没有通过debug发现原因。</p>
+<p>查询资料（参考链接：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/PopShow/p/5207974.html">java 值传递 数组传递 - The_PopCore - 博客园 (cnblogs.com)</a>）发现原因如下：</p>
+<p>以上代码中，虽然在<code>removeElement</code>方法中将符合条件的元素替换为0，但是在<code>main</code>方法中打印数组时，打印的仍然是原始的<code>nums</code>数组，而没有打印替换后的<code>nums</code>数组。这是因为Java中的数组是按值传递的，所以在<code>removeElement</code>方法中修改<code>nums</code>数组并不会影响<code>main</code>方法中的<code>nums</code>数组。</p>
+<p>事例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span>&#123;</span><br><span class="line">     </span><br><span class="line">    <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;good&quot;</span>);</span><br><span class="line">    <span class="type">char</span>[] ch = &#123;<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>&#125;;</span><br><span class="line">    <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">change</span><span class="params">(String str,<span class="type">char</span> ch,<span class="type">int</span> i)</span>&#123;</span><br><span class="line">     </span><br><span class="line">        str = <span class="string">&quot;test ok&quot;</span>;</span><br><span class="line">        ch = <span class="string">&#x27;g&#x27;</span>;</span><br><span class="line">        <span class="built_in">this</span>.i = i+<span class="number">1</span>;   </span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">     </span><br><span class="line">        <span class="type">Test</span> <span class="variable">tt</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Test</span>();</span><br><span class="line">        tt.change(tt.str,tt.ch[<span class="number">0</span>],tt.i);</span><br><span class="line">        System.out.println(tt.i);</span><br><span class="line">        System.out.print(tt.str+<span class="string">&quot; and &quot;</span>);</span><br><span class="line">        System.out.println(tt.ch);    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>再看getRequestAttributes() 方法，相当于直接获取ThreadLocal里面的值,这样就保证了每一次获取到的Request是该请求的request.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Nullable</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> RequestAttributes <span class="title function_">getRequestAttributes</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">RequestAttributes</span> <span class="variable">attributes</span> <span class="operator">=</span> (RequestAttributes)requestAttributesHolder.get();</span><br><span class="line">    <span class="keyword">if</span> (attributes == <span class="literal">null</span>) &#123;</span><br><span class="line">        attributes = (RequestAttributes)inheritableRequestAttributesHolder.get();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> attributes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>change()方法里的入参为char ch;</p>
+<p>传递的是个char值的单个数组元素，此时ch&#x3D;’g’;是不影响源数组元素的。</p>
+<p>this.i &#x3D; i+1;这里面等号左边的i是属性i，等号右边的i是局部变量（入参里的i）；</p>
+<p>此时i+1后赋值给属性的i，自然会改变属性i的值，同时17行，tt.i又是调用属性的i，输出的结果是：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">11</span></span><br><span class="line"></span><br><span class="line">good and abc</span><br></pre></td></tr></table></figure>
 
-<p>request和response等是什么时候设置进去的?</p>
-<p>springMVC 核心类DispatcherServlet 继承关系：DispatcherServlet -&gt; FrameworkServlet -&gt; HttpServletBean -&gt; HttpServlet</p>
-<ol>
-<li><code>HttpServletBean</code> 进行初始化工作</li>
-<li><code>FrameworkServlet</code> 初始化 <code>WebApplicationContext</code>,并提供service方法预处理请</li>
-<li><code>DispatcherServlet</code> 具体分发处理.</li>
-</ol>
-<p>那么就可以在<code>FrameworkServlet</code>查看到该类重写了service(),doGet(),doPost()…等方法,这些实现里面都有一个预处理方法<code>processRequest(request, response);</code>,所以定位到了我们要找的位置</p>
-<p>查看<code>processRequest(request, response);</code>的实现,具体可以分为以下几步:</p>
-<ol>
-<li>获取上一个请求的参数</li>
-<li>重新建立新的参数</li>
-<li>设置到XXContextHolder</li>
-<li>父类的service()处理请求</li>
-<li>恢复request（恢复原来的LocaleContext和ServiceRequestAttributes到LocaleContextHolder和RequestContextHolder，避免影响Servlet以外的处理，如Filter</li>
-<li>发布事件（发布ServletRequestHandlerEvent消息，这个请求是否执行成功都会发布消息）</li>
-</ol>
+<p>顺带附上LeetCode27题我的解法：</p>
+<p>题目：</p>
+<p>给你一个数组 <code>nums</code> 和一个值 <code>val</code>，你需要 <strong><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95">原地</a></strong> 移除所有数值等于 <code>val</code> 的元素，并返回移除后数组的新长度。</p>
+<p>不要使用额外的数组空间，你必须仅使用 <code>O(1)</code> 额外空间并 <strong><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95">原地 </a>修改输入数组</strong>。</p>
+<p>元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。</p>
+<p><strong>示例 1：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [3,2,2,3], val = 3</span><br><span class="line">输出：2, nums = [2,2]</span><br><span class="line">解释：函数应该返回新的长度 2, 并且 nums 中的前两个元素均为 2。你不需要考虑数组中超出新长度后面的元素。例如，函数返回的新长度为 2 ，而 nums = [2,2,3,3] 或 nums = [2,2,0,0]，也会被视作正确答案。</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [0,1,2,2,3,0,4,2], val = 2</span><br><span class="line">输出：5, nums = [0,1,3,0,4]</span><br><span class="line">解释：函数应该返回新的长度 5, 并且 nums 中的前五个元素为 0, 1, 3, 0, 4。注意这五个元素可为任意顺序。你不需要考虑数组中超出新长度后面的元素。</span><br></pre></td></tr></table></figure>
+
+<p>这道题可以用双指针解法(快指针寻找新数组的元素 ，新数组就是不含有目标元素的数组，慢指针指向更新 新数组下标的位置)：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.simonf.array;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created with IntelliJ IDEA.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: smionf</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2024/04/19/16:40</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LC27RemoveElement</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">removeElement</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> val)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">slowIndex</span> <span class="operator">=</span> <span class="number">0</span>;<span class="comment">//新数值元素的更新位置</span></span><br><span class="line">        <span class="type">int</span> fastIndex ;</span><br><span class="line">        <span class="keyword">for</span> (fastIndex = <span class="number">0</span>; fastIndex &lt; nums.length; fastIndex++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[fastIndex] == val) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            nums[slowIndex] = nums[fastIndex];</span><br><span class="line">            slowIndex++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> slowIndex;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span>[] nums = &#123;<span class="number">3</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line">        <span class="type">int</span> <span class="variable">lg</span> <span class="operator">=</span> removeElement(nums, <span class="number">3</span>);</span><br><span class="line">        System.out.println(lg);</span><br><span class="line">        System.out.println(<span class="string">&quot;------------&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            System.out.println(nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
     </div>
 
@@ -327,7 +328,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://simonf.cn/2024/04/08/RequestContextHolder%E7%B1%BB-%E6%8C%81%E6%9C%89%E4%B8%8A%E4%B8%8B%E6%96%87%E7%9A%84Request%E5%AE%B9%E5%99%A8/" title="RequestContextHolder类:持有上下文的Request容器">https://simonf.cn/2024/04/08/RequestContextHolder类-持有上下文的Request容器/</a>
+    <a href="https://simonf.cn/2024/04/19/Java%E4%B8%AD%E6%95%B0%E7%BB%84%E7%9A%84%E5%80%BC%E4%BC%A0%E9%80%92/" title="Java中数组的值传递">https://simonf.cn/2024/04/19/Java中数组的值传递/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -366,13 +367,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2024/04/03/MinIO%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E6%8A%A5%E9%94%99-io-minio-errors-ErrorResponseException-The-difference-between-the-request-time-and-the-server-s-time-is-too-large/" rel="prev" title="MinIO上传文件报错:io.minio.errors.ErrorResponseException: The difference between the request time and the server's time is too large.">
-      <i class="fa fa-chevron-left"></i> MinIO上传文件报错:io.minio.errors.ErrorResponseException: The difference between the request time and the server's time is too large.
+    <a href="/2024/04/19/%E6%8F%90%E9%AB%98%E4%BB%A3%E7%A0%81%E8%BF%90%E7%AE%97%E6%95%88%E7%8E%87%EF%BC%8C%E5%A2%9E%E5%8A%A0LeetCode%E4%BB%A3%E7%A0%81%E9%80%9A%E8%BF%87%E7%8E%87%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/" rel="prev" title="提高代码运算效率，增加LeetCode代码通过率几种方法">
+      <i class="fa fa-chevron-left"></i> 提高代码运算效率，增加LeetCode代码通过率几种方法
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2024/04/19/%E6%8F%90%E9%AB%98%E4%BB%A3%E7%A0%81%E8%BF%90%E7%AE%97%E6%95%88%E7%8E%87%EF%BC%8C%E5%A2%9E%E5%8A%A0LeetCode%E4%BB%A3%E7%A0%81%E9%80%9A%E8%BF%87%E7%8E%87%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/" rel="next" title="提高代码运算效率，增加LeetCode代码通过率几种方法">
-      提高代码运算效率，增加LeetCode代码通过率几种方法 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     

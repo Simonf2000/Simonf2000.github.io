@@ -194,6 +194,184 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://simonf.cn/2021/12/01/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%B0%86%E8%B7%AF%E5%BE%84%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%B0%8F%E5%86%99%E5%AF%BC%E8%87%B4%E8%B7%B3%E8%BF%87%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="simonf">
+      <meta itemprop="description" content="努力学习的后端工程师">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SimonFeng的木屋">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/01/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%B0%86%E8%B7%AF%E5%BE%84%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%B0%8F%E5%86%99%E5%AF%BC%E8%87%B4%E8%B7%B3%E8%BF%87%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB/" class="post-title-link" itemprop="url">浏览器将路径自动转换为小写导致跳过路由守卫</a>
+        </h2>
+
+        <div class="post-meta">
+		
+		  
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-01 17:08:53" itemprop="dateCreated datePublished" datetime="2021-12-01T17:08:53+08:00">2021-12-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-21 17:10:27" itemprop="dateModified" datetime="2024-03-21T17:10:27+08:00">2024-03-21</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>343</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>路由设置路径中出现大写，浏览器将路径自动转换为小写导致跳过路由守卫</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> router = <span class="title function_">createRouter</span>(&#123;</span><br><span class="line">     <span class="attr">history</span>:<span class="title function_">createWebHashHistory</span>(),</span><br><span class="line"></span><br><span class="line">    <span class="attr">routes</span>:[</span><br><span class="line">        &#123;<span class="attr">path</span>:<span class="string">&#x27;/ShowSchedule&#x27;</span>,<span class="attr">component</span>:<span class="title class_">ShowSchedule</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">path</span>:<span class="string">&#x27;/Login&#x27;</span>,<span class="attr">component</span>:<span class="title class_">Login</span>&#125;,</span><br><span class="line">    ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>浏览器输入URL：<a href="view-source:http://localhost:5174/#/showschedule">view-source:localhost:5174&#x2F;#&#x2F;showschedule</a>路径自动全部转换为小写导致跳过了路由守卫，建议以后Path全小写，component首字母大写。</p>
+
+      
+    </div>
+
+    
+    
+    
+	
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://simonf.cn/2020/10/01/Servlet%E5%AD%A6%E4%B9%A0%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="simonf">
+      <meta itemprop="description" content="努力学习的后端工程师">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SimonFeng的木屋">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/01/Servlet%E5%AD%A6%E4%B9%A0%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">Servlet学习时遇到的问题</a>
+        </h2>
+
+        <div class="post-meta">
+		
+		  
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-01 16:56:31" itemprop="dateCreated datePublished" datetime="2020-10-01T16:56:31+08:00">2020-10-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-21 17:02:12" itemprop="dateModified" datetime="2024-03-21T17:02:12+08:00">2024-03-21</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>583</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="由于文件没有被设置成Resoureces-Root导致的空指针异常"><a href="#由于文件没有被设置成Resoureces-Root导致的空指针异常" class="headerlink" title="由于文件没有被设置成Resoureces Root导致的空指针异常"></a>由于文件没有被设置成Resoureces Root导致的空指针异常</h2><p>在前端输入信息后，点击提交按钮，控制台报错:</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.lang.NullPointerException: inStream parameter is null</span><br></pre></td></tr></table></figure>
+
+<p>检查后发现输入流没有读取到properties文件，将类加载器改为当前类的加载器(当前类为JDBCTools.class)，将properties文件移入到resources文件夹目录下（一定记得将resources文件夹右键Mark Directory as Resources Root），该问题解决。以下是Java代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pro.load((JDBCTools.class.getClassLoader().getResourceAsStream(<span class="string">&quot;db.properties&quot;</span>)));</span><br></pre></td></tr></table></figure>
+
+<h2 id="泛型使用"><a href="#泛型使用" class="headerlink" title="泛型使用"></a>泛型使用</h2><p>从前端获取的数据用UserDao工具类的getBean语句在数据库内查询，但是返回值是Object类。</p>
+<p>通过在BaseBao后面加泛型可以获取查询到对象是User对象，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserDao</span> <span class="keyword">extends</span> <span class="title class_">BaseDao</span>&lt;User&gt;</span><br><span class="line"><span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> <span class="built_in">this</span>.getBean(User.class,<span class="string">&quot;select password from userreg where id = ?&quot;</span> ,id);</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+	
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://simonf.cn/2020/05/03/%E5%AF%B9%E8%B1%A1%E8%B5%8B%E5%80%BC%E6%97%B6%E7%A9%BA%E6%8C%87%E9%92%88%E5%BC%82%E5%B8%B8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -462,14 +640,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -526,12 +704,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">12k</span>
+    <span title="站点总字数">15k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">11 分钟</span>
+    <span title="站点阅读时长">14 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
@@ -539,7 +717,7 @@
 <div class="theme-info">
   <div class="powered-by"></div>
   <span class="post-meta-divider">|</span>
-  <span class="post-count">博客全站共4.7k字</span>
+  <span class="post-count">博客全站共5.7k字</span>
 </div>
 
 

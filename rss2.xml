@@ -9,8 +9,57 @@
     <atom:link href="https://simonf.cn/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>努力学习的后端工程师</description>
-    <pubDate>Mon, 08 Apr 2024 03:02:08 GMT</pubDate>
+    <pubDate>Fri, 19 Apr 2024 12:42:53 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>Java中数组的值传递</title>
+      <link>https://simonf.cn/2024/04/19/Java%E4%B8%AD%E6%95%B0%E7%BB%84%E7%9A%84%E5%80%BC%E4%BC%A0%E9%80%92/</link>
+      <guid>https://simonf.cn/2024/04/19/Java%E4%B8%AD%E6%95%B0%E7%BB%84%E7%9A%84%E5%80%BC%E4%BC%A0%E9%80%92/</guid>
+      <pubDate>Fri, 19 Apr 2024 12:28:16 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;今天在做LeetCode27题（&lt;a href=&quot;https://leetcode.cn/problems/remove-element/%EF%BC%89%E6%97%B6%E5%8F%91%E7%8E%B0%E4%BA%86%E4%B8%80%E4%B8%AA%E9%9</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>今天在做LeetCode27题（<a href="https://leetcode.cn/problems/remove-element/%EF%BC%89%E6%97%B6%E5%8F%91%E7%8E%B0%E4%BA%86%E4%B8%80%E4%B8%AA%E9%97%AE%E9%A2%98%EF%BC%8C%E6%88%91%E8%87%AA%E5%B7%B1%E7%9A%84%E8%A7%A3%E6%B3%95%E5%A6%82%E4%B8%8B%EF%BC%9A">https://leetcode.cn/problems/remove-element/）时发现了一个问题，我自己的解法如下：</a></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created with IntelliJ IDEA.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: smionf</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2024/04/19/16:40</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LC27RemoveElement</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">removeElement</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> val)</span> &#123;</span><br><span class="line">        <span class="type">int</span>[] newNums = <span class="keyword">new</span> <span class="title class_">int</span>[nums.length];</span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>,j=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] == val) &#123;</span><br><span class="line">                count++;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            newNums[j]=nums[i];</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line">        nums = newNums;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> nums.length-count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span>[] nums = &#123;<span class="number">3</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br><span class="line">        <span class="type">int</span> <span class="variable">lg</span> <span class="operator">=</span> removeElement(nums, <span class="number">3</span>);</span><br><span class="line">        System.out.println(lg);</span><br><span class="line">        System.out.println(<span class="string">&quot;------------&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            System.out.println(nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>以上代码的打印结果是[3,2,2,3]而不是[2,2,0,0]，没有通过debug发现原因。</p><p>查询资料（参考链接：<a href="https://www.cnblogs.com/PopShow/p/5207974.html">java 值传递 数组传递 - The_PopCore - 博客园 (cnblogs.com)</a>）发现原因如下：</p><p>以上代码中，虽然在<code>removeElement</code>方法中将符合条件的元素替换为0，但是在<code>main</code>方法中打印数组时，打印的仍然是原始的<code>nums</code>数组，而没有打印替换后的<code>nums</code>数组。这是因为Java中的数组是按值传递的，所以在<code>removeElement</code>方法中修改<code>nums</code>数组并不会影响<code>main</code>方法中的<code>nums</code>数组。</p><p>事例：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span>&#123;</span><br><span class="line">     </span><br><span class="line">    <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;good&quot;</span>);</span><br><span class="line">    <span class="type">char</span>[] ch = &#123;<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>&#125;;</span><br><span class="line">    <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">change</span><span class="params">(String str,<span class="type">char</span> ch,<span class="type">int</span> i)</span>&#123;</span><br><span class="line">     </span><br><span class="line">        str = <span class="string">&quot;test ok&quot;</span>;</span><br><span class="line">        ch = <span class="string">&#x27;g&#x27;</span>;</span><br><span class="line">        <span class="built_in">this</span>.i = i+<span class="number">1</span>;   </span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">     </span><br><span class="line">        <span class="type">Test</span> <span class="variable">tt</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Test</span>();</span><br><span class="line">        tt.change(tt.str,tt.ch[<span class="number">0</span>],tt.i);</span><br><span class="line">        System.out.println(tt.i);</span><br><span class="line">        System.out.print(tt.str+<span class="string">&quot; and &quot;</span>);</span><br><span class="line">        System.out.println(tt.ch);    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>change()方法里的入参为char ch;</p><p>传递的是个char值的单个数组元素，此时ch&#x3D;’g’;是不影响源数组元素的。</p><p>this.i &#x3D; i+1;这里面等号左边的i是属性i，等号右边的i是局部变量（入参里的i）；</p><p>此时i+1后赋值给属性的i，自然会改变属性i的值，同时17行，tt.i又是调用属性的i，输出的结果是：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">11</span></span><br><span class="line"></span><br><span class="line">good and abc</span><br></pre></td></tr></table></figure><p>顺带附上LeetCode27题我的解法：</p><p>题目：</p><p>给你一个数组 <code>nums</code> 和一个值 <code>val</code>，你需要 <strong><a href="https://baike.baidu.com/item/%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95">原地</a></strong> 移除所有数值等于 <code>val</code> 的元素，并返回移除后数组的新长度。</p><p>不要使用额外的数组空间，你必须仅使用 <code>O(1)</code> 额外空间并 <strong><a href="https://baike.baidu.com/item/%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95">原地 </a>修改输入数组</strong>。</p><p>元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。</p><p><strong>示例 1：</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [3,2,2,3], val = 3</span><br><span class="line">输出：2, nums = [2,2]</span><br><span class="line">解释：函数应该返回新的长度 2, 并且 nums 中的前两个元素均为 2。你不需要考虑数组中超出新长度后面的元素。例如，函数返回的新长度为 2 ，而 nums = [2,2,3,3] 或 nums = [2,2,0,0]，也会被视作正确答案。</span><br></pre></td></tr></table></figure><p><strong>示例 2：</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [0,1,2,2,3,0,4,2], val = 2</span><br><span class="line">输出：5, nums = [0,1,3,0,4]</span><br><span class="line">解释：函数应该返回新的长度 5, 并且 nums 中的前五个元素为 0, 1, 3, 0, 4。注意这五个元素可为任意顺序。你不需要考虑数组中超出新长度后面的元素。</span><br></pre></td></tr></table></figure><p>这道题可以用双指针解法(快指针寻找新数组的元素 ，新数组就是不含有目标元素的数组，慢指针指向更新 新数组下标的位置)：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.simonf.array;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created with IntelliJ IDEA.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: smionf</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2024/04/19/16:40</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>:</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LC27RemoveElement</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">removeElement</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> val)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">slowIndex</span> <span class="operator">=</span> <span class="number">0</span>;<span class="comment">//新数值元素的更新位置</span></span><br><span class="line">        <span class="type">int</span> fastIndex ;</span><br><span class="line">        <span class="keyword">for</span> (fastIndex = <span class="number">0</span>; fastIndex &lt; nums.length; fastIndex++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[fastIndex] == val) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            nums[slowIndex] = nums[fastIndex];</span><br><span class="line">            slowIndex++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> slowIndex;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">int</span>[] nums = &#123;<span class="number">3</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line">        <span class="type">int</span> <span class="variable">lg</span> <span class="operator">=</span> removeElement(nums, <span class="number">3</span>);</span><br><span class="line">        System.out.println(lg);</span><br><span class="line">        System.out.println(<span class="string">&quot;------------&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            System.out.println(nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content:encoded>
+      
+      
+      
+      <category domain="https://simonf.cn/tags/Java/">Java</category>
+      
+      
+      <comments>https://simonf.cn/2024/04/19/Java%E4%B8%AD%E6%95%B0%E7%BB%84%E7%9A%84%E5%80%BC%E4%BC%A0%E9%80%92/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>提高代码运算效率，增加LeetCode代码通过率几种方法</title>
+      <link>https://simonf.cn/2024/04/19/%E6%8F%90%E9%AB%98%E4%BB%A3%E7%A0%81%E8%BF%90%E7%AE%97%E6%95%88%E7%8E%87%EF%BC%8C%E5%A2%9E%E5%8A%A0LeetCode%E4%BB%A3%E7%A0%81%E9%80%9A%E8%BF%87%E7%8E%87%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/</link>
+      <guid>https://simonf.cn/2024/04/19/%E6%8F%90%E9%AB%98%E4%BB%A3%E7%A0%81%E8%BF%90%E7%AE%97%E6%95%88%E7%8E%87%EF%BC%8C%E5%A2%9E%E5%8A%A0LeetCode%E4%BB%A3%E7%A0%81%E9%80%9A%E8%BF%87%E7%8E%87%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/</guid>
+      <pubDate>Fri, 19 Apr 2024 07:44:06 GMT</pubDate>
+      
+        
+        
+      <description>&lt;h2 id=&quot;note1&quot;&gt;&lt;a href=&quot;#note1&quot; class=&quot;headerlink&quot; title=&quot;note1&quot;&gt;&lt;/a&gt;note1&lt;/h2&gt;&lt;p&gt;用位运算代替乘除法提高运算效率，例如:&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;ta</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<h2 id="note1"><a href="#note1" class="headerlink" title="note1"></a>note1</h2><p>用位运算代替乘除法提高运算效率，例如:</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(<span class="number">8</span>&gt;&gt;<span class="number">1</span>); <span class="comment">//4 相当于8%(2^1)</span></span><br><span class="line">System.out.println(<span class="number">8</span>&gt;&gt;<span class="number">2</span>); <span class="comment">//2 相当于8%(2^2)</span></span><br><span class="line">System.out.println(<span class="number">8</span>&gt;&gt;<span class="number">3</span>); <span class="comment">//1 相当于8%(2^3)</span></span><br><span class="line">System.out.println(<span class="number">2</span>&lt;&lt;<span class="number">1</span>); <span class="comment">//4 相当于2*(2^1)</span></span><br><span class="line">System.out.println(<span class="number">2</span>&lt;&lt;<span class="number">2</span>); <span class="comment">//8 相当于2*(2^2)</span></span><br><span class="line">System.out.println(<span class="number">2</span>&lt;&lt;<span class="number">3</span>); <span class="comment">//16 相当于2*(2^3)</span></span><br></pre></td></tr></table></figure>]]></content:encoded>
+      
+      
+      
+      <category domain="https://simonf.cn/tags/LeetCode/">LeetCode</category>
+      
+      
+      <comments>https://simonf.cn/2024/04/19/%E6%8F%90%E9%AB%98%E4%BB%A3%E7%A0%81%E8%BF%90%E7%AE%97%E6%95%88%E7%8E%87%EF%BC%8C%E5%A2%9E%E5%8A%A0LeetCode%E4%BB%A3%E7%A0%81%E9%80%9A%E8%BF%87%E7%8E%87%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>RequestContextHolder类:持有上下文的Request容器</title>
@@ -188,9 +237,9 @@
       
       
       
-      <category domain="https://simonf.cn/tags/Loombook/">Loombook</category>
-      
       <category domain="https://simonf.cn/tags/Java/">Java</category>
+      
+      <category domain="https://simonf.cn/tags/Loombook/">Loombook</category>
       
       
       <comments>https://simonf.cn/2023/10/01/Loombook%E5%91%BD%E5%90%8D%E7%9A%84%E5%9D%91/#disqus_thread</comments>
@@ -222,59 +271,6 @@
       
       
       <comments>https://simonf.cn/2022/04/01/%E6%9E%9A%E4%B8%BE%E5%92%8C%E5%8C%85%E8%A3%85%E7%B1%BB%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>浏览器将路径自动转换为小写导致跳过路由守卫</title>
-      <link>https://simonf.cn/2021/12/01/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%B0%86%E8%B7%AF%E5%BE%84%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%B0%8F%E5%86%99%E5%AF%BC%E8%87%B4%E8%B7%B3%E8%BF%87%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB/</link>
-      <guid>https://simonf.cn/2021/12/01/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%B0%86%E8%B7%AF%E5%BE%84%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%B0%8F%E5%86%99%E5%AF%BC%E8%87%B4%E8%B7%B3%E8%BF%87%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB/</guid>
-      <pubDate>Wed, 01 Dec 2021 09:08:53 GMT</pubDate>
-      
-        
-        
-      <description>&lt;p&gt;路由设置路径中出现大写，浏览器将路径自动转换为小写导致跳过路由守卫&lt;/p&gt;
-&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<p>路由设置路径中出现大写，浏览器将路径自动转换为小写导致跳过路由守卫</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> router = <span class="title function_">createRouter</span>(&#123;</span><br><span class="line">     <span class="attr">history</span>:<span class="title function_">createWebHashHistory</span>(),</span><br><span class="line"></span><br><span class="line">    <span class="attr">routes</span>:[</span><br><span class="line">        &#123;<span class="attr">path</span>:<span class="string">&#x27;/ShowSchedule&#x27;</span>,<span class="attr">component</span>:<span class="title class_">ShowSchedule</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">path</span>:<span class="string">&#x27;/Login&#x27;</span>,<span class="attr">component</span>:<span class="title class_">Login</span>&#125;,</span><br><span class="line">    ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><p>浏览器输入URL：<a href="view-source:http://localhost:5174/#/showschedule">view-source:localhost:5174&#x2F;#&#x2F;showschedule</a>路径自动全部转换为小写导致跳过了路由守卫，建议以后Path全小写，component首字母大写。</p>]]></content:encoded>
-      
-      
-      
-      <category domain="https://simonf.cn/tags/vue/">vue</category>
-      
-      <category domain="https://simonf.cn/tags/JavaScript/">JavaScript</category>
-      
-      
-      <comments>https://simonf.cn/2021/12/01/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%B0%86%E8%B7%AF%E5%BE%84%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%B0%8F%E5%86%99%E5%AF%BC%E8%87%B4%E8%B7%B3%E8%BF%87%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>Servlet学习时遇到的问题</title>
-      <link>https://simonf.cn/2020/10/01/Servlet%E5%AD%A6%E4%B9%A0%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</link>
-      <guid>https://simonf.cn/2020/10/01/Servlet%E5%AD%A6%E4%B9%A0%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
-      <pubDate>Thu, 01 Oct 2020 08:56:31 GMT</pubDate>
-      
-        
-        
-      <description>&lt;h2 id=&quot;由于文件没有被设置成Resoureces-Root导致的空指针异常&quot;&gt;&lt;a href=&quot;#由于文件没有被设置成Resoureces-Root导致的空指针异常&quot; class=&quot;headerlink&quot; title=&quot;由于文件没有被设置成Resoureces Root导</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<h2 id="由于文件没有被设置成Resoureces-Root导致的空指针异常"><a href="#由于文件没有被设置成Resoureces-Root导致的空指针异常" class="headerlink" title="由于文件没有被设置成Resoureces Root导致的空指针异常"></a>由于文件没有被设置成Resoureces Root导致的空指针异常</h2><p>在前端输入信息后，点击提交按钮，控制台报错:</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.lang.NullPointerException: inStream parameter is null</span><br></pre></td></tr></table></figure><p>检查后发现输入流没有读取到properties文件，将类加载器改为当前类的加载器(当前类为JDBCTools.class)，将properties文件移入到resources文件夹目录下（一定记得将resources文件夹右键Mark Directory as Resources Root），该问题解决。以下是Java代码：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pro.load((JDBCTools.class.getClassLoader().getResourceAsStream(<span class="string">&quot;db.properties&quot;</span>)));</span><br></pre></td></tr></table></figure><h2 id="泛型使用"><a href="#泛型使用" class="headerlink" title="泛型使用"></a>泛型使用</h2><p>从前端获取的数据用UserDao工具类的getBean语句在数据库内查询，但是返回值是Object类。</p><p>通过在BaseBao后面加泛型可以获取查询到对象是User对象，代码如下：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserDao</span> <span class="keyword">extends</span> <span class="title class_">BaseDao</span>&lt;User&gt;</span><br><span class="line"><span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> <span class="built_in">this</span>.getBean(User.class,<span class="string">&quot;select password from userreg where id = ?&quot;</span> ,id);</span><br></pre></td></tr></table></figure>]]></content:encoded>
-      
-      
-      
-      <category domain="https://simonf.cn/tags/Servlet/">Servlet</category>
-      
-      <category domain="https://simonf.cn/tags/JavaWeb/">JavaWeb</category>
-      
-      
-      <comments>https://simonf.cn/2020/10/01/Servlet%E5%AD%A6%E4%B9%A0%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/#disqus_thread</comments>
       
     </item>
     
