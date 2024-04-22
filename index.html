@@ -963,7 +963,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://simonf.cn/2023/10/01/Loombook%E5%91%BD%E5%90%8D%E7%9A%84%E5%9D%91/">
+    <link itemprop="mainEntityOfPage" href="https://simonf.cn/2023/12/10/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -977,7 +977,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/10/01/Loombook%E5%91%BD%E5%90%8D%E7%9A%84%E5%9D%91/" class="post-title-link" itemprop="url">Loombook命名的坑</a>
+            <a href="/2023/12/10/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0/" class="post-title-link" itemprop="url">自定义线程池</a>
         </h2>
 
         <div class="post-meta">
@@ -989,14 +989,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2023-10-01 20:37:58" itemprop="dateCreated datePublished" datetime="2023-10-01T20:37:58+08:00">2023-10-01</time>
+              <time title="创建时间：2023-12-10 20:15:37" itemprop="dateCreated datePublished" datetime="2023-12-10T20:15:37+08:00">2023-12-10</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-18 20:43:47" itemprop="dateModified" datetime="2024-03-18T20:43:47+08:00">2024-03-18</time>
+                <time title="修改时间：2024-04-22 20:25:38" itemprop="dateModified" datetime="2024-04-22T20:25:38+08:00">2024-04-22</time>
               </span>
 
           <br>
@@ -1005,14 +1005,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>359</span>
+              <span>5.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>5 分钟</span>
             </span>
 
         </div>
@@ -1024,10 +1024,76 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>在写一个后台用户模块时，为了区分系统管理员和用户，命名时用使用了sUsername来命名系统管理员的名字，但是数据库注册管理员时一直没法注册成功。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Schema(description = &quot;系统管理员&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SystemUser</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Schema(description = &quot;管理员姓名&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String sUsername;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Schema(description = &quot;管理员手机号码&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String phone;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p>最近看到牛客网一个帖子”面试官让我手撕一个线程池，二十分钟没手撕出来面试流程就终止了”。忽然意识到自己也手撕不出来线程池，遂加急补习了一下JUC和线程池相关的知识。下面做个全面的总结：</p>
+<p>Java中的线程池是通过Executor框架实现的，该框架中用到了<strong>Executor，ExecutorService，ThreadPoolExecutor</strong>这几个类。</p>
+<p>Executor接口是顶层接口，只有一个execute方法，过于简单。通常不使用它，而是使用ExecutorService接口：</p>
+<p>那么问题来了，怎么创建一个线程池对象呢？通常使用Executors工具类</p>
+<p><strong>面试题：execute和submit的区别</strong></p>
+<ol>
+<li>execute是Executor接口的方法，而submit是ExecutorService的方法，并且ExecutorService接口继承了Executor接口。</li>
+<li>execute只接受Runnable参数，没有返回值；而submit可以接受Runnable参数和Callable参数，并且返回了Future对象，可以进行任务取消、获取任务结果、判断任务是否执行完毕&#x2F;取消等操作。</li>
+<li>通过execute方法提交的任务无法获取具体的异常信息；而submit方法可以通过Future对象获取异常信息。</li>
+</ol>
+<h2 id="Executors工具类"><a href="#Executors工具类" class="headerlink" title="Executors工具类"></a>Executors工具类</h2><p>直接编码演示：每种线程池的效果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atguigu.demojuc.chap08;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ThreadPoolDemo</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">//1、基本使用</span></span><br><span class="line">        <span class="type">ExecutorService</span> <span class="variable">threadPool</span> <span class="operator">=</span> Executors.newSingleThreadExecutor();<span class="comment">// 单一线程池</span></span><br><span class="line">        <span class="comment">//ExecutorService threadPool = Executors.newFixedThreadPool(3); //固定大小线程池</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//可以在线程中设置一下睡眠时间控制承受并发的能力（调整睡眠时间长短看效果）</span></span><br><span class="line">        <span class="comment">//ExecutorService threadPool = Executors.newCachedThreadPool(); // 无限大小线程池（遇强则强）</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++) &#123;</span><br><span class="line">                threadPool.execute(()-&gt;&#123;</span><br><span class="line">                    System.out.println(Thread.currentThread().getName() + <span class="string">&quot;开始执行业务逻辑&quot;</span>);</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        TimeUnit.MILLISECONDS.sleep(<span class="number">50</span>);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">                    &#125;</span><br><span class="line">                    System.out.println(Thread.currentThread().getName() + <span class="string">&quot;结束&quot;</span>);</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            threadPool.shutdown();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>经查源码发现sUsername的set方法在loombook中被命名为setSUsername，也就是说loombook中所有的属性的前两个字母必须小写！</p>
+
+
+<p>定时任务：延迟执行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atguigu.jucdemo.chap08;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ScheduledThreadPoolDemo</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">ScheduledExecutorService</span> <span class="variable">scheduledThreadPool</span> <span class="operator">=</span> Executors.newScheduledThreadPool(<span class="number">3</span>);</span><br><span class="line">        System.out.println(<span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">                <span class="comment">//延迟执行</span></span><br><span class="line">                scheduledThreadPool.schedule(()-&gt;&#123;</span><br><span class="line">                    System.out.println(Thread.currentThread().getName() + <span class="string">&quot; 定时任务被执行&quot;</span> + <span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        TimeUnit.SECONDS.sleep(<span class="number">2</span>);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;, <span class="number">5</span>, TimeUnit.SECONDS);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            scheduledThreadPool.shutdown();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>定时任务：延迟并间隔执行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atguigu.jucdemo.chap08;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.Executors;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ScheduledExecutorService;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ScheduledAtFixRateDemo</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">ScheduledExecutorService</span> <span class="variable">scheduledThreadPool</span> <span class="operator">=</span> Executors.newScheduledThreadPool(<span class="number">3</span>);</span><br><span class="line">        System.out.println(<span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//try &#123;</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">                <span class="comment">//延迟执行</span></span><br><span class="line">                scheduledThreadPool.scheduleAtFixedRate(()-&gt;&#123;</span><br><span class="line">                    System.out.println(Thread.currentThread().getName() + <span class="string">&quot; 定时任务被执行&quot;</span> + <span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        TimeUnit.SECONDS.sleep(<span class="number">2</span>);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;, <span class="number">5</span>, <span class="number">1</span>, TimeUnit.SECONDS);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*&#125; finally &#123;</span></span><br><span class="line"><span class="comment">            scheduledThreadPool.shutdown(); //不要销毁这个对象，因为任务会一直执行</span></span><br><span class="line"><span class="comment">        &#125;*/</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="底层原理"><a href="#底层原理" class="headerlink" title="底层原理"></a>底层原理</h2><h3 id="线程池的7个重要参数"><a href="#线程池的7个重要参数" class="headerlink" title="线程池的7个重要参数"></a>线程池的7个重要参数</h3><ol>
+<li>corePoolSize：线程池中的常驻核心线程数</li>
+<li>maximumPoolSize：线程池中能够容纳同时 执行的最大线程数，此值必须大于等于1</li>
+<li>keepAliveTime：多余的空闲线程的存活时间 当前池中线程数量超过corePoolSize时，当空闲时间达到keepAliveTime时，多余线程会被销毁直到 只剩下corePoolSize个线程为止</li>
+<li>unit：keepAliveTime的单位 </li>
+<li>workQueue：任务队列，被提交但尚未被执行的任务</li>
+<li>threadFactory：表示生成线程池中工作线程的线程工厂， 用于创建线程，<strong>一般默认的即可</strong></li>
+<li>handler：拒绝策略，表示当队列满了，并且工作线程等于线程池的最大线程数（maximumPoolSize）时，如何来拒绝 请求执行的runnable的策略</li>
+</ol>
+<h3 id="线程池底层工作原理"><a href="#线程池底层工作原理" class="headerlink" title="线程池底层工作原理"></a>线程池底层工作原理</h3><p>具体流程：</p>
+<ol>
+<li><p>在创建了线程池后，线程池中的<code>线程数为零</code>。</p>
+</li>
+<li><p>当调用execute()方法添加一个请求任务时，线程池会做出如下判断：</p>
+<ol>
+<li>如果正在运行的线程数量小于<code>corePoolSize</code>，那么<code>马上创建线程</code>运行这个任务；</li>
+<li>如果正在运行的线程数量<code>大于或等于corePoolSize</code>，那么<code>将这个任务放入队列</code>；</li>
+<li>如果这个时候<code>队列满了</code>且正在<code>运行的线程数量还小于maximumPoolSize</code>，那么还是要<code>创建非核心线程</code>立刻运行这个任务；</li>
+<li>如果<code>队列满了</code>且正在<code>运行的线程数量等于maximumPoolSize</code>，那么线程池会<code>启动饱和拒绝策略</code>来执行。</li>
+</ol>
+</li>
+<li><p>当一个线程完成任务时，它会从队列中取下一个任务来执行。</p>
+</li>
+<li><p>当一个线程无事可做超过一定的时间（keepAliveTime）时，线程会判断：</p>
+<ul>
+<li>如果当前运行的线程数大于corePoolSize，那么这个线程就被停掉。</li>
+<li>线程池的所有任务完成后，<code>它最终会收缩到corePoolSize的大小</code>。</li>
+</ul>
+</li>
+</ol>
+<h3 id="拒绝策略"><a href="#拒绝策略" class="headerlink" title="拒绝策略"></a>拒绝策略</h3><p>一般我们创建线程池时，<code>为防止资源被耗尽，任务队列都会选择创建有界任务队列</code>，但这种模式下如果出现任务队列已满且线程池创建的线程数达到你设置的最大线程数时，这时就需要你指定ThreadPoolExecutor的RejectedExecutionHandler参数即合理的拒绝策略，<code>来处理线程池&quot;超载&quot;的情况</code>。</p>
+<p><strong>ThreadPoolExecutor自带的拒绝策略如下：</strong></p>
+<ol>
+<li>AbortPolicy(默认)：直接抛出RejectedExecutionException异常阻止系统正常运行</li>
+<li>CallerRunsPolicy：“调用者运行”一种调节机制，该策略既不会抛弃任务，也不会抛出异常，而是将某些任务回退到调用者，从而降低新任务的流量。</li>
+<li>DiscardOldestPolicy：抛弃队列中等待最久的任务，然后把当前任务加人队列中，尝试再次提交当前任务。</li>
+<li>DiscardPolicy：该策略默默地丢弃无法处理的任务，不予任何处理也不抛出异常。 如果允许任务丢失，这是最好的一种策略。</li>
+</ol>
+<p>以上内置的策略均实现了RejectedExecutionHandler接口，<code>也可以自己扩展RejectedExecutionHandler接口</code>，定义自己的拒绝策略</p>
+<h2 id="自定义线程池"><a href="#自定义线程池" class="headerlink" title="自定义线程池"></a>自定义线程池</h2><p>​		在《阿里巴巴java开发手册》中指出了<code>线程资源必须通过线程池提供</code>，不允许在应用中自行显示的创建线程，这样一方面是线程的创建更加规范，可以合理控制开辟线程的数量；另一方面线程的细节管理交给线程池处理，优化了资源的开销。而线程池不允许使用Executors去创建，而要通过ThreadPoolExecutor方式，这一方面是由于jdk中Executor框架虽然提供了如newFixedThreadPool()、newSingleThreadExecutor()、newCachedThreadPool()等创建线程池的方法，但都有其局限性，不够灵活；使用ThreadPoolExecutor有助于大家明确线程池的运行规则，创建符合自己的业务场景需要的线程池，避免资源耗尽的风险。</p>
+<p>自定义线程池：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atguigu.demojuc.chap08;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyRunnable</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> param;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MyRunnable</span><span class="params">(<span class="type">int</span> param)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.param = param;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(Thread.currentThread().getName() +  <span class="string">&quot; Runnable......&quot;</span> + param);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CustomizeThreadPoolDemo</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 自定义连接池</span></span><br><span class="line">        <span class="type">ExecutorService</span> <span class="variable">threadPool</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ThreadPoolExecutor</span>(<span class="number">2</span>, <span class="number">5</span>,</span><br><span class="line">                <span class="number">2</span>, TimeUnit.SECONDS, <span class="keyword">new</span> <span class="title class_">ArrayBlockingQueue</span>&lt;&gt;(<span class="number">3</span>),</span><br><span class="line">                Executors.defaultThreadFactory(),</span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">ThreadPoolExecutor</span>.AbortPolicy() <span class="comment">//丢弃任务并抛出异常</span></span><br><span class="line">                <span class="comment">//new ThreadPoolExecutor.CallerRunsPolicy() //由调用线程处理该任务，谁调用谁处理</span></span><br><span class="line">                <span class="comment">//new ThreadPoolExecutor.DiscardOldestPolicy() //丢弃队列中等待最久的任务，添加新任务</span></span><br><span class="line">                <span class="comment">//new ThreadPoolExecutor.DiscardPolicy() //也是丢弃任务，但是不抛出异常。 </span></span><br><span class="line">                <span class="comment">/*new RejectedExecutionHandler() &#123;</span></span><br><span class="line"><span class="comment">                    @Override</span></span><br><span class="line"><span class="comment">                    public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) &#123;</span></span><br><span class="line"><span class="comment">                        System.out.println(&quot;自定义拒绝策略&quot;);</span></span><br><span class="line"><span class="comment">                    &#125;</span></span><br><span class="line"><span class="comment">                &#125;*/</span></span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">9</span>; i++) &#123;</span><br><span class="line">                threadPool.execute(() -&gt; &#123;</span><br><span class="line">                    <span class="comment">//threadPool.submit(() -&gt; &#123; //这里也可以使用submit</span></span><br><span class="line">                    System.out.println(Thread.currentThread().getName() + <span class="string">&quot;执行了业务逻辑&quot;</span>);</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            threadPool.shutdown();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 
       
     </div>
@@ -1049,7 +1115,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://simonf.cn/2022/04/01/%E6%9E%9A%E4%B8%BE%E5%92%8C%E5%8C%85%E8%A3%85%E7%B1%BB%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90/">
+    <link itemprop="mainEntityOfPage" href="https://simonf.cn/2023/12/01/Spring-Cloud-Gateway%E8%87%AA%E5%AE%9A%E4%B9%89%E5%85%A8%E5%B1%80%E8%BF%87%E6%BB%A4%E5%99%A8%E6%96%B9%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -1063,7 +1129,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/04/01/%E6%9E%9A%E4%B8%BE%E5%92%8C%E5%8C%85%E8%A3%85%E7%B1%BB%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">枚举和包装类案例分析</a>
+            <a href="/2023/12/01/Spring-Cloud-Gateway%E8%87%AA%E5%AE%9A%E4%B9%89%E5%85%A8%E5%B1%80%E8%BF%87%E6%BB%A4%E5%99%A8%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">Spring Cloud Gateway自定义全局过滤器方法</a>
         </h2>
 
         <div class="post-meta">
@@ -1075,14 +1141,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-04-01 18:50:07" itemprop="dateCreated datePublished" datetime="2022-04-01T18:50:07+08:00">2022-04-01</time>
+              <time title="创建时间：2023-12-01 19:52:30" itemprop="dateCreated datePublished" datetime="2023-12-01T19:52:30+08:00">2023-12-01</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-01 18:53:01" itemprop="dateModified" datetime="2024-04-01T18:53:01+08:00">2024-04-01</time>
+                <time title="修改时间：2024-04-22 19:57:44" itemprop="dateModified" datetime="2024-04-22T19:57:44+08:00">2024-04-22</time>
               </span>
 
           <br>
@@ -1091,7 +1157,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
+              <span>895</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -1110,22 +1176,24 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="枚举和包装类"><a href="#枚举和包装类" class="headerlink" title="枚举和包装类"></a>枚举和包装类</h2><h3 id="阅读代码，分析运行结果："><a href="#阅读代码，分析运行结果：" class="headerlink" title="阅读代码，分析运行结果："></a>阅读代码，分析运行结果：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">	<span class="type">Integer</span> <span class="variable">i1</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line">	<span class="type">Integer</span> <span class="variable">i2</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line">	<span class="type">int</span> <span class="variable">i3</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line">	<span class="type">int</span> <span class="variable">i4</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line">	System.out.println(i1 == i2);</span><br><span class="line">	System.out.println(i3 == i4);</span><br><span class="line">	System.out.println(i1 == i3);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p>如果我们希望拦截请求，做自己的业务逻辑，Spring Cloud Gateway中默认的过滤器就没办法实现。此时，就需求使用全局过滤器，全局过滤器的作用也是处理一切进入网关的请求和微服务响应，与GatewayFilter的作用一样。区别在于GatewayFilter通过配置定义，处理逻辑是固定的；而GlobalFilter的逻辑需要自己写代码实现。</p>
+<p>以下是个配置自定义全局过滤器并在过滤器内部处理业务逻辑的示例：</p>
+<ul>
+<li>需求：定义全局过滤器，拦截请求，判断请求的参数是否满足下面条件：</li>
+</ul>
+<p><strong>请求参数中是否有username，如果满足则放行，否则拦截</strong></p>
+<ul>
+<li>步骤分析：</li>
+</ul>
+<p>1、定义一个类实现GlobalFilter接口</p>
+<p>2、重写filter方法</p>
+<p>3、将该类纳入到spring容器中</p>
+<p>4、实现Ordered接口定义该过滤器的顺序</p>
+<ul>
+<li>实现代码：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AuthorizationFilter</span> <span class="keyword">implements</span> <span class="title class_">GlobalFilter</span>, Ordered &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//实现过滤器逻辑</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Mono&lt;Void&gt; <span class="title function_">filter</span><span class="params">(ServerWebExchange exchange, GatewayFilterChain chain)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">username</span> <span class="operator">=</span> exchange.getRequest().getQueryParams().getFirst(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span>(!StringUtils.hasText(username))&#123;</span><br><span class="line">            exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);</span><br><span class="line">            <span class="keyword">return</span> exchange.getResponse().setComplete();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> chain.filter(exchange);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//定义该过滤器的顺序</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getOrder</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>这段代码涉及到了Java中的自动装箱和拆箱的概念。</p>
-<p>首先，我们需要了解Java中的整数缓存机制。Java中对于整数类型的缓存范围是在-128到127之间。当我们使用自动装箱将一个整数赋值给一个 <code>Integer</code> 对象时，如果该整数在缓存范围内，那么会直接返回缓存中的对象，而不会创建新的对象。</p>
-<p>现在来分析代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Integer</span> <span class="variable">i1</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line"><span class="type">Integer</span> <span class="variable">i2</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">i3</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">i4</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line">System.out.println(i1 == i2);</span><br><span class="line">System.out.println(i3 == i4);</span><br><span class="line">System.out.println(i1 == i3);</span><br></pre></td></tr></table></figure>
-
-<p>在这段代码中，我们分别创建了两个 <code>Integer</code> 对象 <code>i1</code> 和 <code>i2</code>，并将它们都赋值为 <code>128</code>。然后，我们创建了两个 <code>int</code> 类型的变量 <code>i3</code> 和 <code>i4</code>，并同样赋值为 <code>128</code>。</p>
-<p>接下来，我们分别使用 <code>==</code> 运算符进行比较。</p>
-<p>第一个比较 <code>i1 == i2</code>，由于 <code>i1</code> 和 <code>i2</code> 都是通过自动装箱得到的 <code>Integer</code> 对象，而且 <code>128</code> 不在整数缓存范围内，所以 <code>i1</code> 和 <code>i2</code> 引用的是不同的对象，因此比较结果为 <code>false</code>。</p>
-<p>第二个比较 <code>i3 == i4</code>，由于 <code>i3</code> 和 <code>i4</code> 都是基本类型的 <code>int</code>，直接进行数值比较，所以比较结果为 <code>true</code>。</p>
-<p>第三个比较 <code>i1 == i3</code>，由于 <code>i1</code> 是 <code>Integer</code> 对象，而 <code>i3</code> 是基本类型的 <code>int</code>，在比较时会进行自动拆箱，将 <code>i1</code> 转换为 <code>int</code> 类型。然后进行数值比较，所以比较结果为 <code>true</code>。</p>
-<p>总结起来，<code>i1 == i2</code> 的结果是 <code>false</code>，<code>i3 == i4</code> 和 <code>i1 == i3</code> 的结果都是 <code>true</code>。这是因为 <code>Integer</code> 对象的比较是通过自动拆箱后的数值比较来实现的。</p>
-<h3 id="阅读代码，分析运行结果：-1"><a href="#阅读代码，分析运行结果：-1" class="headerlink" title="阅读代码，分析运行结果："></a>阅读代码，分析运行结果：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">	<span class="type">double</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">2.0</span>;</span><br><span class="line">	<span class="type">double</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">2.0</span>;</span><br><span class="line">	<span class="type">Double</span> <span class="variable">c</span> <span class="operator">=</span> <span class="number">2.0</span>;</span><br><span class="line">	<span class="type">Double</span> <span class="variable">d</span> <span class="operator">=</span> <span class="number">2.0</span>;</span><br><span class="line">	System.out.println(a == b);</span><br><span class="line">	System.out.println(c == d);</span><br><span class="line">	System.out.println(a == d);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这段代码涉及到了Java中的自动装箱和拆箱的概念，和包装类的缓存机制。Double和Float包装类没有缓存对象。所以(a&#x3D;&#x3D;b)结果为true，(c&#x3D;&#x3D;d)结果为false，(a&#x3D;&#x3D;d)结果为true。</p>
 
       
     </div>
@@ -1214,14 +1282,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1278,12 +1346,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">15k</span>
+    <span title="站点总字数">22k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">14 分钟</span>
+    <span title="站点阅读时长">20 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
@@ -1291,7 +1359,7 @@
 <div class="theme-info">
   <div class="powered-by"></div>
   <span class="post-meta-divider">|</span>
-  <span class="post-count">博客全站共5.7k字</span>
+  <span class="post-count">博客全站共8k字</span>
 </div>
 
 
