@@ -22,21 +22,20 @@
     var CONFIG = {"hostname":"simonf.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="今天遇到一个很有意思的问题：Nacos工作的好好的，一运行程序，nacos就自动stopped了。 首先日志排查，linux命令： 1docker logs nacos  初步怀疑是nacos启动后资源不足，但是日志里没有OutOfMemoryError等错误，但是日志里有这么一句： 1232024-03-08 22:07:25,713 ERROR Application run failedNa">
+  <meta name="description" content="输入URL发生了什么？ 浏览器的地址栏输入URL并按下回车。 浏览器查找当前URL是否存在缓存，并比较缓存是否过期。 DNS解析URL对应的IP。 根据IP建立TCP（传输层）连接（三次握手）。 客户端发送⼀个TCP的SYN&#x3D;1，Seq&#x3D;X的包到服务器端口 服务器发回SYN&#x3D;1， ACK&#x3D;X+1， Seq&#x3D;Y的响应包 客户端发送ACK&#x3D;Y">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Nacos异常：No DataSource set和Client not connected, current status:STARTING">
-<meta property="og:url" content="https://simonf.cn/2024/03/19/Nacos%E5%BC%82%E5%B8%B8%EF%BC%9ANo-DataSource-set%E5%92%8CClient-not-connected-current-status-STARTING/index.html">
+<meta property="og:title" content="HTTP协议相关知识整理">
+<meta property="og:url" content="https://simonf.cn/2023/12/02/HTTP%E5%8D%8F%E8%AE%AE%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/index.html">
 <meta property="og:site_name" content="SimonFeng的木屋">
-<meta property="og:description" content="今天遇到一个很有意思的问题：Nacos工作的好好的，一运行程序，nacos就自动stopped了。 首先日志排查，linux命令： 1docker logs nacos  初步怀疑是nacos启动后资源不足，但是日志里没有OutOfMemoryError等错误，但是日志里有这么一句： 1232024-03-08 22:07:25,713 ERROR Application run failedNa">
+<meta property="og:description" content="输入URL发生了什么？ 浏览器的地址栏输入URL并按下回车。 浏览器查找当前URL是否存在缓存，并比较缓存是否过期。 DNS解析URL对应的IP。 根据IP建立TCP（传输层）连接（三次握手）。 客户端发送⼀个TCP的SYN&#x3D;1，Seq&#x3D;X的包到服务器端口 服务器发回SYN&#x3D;1， ACK&#x3D;X+1， Seq&#x3D;Y的响应包 客户端发送ACK&#x3D;Y">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-03-19T03:19:31.000Z">
-<meta property="article:modified_time" content="2024-03-19T03:27:56.449Z">
+<meta property="article:published_time" content="2023-12-02T05:01:25.000Z">
+<meta property="article:modified_time" content="2024-04-24T05:02:14.482Z">
 <meta property="article:author" content="simonf">
-<meta property="article:tag" content="Nacos">
-<meta property="article:tag" content="微服务">
+<meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://simonf.cn/2024/03/19/Nacos%E5%BC%82%E5%B8%B8%EF%BC%9ANo-DataSource-set%E5%92%8CClient-not-connected-current-status-STARTING/">
+<link rel="canonical" href="https://simonf.cn/2023/12/02/HTTP%E5%8D%8F%E8%AE%AE%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/">
 
 
 <script id="page-configurations">
@@ -49,7 +48,7 @@
   };
 </script>
 
-  <title>Nacos异常：No DataSource set和Client not connected, current status:STARTING | SimonFeng的木屋</title>
+  <title>HTTP协议相关知识整理 | SimonFeng的木屋</title>
   
 
 
@@ -199,7 +198,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://simonf.cn/2024/03/19/Nacos%E5%BC%82%E5%B8%B8%EF%BC%9ANo-DataSource-set%E5%92%8CClient-not-connected-current-status-STARTING/">
+    <link itemprop="mainEntityOfPage" href="https://simonf.cn/2023/12/02/HTTP%E5%8D%8F%E8%AE%AE%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -212,7 +211,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Nacos异常：No DataSource set和Client not connected, current status:STARTING
+          HTTP协议相关知识整理
         </h1>
 
         <div class="post-meta">
@@ -223,10 +222,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-03-19 11:19:31 / 修改时间：11:27:56" itemprop="dateCreated datePublished" datetime="2024-03-19T11:19:31+08:00">2024-03-19</time>
+              <time title="创建时间：2023-12-02 13:01:25" itemprop="dateCreated datePublished" datetime="2023-12-02T13:01:25+08:00">2023-12-02</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-04-24 13:02:14" itemprop="dateModified" datetime="2024-04-24T13:02:14+08:00">2024-04-24</time>
+              </span>
 
           
             <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
@@ -241,14 +246,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>974</span>
+              <span>1.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -260,27 +265,41 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>今天遇到一个很有意思的问题：Nacos工作的好好的，一运行程序，nacos就自动stopped了。</p>
-<p>首先日志排查，linux命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs nacos</span><br></pre></td></tr></table></figure>
-
-<p>初步怀疑是nacos启动后资源不足，但是日志里没有OutOfMemoryError等错误，但是日志里有这么一句：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2024-03-08 22:07:25,713 ERROR Application run failed</span><br><span class="line"></span><br><span class="line">Nacos Server did not start because dumpservice bean construction failure : No DataSource set</span><br></pre></td></tr></table></figure>
-
-<p>百度了一下发现是mysql配置文件出了问题，mysql8.0之后的版本, 需要在官网文档配置mysql的基础上加上<strong>mysql时区的设置。</strong></p>
-<p><strong>像这样：</strong></p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">datasource:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">com.zaxxer.hikari.HikariDataSource</span></span><br><span class="line">  <span class="attr">driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">  <span class="attr">url:</span> <span class="string">jdbc:mysql://127.0.0.1:3306/db_spzx?characterEncoding=utf-8&amp;serverTimezone=UTC&amp;useSSL=false&amp;allowPublicKeyRetrieval=true</span></span><br></pre></td></tr></table></figure>
-
-<p>运行程序后报了新的错误：  </p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Caused by: com.alibaba.nacos.api.exception.NacosException: Client not connected, current status:STARTING</span><br></pre></td></tr></table></figure>
-
-<p>依旧是百度了一下，发现nocos不仅需要配置中心地址，还得配置服务注册中心的地址。像这样：  </p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">simonf</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8848</span></span><br><span class="line">      <span class="attr">config:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8848</span></span><br></pre></td></tr></table></figure>
-
-<p>加入了服务注册中心的地址重启项目，运行成功！</p>
-<pre><code>版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。
-</code></pre>
-<p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/FENGBOKE/article/details/136573527">https://blog.csdn.net/FENGBOKE/article/details/136573527</a></p>
+        <h4 id="输入URL发生了什么？"><a href="#输入URL发生了什么？" class="headerlink" title="输入URL发生了什么？"></a>输入URL发生了什么？</h4><ol>
+<li>浏览器的地址栏输入URL并按下回车。</li>
+<li>浏览器查找当前URL是否存在缓存，并比较缓存是否过期。</li>
+<li>DNS解析URL对应的IP。</li>
+<li>根据IP建立TCP（传输层）连接（三次握手）。<ul>
+<li>客户端发送⼀个<code>TCP</code>的<strong>SYN&#x3D;1</strong>，<strong>Seq&#x3D;X</strong>的包到服务器端口</li>
+<li>服务器发回<strong>SYN&#x3D;1</strong>， <strong>ACK&#x3D;X+1</strong>， <strong>Seq&#x3D;Y</strong>的响应包</li>
+<li>客户端发送<strong>ACK&#x3D;Y+1</strong>， <strong>Seq&#x3D;Z</strong></li>
+</ul>
+</li>
+<li>HTTP发起请求。</li>
+<li>服务器处理请求，浏览器接收HTTP响应。</li>
+<li>渲染页面，构建DOM树。</li>
+<li>关闭TCP连接（四次挥手）。<ul>
+<li>主动⽅发送<strong>Fin&#x3D;1</strong>， <strong>Ack&#x3D;Z</strong>， <strong>Seq&#x3D; X</strong>报⽂</li>
+<li>被动⽅发送<strong>ACK&#x3D;X+1</strong>， <strong>Seq&#x3D;Z</strong>报⽂</li>
+<li>被动⽅发送<strong>Fin&#x3D;1</strong>， <strong>ACK&#x3D;X</strong>， <strong>Seq&#x3D;Y</strong>报⽂</li>
+<li>主动⽅发送<strong>ACK&#x3D;Y</strong>， <strong>Seq&#x3D;X</strong>报⽂</li>
+</ul>
+</li>
+</ol>
+<h4 id="输入URL发生了什么？为什么要三次握手而不是两次？"><a href="#输入URL发生了什么？为什么要三次握手而不是两次？" class="headerlink" title="输入URL发生了什么？为什么要三次握手而不是两次？"></a>输入URL发生了什么？为什么要三次握手而不是两次？</h4><p>这是为了防止已经失效的请求报文突然又传到服务器产生错误。</p>
+<h4 id="HTTP协议介绍"><a href="#HTTP协议介绍" class="headerlink" title="HTTP协议介绍"></a>HTTP协议介绍</h4><p>超文本传输协议(HTTP)是一种应用层协议。</p>
+<p>HTTP是一个客户端终端（用户）和服务器端（网站）请求和应答的标准（TCP）。通过使用网页浏览器、网络爬虫或者其它的工具，客户端发起一个HTTP请求到服务器上指定端口（默认端口为80）。我们称这个客户端为用户代理程序（user agent）。应答的服务器上存储着一些资源，比如HTML文件和图像。我们称这个应答服务器为源服务器（origin server）。在用户代理和源服务器中间可能存在多个“中间层”，比如代理服务器、网关或者隧道（tunnel）。</p>
+<p>尽管TCP&#x2F;IP协议是互联网上最流行的应用，HTTP协议中，并没有规定必须使用它或它支持的层。事实上，HTTP可以在任何互联网协议上，或其他网络上实现。HTTP假定其下层协议提供可靠的传输。因此，任何能够提供这种保证的协议都可以被其使用。因此也就是其在TCP&#x2F;IP协议族使用TCP作为其传输层。</p>
+<p>通常，由HTTP客户端发起一个请求，创建一个到服务器指定端口（默认是80端口）的TCP连接。HTTP服务器则在那个端口监听客户端的请求。一旦收到请求，服务器会向客户端返回一个状态，比如”HTTP&#x2F;1.1 200 OK”，以及返回的内容，如请求的文件、错误消息、或者其它信息。</p>
+<p>HTTP协议定义Web客户端如何从Web服务器请求Web页面，以及服务器如何把Web页面传送给客户端。HTTP协议采用了请求&#x2F;响应模型。客户端向服务器发送一个请求报文，请求报文包含请求的方法、URL、协议版本、请求头部和请求数据。服务器以一个状态行作为响应，响应的内容包括协议的版本、成功或者错误代码、服务器信息、响应头部和响应数据。</p>
+<p>以下是 HTTP 请求&#x2F;响应的步骤：</p>
+<ol>
+<li>客户端连接到Web服务器<br>一个HTTP客户端，通常是浏览器，与Web服务器的HTTP端口（默认为80）建立一个TCP套接字连接。例如，<a target="_blank" rel="noopener" href="http://www.simonf.cn./">http://www.simonf.cn。</a></li>
+<li>发送HTTP请求<br>通过TCP套接字，客户端向Web服务器发送一个文本的请求报文，一个请求报文由请求行、请求头部、空行和请求数据4部分组成。</li>
+<li>服务器接受请求并返回HTTP响应<br>Web服务器解析请求，定位请求资源。服务器将资源复本写到TCP套接字，由客户端读取。一个响应由状态行、响应头部、空行和响应数据4部分组成。</li>
+<li>释放连接TCP连接<br>若connection 模式为close，则服务器主动关闭TCP连接，客户端被动关闭连接，释放TCP连接;若connection 模式为keepalive，则该连接会保持一段时间，在该时间内可以继续接收请求;</li>
+<li>客户端浏览器解析HTML内容<br>客户端浏览器首先解析状态行，查看表明请求是否成功的状态代码。然后解析每一个响应头，响应头告知以下为若干字节的HTML文档和文档的字符集。客户端浏览器读取响应数据HTML，根据HTML的语法对其进行格式化，并在浏览器窗口中显示。</li>
+</ol>
 
     </div>
 
@@ -321,7 +340,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://simonf.cn/2024/03/19/Nacos%E5%BC%82%E5%B8%B8%EF%BC%9ANo-DataSource-set%E5%92%8CClient-not-connected-current-status-STARTING/" title="Nacos异常：No DataSource set和Client not connected, current status:STARTING">https://simonf.cn/2024/03/19/Nacos异常：No-DataSource-set和Client-not-connected-current-status-STARTING/</a>
+    <a href="https://simonf.cn/2023/12/02/HTTP%E5%8D%8F%E8%AE%AE%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/" title="HTTP协议相关知识整理">https://simonf.cn/2023/12/02/HTTP协议相关知识整理/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -351,8 +370,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Nacos/" rel="tag"># Nacos</a>
-              <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" rel="tag"># 微服务</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag"># 计算机网络</a>
           </div>
 
         
@@ -361,12 +379,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2024/03/18/Hexo%E6%95%99%E7%A8%8B-%E4%B8%80-%E5%A6%82%E4%BD%95%E5%86%99%E6%96%87%E7%AB%A0%E5%B9%B6%E5%8F%91%E5%B8%83/" rel="prev" title="Hexo教程(一)|如何写文章并发布">
-      <i class="fa fa-chevron-left"></i> Hexo教程(一)|如何写文章并发布
+    <a href="/2023/12/01/Spring-Cloud-Gateway%E8%87%AA%E5%AE%9A%E4%B9%89%E5%85%A8%E5%B1%80%E8%BF%87%E6%BB%A4%E5%99%A8%E6%96%B9%E6%B3%95/" rel="prev" title="Spring Cloud Gateway自定义全局过滤器方法">
+      <i class="fa fa-chevron-left"></i> Spring Cloud Gateway自定义全局过滤器方法
     </a></div>
       <div class="post-nav-item">
-    <a href="/2024/03/19/ErrMsg-Nacos-Server-did-not-start-because-dumpservice-bean-construction-failure-No-DataSource-set/" rel="next" title="ErrMsg:Nacos Server did not start because dumpservice bean construction failure :No DataSource set">
-      ErrMsg:Nacos Server did not start because dumpservice bean construction failure :No DataSource set <i class="fa fa-chevron-right"></i>
+    <a href="/2023/12/10/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0/" rel="next" title="自定义线程池">
+      自定义线程池 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -431,6 +449,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%85%A5URL%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">输入URL发生了什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%85%A5URL%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E8%80%8C%E4%B8%8D%E6%98%AF%E4%B8%A4%E6%AC%A1%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">输入URL发生了什么？为什么要三次握手而不是两次？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.</span> <span class="nav-text">HTTP协议介绍</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

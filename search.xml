@@ -300,6 +300,49 @@
       </tags>
   </entry>
   <entry>
+    <title>HTTP协议相关知识整理</title>
+    <url>/2023/12/02/HTTP%E5%8D%8F%E8%AE%AE%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/</url>
+    <content><![CDATA[<h4 id="输入URL发生了什么？"><a href="#输入URL发生了什么？" class="headerlink" title="输入URL发生了什么？"></a>输入URL发生了什么？</h4><ol>
+<li>浏览器的地址栏输入URL并按下回车。</li>
+<li>浏览器查找当前URL是否存在缓存，并比较缓存是否过期。</li>
+<li>DNS解析URL对应的IP。</li>
+<li>根据IP建立TCP（传输层）连接（三次握手）。<ul>
+<li>客户端发送⼀个<code>TCP</code>的<strong>SYN&#x3D;1</strong>，<strong>Seq&#x3D;X</strong>的包到服务器端口</li>
+<li>服务器发回<strong>SYN&#x3D;1</strong>， <strong>ACK&#x3D;X+1</strong>， <strong>Seq&#x3D;Y</strong>的响应包</li>
+<li>客户端发送<strong>ACK&#x3D;Y+1</strong>， <strong>Seq&#x3D;Z</strong></li>
+</ul>
+</li>
+<li>HTTP发起请求。</li>
+<li>服务器处理请求，浏览器接收HTTP响应。</li>
+<li>渲染页面，构建DOM树。</li>
+<li>关闭TCP连接（四次挥手）。<ul>
+<li>主动⽅发送<strong>Fin&#x3D;1</strong>， <strong>Ack&#x3D;Z</strong>， <strong>Seq&#x3D; X</strong>报⽂</li>
+<li>被动⽅发送<strong>ACK&#x3D;X+1</strong>， <strong>Seq&#x3D;Z</strong>报⽂</li>
+<li>被动⽅发送<strong>Fin&#x3D;1</strong>， <strong>ACK&#x3D;X</strong>， <strong>Seq&#x3D;Y</strong>报⽂</li>
+<li>主动⽅发送<strong>ACK&#x3D;Y</strong>， <strong>Seq&#x3D;X</strong>报⽂</li>
+</ul>
+</li>
+</ol>
+<h4 id="输入URL发生了什么？为什么要三次握手而不是两次？"><a href="#输入URL发生了什么？为什么要三次握手而不是两次？" class="headerlink" title="输入URL发生了什么？为什么要三次握手而不是两次？"></a>输入URL发生了什么？为什么要三次握手而不是两次？</h4><p>这是为了防止已经失效的请求报文突然又传到服务器产生错误。</p>
+<h4 id="HTTP协议介绍"><a href="#HTTP协议介绍" class="headerlink" title="HTTP协议介绍"></a>HTTP协议介绍</h4><p>超文本传输协议(HTTP)是一种应用层协议。</p>
+<p>HTTP是一个客户端终端（用户）和服务器端（网站）请求和应答的标准（TCP）。通过使用网页浏览器、网络爬虫或者其它的工具，客户端发起一个HTTP请求到服务器上指定端口（默认端口为80）。我们称这个客户端为用户代理程序（user agent）。应答的服务器上存储着一些资源，比如HTML文件和图像。我们称这个应答服务器为源服务器（origin server）。在用户代理和源服务器中间可能存在多个“中间层”，比如代理服务器、网关或者隧道（tunnel）。</p>
+<p>尽管TCP&#x2F;IP协议是互联网上最流行的应用，HTTP协议中，并没有规定必须使用它或它支持的层。事实上，HTTP可以在任何互联网协议上，或其他网络上实现。HTTP假定其下层协议提供可靠的传输。因此，任何能够提供这种保证的协议都可以被其使用。因此也就是其在TCP&#x2F;IP协议族使用TCP作为其传输层。</p>
+<p>通常，由HTTP客户端发起一个请求，创建一个到服务器指定端口（默认是80端口）的TCP连接。HTTP服务器则在那个端口监听客户端的请求。一旦收到请求，服务器会向客户端返回一个状态，比如”HTTP&#x2F;1.1 200 OK”，以及返回的内容，如请求的文件、错误消息、或者其它信息。</p>
+<p>HTTP协议定义Web客户端如何从Web服务器请求Web页面，以及服务器如何把Web页面传送给客户端。HTTP协议采用了请求&#x2F;响应模型。客户端向服务器发送一个请求报文，请求报文包含请求的方法、URL、协议版本、请求头部和请求数据。服务器以一个状态行作为响应，响应的内容包括协议的版本、成功或者错误代码、服务器信息、响应头部和响应数据。</p>
+<p>以下是 HTTP 请求&#x2F;响应的步骤：</p>
+<ol>
+<li>客户端连接到Web服务器<br>一个HTTP客户端，通常是浏览器，与Web服务器的HTTP端口（默认为80）建立一个TCP套接字连接。例如，<a href="http://www.simonf.cn./">http://www.simonf.cn。</a></li>
+<li>发送HTTP请求<br>通过TCP套接字，客户端向Web服务器发送一个文本的请求报文，一个请求报文由请求行、请求头部、空行和请求数据4部分组成。</li>
+<li>服务器接受请求并返回HTTP响应<br>Web服务器解析请求，定位请求资源。服务器将资源复本写到TCP套接字，由客户端读取。一个响应由状态行、响应头部、空行和响应数据4部分组成。</li>
+<li>释放连接TCP连接<br>若connection 模式为close，则服务器主动关闭TCP连接，客户端被动关闭连接，释放TCP连接;若connection 模式为keepalive，则该连接会保持一段时间，在该时间内可以继续接收请求;</li>
+<li>客户端浏览器解析HTML内容<br>客户端浏览器首先解析状态行，查看表明请求是否成功的状态代码。然后解析每一个响应头，响应头告知以下为若干字节的HTML文档和文档的字符集。客户端浏览器读取响应数据HTML，根据HTML的语法对其进行格式化，并在浏览器窗口中显示。</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Spring Cloud Gateway自定义全局过滤器方法</title>
     <url>/2023/12/01/Spring-Cloud-Gateway%E8%87%AA%E5%AE%9A%E4%B9%89%E5%85%A8%E5%B1%80%E8%BF%87%E6%BB%A4%E5%99%A8%E6%96%B9%E6%B3%95/</url>
     <content><![CDATA[<p>如果我们希望拦截请求，做自己的业务逻辑，Spring Cloud Gateway中默认的过滤器就没办法实现。此时，就需求使用全局过滤器，全局过滤器的作用也是处理一切进入网关的请求和微服务响应，与GatewayFilter的作用一样。区别在于GatewayFilter通过配置定义，处理逻辑是固定的；而GlobalFilter的逻辑需要自己写代码实现。</p>
@@ -334,8 +377,8 @@
 <p>经查源码发现sUsername的set方法在loombook中被命名为setSUsername，也就是说loombook中所有的属性的前两个字母必须小写！</p>
 ]]></content>
       <tags>
-        <tag>Java</tag>
         <tag>Loombook</tag>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -359,8 +402,8 @@
 <p>这段代码涉及到了Java中的自动装箱和拆箱的概念，和包装类的缓存机制。Double和Float包装类没有缓存对象。所以(a&#x3D;&#x3D;b)结果为true，(c&#x3D;&#x3D;d)结果为false，(a&#x3D;&#x3D;d)结果为true。</p>
 ]]></content>
       <tags>
-        <tag>Java</tag>
         <tag>JavaSE</tag>
+        <tag>Java</tag>
         <tag>枚举和包装类</tag>
       </tags>
   </entry>
@@ -411,8 +454,8 @@
 
 ]]></content>
       <tags>
-        <tag>Java</tag>
         <tag>JavaSE</tag>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
