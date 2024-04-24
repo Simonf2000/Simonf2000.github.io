@@ -1,6 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>JavaSE常见问题汇总</title>
+    <url>/2020/05/02/JavaSE%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/</url>
+    <content><![CDATA[<h2 id="note1"><a href="#note1" class="headerlink" title="note1"></a>note1</h2><p><font color=red>以下合法的标识符是？</font>(A,E,F,G)<br>A.flag_3<br>B.my code<br>C.discount%<br>D.234rate<br>E.$name<br>F.println<br>G.main  </p>
+<p><font style ="background: black"><font color=yellow>解释：Java的关键字不能用做标识符，但是println,main不属于标识符（标识符一般在编辑器中会被高亮成紫色）。</font></font></p>
+<h2 id="note2"><a href="#note2" class="headerlink" title="note2"></a>note2</h2><p>标识符的命名规范<br>1）见名知意</p>
+<p>（2）类名、接口名等：每个单词的首字母都大写（大驼峰法则），形式：XxxYyyZzz，</p>
+<p>例如：HelloWorld，String，System等</p>
+<p>（3）变量、方法名等：从第二个单词开始首字母大写（小驼峰法则），其余字母小写，形式：xxxYyyZzz，</p>
+<p>例如：age,name,bookName,main</p>
+<p>（4）包名等：每一个单词都小写，单词之间使用点.分割，形式：xxx.yyy.zzz，</p>
+<p>例如：java.lang</p>
+<p>（5）常量名等：每一个单词都大写，单词之间使用下划线_分割，形式：XXX_YYY_ZZZ，</p>
+<p>例如：MAX_VALUE,PI</p>
+<h2 id="note3"><a href="#note3" class="headerlink" title="note3"></a>note3</h2><p><font style ="background: black"><font color=yellow>Java报错：</font></font> 类class 是公共的, 应在名为 .java 的文件中声明<br>原因：public修饰的class必须与.java的文件名一致</p>
+<h2 id="note4"><a href="#note4" class="headerlink" title="note4"></a>note4</h2><p><font color=red>分析以下代码：</font><br>short s1 &#x3D; 120;<br>short s2 &#x3D; 8;<br>byte s3 &#x3D; (byte)(s1+s2); </p>
+<p><font style ="background: black"><font color=yellow>输出s3结果为-128(两个short做运算结果是int)。因为s1+s2&#x3D;128。int(占四个字节,32个2进制位) 128的二进制为00000000 00000000 00000000 10000000，若要转换成byte(1个字节，8个二进制位）则为10000000(-128),因为有符号二进制存储第一个数为1，代表负数，先求10000000的反码为01111111，在加1得到10000000，该数的十进制数为128。则s3对应的数为-128。</font></font><br>同理 byte b &#x3D; (byte)129;<br>b的输出值为-127，因为int 129的二进制数为00000000 00000000 00000000 10000001，转换为byte类型,其二进制数为10000001，第一个数字为1表明该二进制数对应的十进制数字为负数，按照负数的转换规则，先求10000001的反码为01111110，再加1，得到01111111，该数为127，则b的值为-127。</p>
+<h2 id="note5"><a href="#note5" class="headerlink" title="note5"></a>note5</h2><p>byte b1 &#x3D; 3;<br>byte b2 &#x3D; 4;<br>byte b3 &#x3D; b1 + b2;<br>byte b4 &#x3D; 3 + 4;<br><font style ="background: black"><font color=yellow>运行以上的代码，b3会报错，因为b1 + b2默认是int类型，（byte，short，char运算的值默认为int类型），存储范围大的变量不能直接赋值给存储范围小的变量。<br>b4不会报错，因为3和4是两个常量值，会自动运算为7，与变量不一样，可以直接赋值给b3。</font></font></p>
+<h2 id="note6"><a href="#note6" class="headerlink" title="note6"></a>note6</h2><p>int i &#x3D; 10;<br>i &#x3D; i++;<br>System.out.println(“i &#x3D;”+i);<br><font style ="background: black"><font color=yellow>输出结果i &#x3D; 10,因为i的值一开始为10，先把10这个值取出来找个地方存储，然后i++，i的值变为11，再把10这个值赋给等号左侧的i，所以i的输出值为10。</font></font></p>
+<h2 id="note7"><a href="#note7" class="headerlink" title="note7"></a>note7</h2><p><font color=red>分析以下代码：</font><br>byte b&#x3D; 127;<br>b &#x3D; b + 1;<br>b +&#x3D; 1; </p>
+<p><font style ="background: black"><font color=yellow>b &#x3D; b + 1; 这行代码会报错，因为b + 1的运算结果是int类型，不能赋值给byte类型的b。但是如果运行 b +&#x3D; 1则可以运行，但是输出的结果b &#x3D; -128。因为 +&#x3D; 操作实际上进行了强制类型转换，但是byte的取值范围为-128到127，强制类型转换为byte就导致128变成了-128。</font></font>  </p>
+<p>同理<br>int i &#x3D; 1;<br>i *&#x3D;0.1;<br>System.out.println(i);<br>输出的结果为i &#x3D; 0，因为i *&#x3D; 0.1;实际上的操作为i &#x3D; (int) i * 0.1; 即(int)1 * 0.1 &#x3D; 0;  </p>
+<h2 id="note8"><a href="#note8" class="headerlink" title="note8"></a>note8</h2><p>右移运算符 ：一个数右移n位，结果为这个数除以2的n次幂，<font color=red>除不尽向下取整。</font><br>System.out.println(-9&gt;&gt;2);输出的数为-3，因为-9&#x2F;2^2 &#x3D; -2.25,向下取整得到的就是-3。<br>System.out.println(-9&gt;&gt;&gt;2);输出的数为1073741821，因为&gt;&gt;&gt;为无符号右移，最高为补0,结果为正数，该数的求法是通过算补码得到的。<br>System.out.println(3&lt;&lt;33);输出的数为6，因为int类型4个字节，32位，移动33位相当于移动一位。每超过32位，得到的数相当于3 * 2^(33%32) 。 </p>
+<h2 id="note9"><a href="#note9" class="headerlink" title="note9"></a>note9</h2><p>int x &#x3D; 5;<br>int y &#x3D; 7;<br>x &#x3D; x^y;<br>y &#x3D; x^y;<br>x &#x3D; x^y;<br>System.out.println(x);<br>System.out.println(y);<br><font style ="background: black"><font color=yellow>该运算操作相当于交换两个变量的值。</font></font> </p>
+<h2 id="note10"><a href="#note10" class="headerlink" title="note10"></a>note10</h2><p><font color=red>数组的声明：</font><br>数据类型[] 数组名;<br><font color=red>数组的几种定义方式：</font>  </p>
+<ol>
+<li>静态初始化：<br>数据类型[] 数组名 &#x3D; new 数据类型[]{元素1，元素2，…};<br>数据类型[] 数组名 &#x3D; {元素1，元素2，…};</li>
+<li>动态初始化：<br>数据类型[] 数组名 &#x3D; new 数据类型[长度];</li>
+</ol>
+<h2 id="note11"><a href="#note11" class="headerlink" title="note11"></a>note11</h2><p><font color=red>Java虚拟机的内存划分</font><br>常用到的三部分：方法区、堆内存、虚拟机栈。<br>方法区：存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。<br>堆内存：存储对象（包括数组对象），new来创建的，都存储在堆内存。<br>虚拟机栈：用于存储正在执行的每个Java方法的局部变量表等。<br />局部变量表存放了编译期可知长度的各种基本数据类型、对象引用，方法执行完，自动释放。</p>
+]]></content>
+      <tags>
+        <tag>JavaSE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ErrMsg:Nacos Server did not start because dumpservice bean construction failure :No DataSource set</title>
+    <url>/2024/03/19/ErrMsg-Nacos-Server-did-not-start-because-dumpservice-bean-construction-failure-No-DataSource-set/</url>
+    <content><![CDATA[<p><a href="https://so.csdn.net/so/search?q=Nacos&spm=1001.2101.3001.7020">Nacos</a>有时候虽然可以正常启动，但是一访问<a href="http://192.168.6.100:8848/">http://127.0.0.1:8848/</a>进程就会stopped。<a href="https://so.csdn.net/so/search?q=%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97&spm=1001.2101.3001.7020">查看日志</a>有这么一句报错：  </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ErrMsg:Nacos Server did not start because dumpservice bean construction failure :No DataSource set</span><br></pre></td></tr></table></figure>
+
+<p>这有可能是数据库的连接没有释放导致的，可以尝试在数据库中</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flush hosts</span><br></pre></td></tr></table></figure>
+
+<p>再尝试连接</p>
+<p>然后可以查询下远程权限是否开放</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select host,user from user</span><br></pre></td></tr></table></figure>
+
+<p>如果没有开放</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">update user set host=&#x27;%&#x27; where user=&#x27;root&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>开放远程权限再尝试启动Nacos，这时再访问Nacos问题得以解决。<br>————————————————</p>
+<pre><code>版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。
+</code></pre>
+<p>原文链接：<a href="https://blog.csdn.net/FENGBOKE/article/details/136579894">https://blog.csdn.net/FENGBOKE/article/details/136579894</a></p>
+]]></content>
+      <tags>
+        <tag>Nacos</tag>
+        <tag>微服务</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo教程(一)|如何写文章并发布</title>
+    <url>/2024/03/18/Hexo%E6%95%99%E7%A8%8B-%E4%B8%80-%E5%A6%82%E4%BD%95%E5%86%99%E6%96%87%E7%AB%A0%E5%B9%B6%E5%8F%91%E5%B8%83/</url>
+    <content><![CDATA[<h3 id="创建新文章"><a href="#创建新文章" class="headerlink" title="创建新文章"></a><strong>创建新文章</strong></h3><p>在根目录下打开命令行，使用如下命令创建新文章：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo new &lt;title&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如下图所示：</p>
+<p><img src="/images/HexoBlog_3_18.png"></p>
+<p>md文档顶部自动生成的内容称之为<code>Front-matter</code>，即前置信息，用于给 Hexo 渲染该 md 文档，有很多的配置项可以自己添加：</p>
+<p><img src="/images/HexoBlog_2024-03-18_21-13-56.png"></p>
+<p>如何添加配置项:</p>
+<p><img src="/images/HexoBlog_2024-03-18_21-17-17.png"></p>
+<h3 id="部署到GitHub"><a href="#部署到GitHub" class="headerlink" title="部署到GitHub"></a>部署到GitHub</h3><p>本地运行命令:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+
+<p>部署命令</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+
+]]></content>
+  </entry>
+  <entry>
+    <title>HTTP协议相关知识整理</title>
+    <url>/2023/12/02/HTTP%E5%8D%8F%E8%AE%AE%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/</url>
+    <content><![CDATA[<h4 id="输入URL发生了什么？"><a href="#输入URL发生了什么？" class="headerlink" title="输入URL发生了什么？"></a>输入URL发生了什么？</h4><ol>
+<li>浏览器的地址栏输入URL并按下回车。</li>
+<li>浏览器查找当前URL是否存在缓存，并比较缓存是否过期。</li>
+<li>DNS解析URL对应的IP。</li>
+<li>根据IP建立TCP（传输层）连接（三次握手）。<ul>
+<li>客户端发送⼀个<code>TCP</code>的<strong>SYN&#x3D;1</strong>，<strong>Seq&#x3D;X</strong>的包到服务器端口</li>
+<li>服务器发回<strong>SYN&#x3D;1</strong>， <strong>ACK&#x3D;X+1</strong>， <strong>Seq&#x3D;Y</strong>的响应包</li>
+<li>客户端发送<strong>ACK&#x3D;Y+1</strong>， <strong>Seq&#x3D;Z</strong></li>
+</ul>
+</li>
+<li>HTTP发起请求。</li>
+<li>服务器处理请求，浏览器接收HTTP响应。</li>
+<li>渲染页面，构建DOM树。</li>
+<li>关闭TCP连接（四次挥手）。<ul>
+<li>主动⽅发送<strong>Fin&#x3D;1</strong>， <strong>Ack&#x3D;Z</strong>， <strong>Seq&#x3D; X</strong>报⽂</li>
+<li>被动⽅发送<strong>ACK&#x3D;X+1</strong>， <strong>Seq&#x3D;Z</strong>报⽂</li>
+<li>被动⽅发送<strong>Fin&#x3D;1</strong>， <strong>ACK&#x3D;X</strong>， <strong>Seq&#x3D;Y</strong>报⽂</li>
+<li>主动⽅发送<strong>ACK&#x3D;Y</strong>， <strong>Seq&#x3D;X</strong>报⽂</li>
+</ul>
+</li>
+</ol>
+<h4 id="输入URL发生了什么？为什么要三次握手而不是两次？"><a href="#输入URL发生了什么？为什么要三次握手而不是两次？" class="headerlink" title="输入URL发生了什么？为什么要三次握手而不是两次？"></a>输入URL发生了什么？为什么要三次握手而不是两次？</h4><p>这是为了防止已经失效的请求报文突然又传到服务器产生错误。</p>
+<h4 id="HTTP协议介绍"><a href="#HTTP协议介绍" class="headerlink" title="HTTP协议介绍"></a>HTTP协议介绍</h4><p>超文本传输协议(HTTP)是一种应用层协议。</p>
+<p>HTTP是一个客户端终端（用户）和服务器端（网站）请求和应答的标准（TCP）。通过使用网页浏览器、网络爬虫或者其它的工具，客户端发起一个HTTP请求到服务器上指定端口（默认端口为80）。我们称这个客户端为用户代理程序（user agent）。应答的服务器上存储着一些资源，比如HTML文件和图像。我们称这个应答服务器为源服务器（origin server）。在用户代理和源服务器中间可能存在多个“中间层”，比如代理服务器、网关或者隧道（tunnel）。</p>
+<p>尽管TCP&#x2F;IP协议是互联网上最流行的应用，HTTP协议中，并没有规定必须使用它或它支持的层。事实上，HTTP可以在任何互联网协议上，或其他网络上实现。HTTP假定其下层协议提供可靠的传输。因此，任何能够提供这种保证的协议都可以被其使用。因此也就是其在TCP&#x2F;IP协议族使用TCP作为其传输层。</p>
+<p>通常，由HTTP客户端发起一个请求，创建一个到服务器指定端口（默认是80端口）的TCP连接。HTTP服务器则在那个端口监听客户端的请求。一旦收到请求，服务器会向客户端返回一个状态，比如”HTTP&#x2F;1.1 200 OK”，以及返回的内容，如请求的文件、错误消息、或者其它信息。</p>
+<p>HTTP协议定义Web客户端如何从Web服务器请求Web页面，以及服务器如何把Web页面传送给客户端。HTTP协议采用了请求&#x2F;响应模型。客户端向服务器发送一个请求报文，请求报文包含请求的方法、URL、协议版本、请求头部和请求数据。服务器以一个状态行作为响应，响应的内容包括协议的版本、成功或者错误代码、服务器信息、响应头部和响应数据。</p>
+<p>以下是 HTTP 请求&#x2F;响应的步骤：</p>
+<ol>
+<li>客户端连接到Web服务器<br>一个HTTP客户端，通常是浏览器，与Web服务器的HTTP端口（默认为80）建立一个TCP套接字连接。例如，<a href="http://www.simonf.cn./">http://www.simonf.cn。</a></li>
+<li>发送HTTP请求<br>通过TCP套接字，客户端向Web服务器发送一个文本的请求报文，一个请求报文由请求行、请求头部、空行和请求数据4部分组成。</li>
+<li>服务器接受请求并返回HTTP响应<br>Web服务器解析请求，定位请求资源。服务器将资源复本写到TCP套接字，由客户端读取。一个响应由状态行、响应头部、空行和响应数据4部分组成。</li>
+<li>释放连接TCP连接<br>若connection 模式为close，则服务器主动关闭TCP连接，客户端被动关闭连接，释放TCP连接;若connection 模式为keepalive，则该连接会保持一段时间，在该时间内可以继续接收请求;</li>
+<li>客户端浏览器解析HTML内容<br>客户端浏览器首先解析状态行，查看表明请求是否成功的状态代码。然后解析每一个响应头，响应头告知以下为若干字节的HTML文档和文档的字符集。客户端浏览器读取响应数据HTML，根据HTML的语法对其进行格式化，并在浏览器窗口中显示。</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java中数组的值传递</title>
     <url>/2024/04/19/Java%E4%B8%AD%E6%95%B0%E7%BB%84%E7%9A%84%E5%80%BC%E4%BC%A0%E9%80%92/</url>
     <content><![CDATA[<p>今天在做LeetCode27题（<a href="https://leetcode.cn/problems/remove-element/">https://leetcode.cn/problems/remove-element/</a>）时发现了一个问题，我自己的解法如下：</p>
@@ -38,16 +162,46 @@
       </tags>
   </entry>
   <entry>
-    <title>提高代码运算效率，增加LeetCode代码通过率几种方法</title>
-    <url>/2024/04/19/%E6%8F%90%E9%AB%98%E4%BB%A3%E7%A0%81%E8%BF%90%E7%AE%97%E6%95%88%E7%8E%87%EF%BC%8C%E5%A2%9E%E5%8A%A0LeetCode%E4%BB%A3%E7%A0%81%E9%80%9A%E8%BF%87%E7%8E%87%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<h2 id="note1"><a href="#note1" class="headerlink" title="note1"></a>note1</h2><p>用位运算代替乘除法提高运算效率，例如:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.out.println(<span class="number">8</span>&gt;&gt;<span class="number">1</span>); <span class="comment">//4 相当于8%(2^1)</span></span><br><span class="line">System.out.println(<span class="number">8</span>&gt;&gt;<span class="number">2</span>); <span class="comment">//2 相当于8%(2^2)</span></span><br><span class="line">System.out.println(<span class="number">8</span>&gt;&gt;<span class="number">3</span>); <span class="comment">//1 相当于8%(2^3)</span></span><br><span class="line">System.out.println(<span class="number">2</span>&lt;&lt;<span class="number">1</span>); <span class="comment">//4 相当于2*(2^1)</span></span><br><span class="line">System.out.println(<span class="number">2</span>&lt;&lt;<span class="number">2</span>); <span class="comment">//8 相当于2*(2^2)</span></span><br><span class="line">System.out.println(<span class="number">2</span>&lt;&lt;<span class="number">3</span>); <span class="comment">//16 相当于2*(2^3)</span></span><br></pre></td></tr></table></figure>
+    <title>Loombook命名的坑</title>
+    <url>/2023/10/01/Loombook%E5%91%BD%E5%90%8D%E7%9A%84%E5%9D%91/</url>
+    <content><![CDATA[<p>在写一个后台用户模块时，为了区分系统管理员和用户，命名时用使用了sUsername来命名系统管理员的名字，但是数据库注册管理员时一直没法注册成功。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Schema(description = &quot;系统管理员&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SystemUser</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Schema(description = &quot;管理员姓名&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String sUsername;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Schema(description = &quot;管理员手机号码&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String phone;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-
+<p>经查源码发现sUsername的set方法在loombook中被命名为setSUsername，也就是说loombook中所有的属性的前两个字母必须小写！</p>
 ]]></content>
       <tags>
-        <tag>LeetCode</tag>
+        <tag>Java</tag>
+        <tag>Loombook</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Nacos异常：No DataSource set和Client not connected, current status:STARTING</title>
+    <url>/2024/03/19/Nacos%E5%BC%82%E5%B8%B8%EF%BC%9ANo-DataSource-set%E5%92%8CClient-not-connected-current-status-STARTING/</url>
+    <content><![CDATA[<p>今天遇到一个很有意思的问题：Nacos工作的好好的，一运行程序，nacos就自动stopped了。</p>
+<p>首先日志排查，linux命令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker logs nacos</span><br></pre></td></tr></table></figure>
+
+<p>初步怀疑是nacos启动后资源不足，但是日志里没有OutOfMemoryError等错误，但是日志里有这么一句：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">2024-03-08 22:07:25,713 ERROR Application run failed</span><br><span class="line"></span><br><span class="line">Nacos Server did not start because dumpservice bean construction failure : No DataSource set</span><br></pre></td></tr></table></figure>
+
+<p>百度了一下发现是mysql配置文件出了问题，mysql8.0之后的版本, 需要在官网文档配置mysql的基础上加上<strong>mysql时区的设置。</strong></p>
+<p><strong>像这样：</strong></p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">datasource:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">com.zaxxer.hikari.HikariDataSource</span></span><br><span class="line">  <span class="attr">driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">  <span class="attr">url:</span> <span class="string">jdbc:mysql://127.0.0.1:3306/db_spzx?characterEncoding=utf-8&amp;serverTimezone=UTC&amp;useSSL=false&amp;allowPublicKeyRetrieval=true</span></span><br></pre></td></tr></table></figure>
+
+<p>运行程序后报了新的错误：  </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Caused by: com.alibaba.nacos.api.exception.NacosException: Client not connected, current status:STARTING</span><br></pre></td></tr></table></figure>
+
+<p>依旧是百度了一下，发现nocos不仅需要配置中心地址，还得配置服务注册中心的地址。像这样：  </p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">simonf</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8848</span></span><br><span class="line">      <span class="attr">config:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8848</span></span><br></pre></td></tr></table></figure>
+
+<p>加入了服务注册中心的地址重启项目，运行成功！</p>
+<pre><code>版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。
+</code></pre>
+<p>原文链接：<a href="https://blog.csdn.net/FENGBOKE/article/details/136573527">https://blog.csdn.net/FENGBOKE/article/details/136573527</a></p>
+]]></content>
+      <tags>
+        <tag>Nacos</tag>
+        <tag>微服务</tag>
       </tags>
   </entry>
   <entry>
@@ -87,6 +241,32 @@
       </tags>
   </entry>
   <entry>
+    <title>Spring Cloud Gateway自定义全局过滤器方法</title>
+    <url>/2023/12/01/Spring-Cloud-Gateway%E8%87%AA%E5%AE%9A%E4%B9%89%E5%85%A8%E5%B1%80%E8%BF%87%E6%BB%A4%E5%99%A8%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<p>如果我们希望拦截请求，做自己的业务逻辑，Spring Cloud Gateway中默认的过滤器就没办法实现。此时，就需求使用全局过滤器，全局过滤器的作用也是处理一切进入网关的请求和微服务响应，与GatewayFilter的作用一样。区别在于GatewayFilter通过配置定义，处理逻辑是固定的；而GlobalFilter的逻辑需要自己写代码实现。</p>
+<p>以下是个配置自定义全局过滤器并在过滤器内部处理业务逻辑的示例：</p>
+<ul>
+<li>需求：定义全局过滤器，拦截请求，判断请求的参数是否满足下面条件：</li>
+</ul>
+<p><strong>请求参数中是否有username，如果满足则放行，否则拦截</strong></p>
+<ul>
+<li>步骤分析：</li>
+</ul>
+<p>1、定义一个类实现GlobalFilter接口</p>
+<p>2、重写filter方法</p>
+<p>3、将该类纳入到spring容器中</p>
+<p>4、实现Ordered接口定义该过滤器的顺序</p>
+<ul>
+<li>实现代码：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AuthorizationFilter</span> <span class="keyword">implements</span> <span class="title class_">GlobalFilter</span>, Ordered &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//实现过滤器逻辑</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Mono&lt;Void&gt; <span class="title function_">filter</span><span class="params">(ServerWebExchange exchange, GatewayFilterChain chain)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">username</span> <span class="operator">=</span> exchange.getRequest().getQueryParams().getFirst(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span>(!StringUtils.hasText(username))&#123;</span><br><span class="line">            exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);</span><br><span class="line">            <span class="keyword">return</span> exchange.getResponse().setComplete();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> chain.filter(exchange);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//定义该过滤器的顺序</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getOrder</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>Spring Cloud Gateway</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>MinIO上传文件报错:io.minio.errors.ErrorResponseException: The difference between the request time and the server&#39;s time is too large.</title>
     <url>/2024/04/03/MinIO%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E6%8A%A5%E9%94%99-io-minio-errors-ErrorResponseException-The-difference-between-the-request-time-and-the-server-s-time-is-too-large/</url>
     <content><![CDATA[<p>使用MinIO上传图片时报错：</p>
@@ -99,6 +279,93 @@
 ]]></content>
       <tags>
         <tag>MinIO</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Servlet学习时遇到的问题</title>
+    <url>/2020/10/01/Servlet%E5%AD%A6%E4%B9%A0%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h2 id="由于文件没有被设置成Resoureces-Root导致的空指针异常"><a href="#由于文件没有被设置成Resoureces-Root导致的空指针异常" class="headerlink" title="由于文件没有被设置成Resoureces Root导致的空指针异常"></a>由于文件没有被设置成Resoureces Root导致的空指针异常</h2><p>在前端输入信息后，点击提交按钮，控制台报错:</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">java.lang.NullPointerException: inStream parameter is null</span><br></pre></td></tr></table></figure>
+
+<p>检查后发现输入流没有读取到properties文件，将类加载器改为当前类的加载器(当前类为JDBCTools.class)，将properties文件移入到resources文件夹目录下（一定记得将resources文件夹右键Mark Directory as Resources Root），该问题解决。以下是Java代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">pro.load((JDBCTools.class.getClassLoader().getResourceAsStream(<span class="string">&quot;db.properties&quot;</span>)));</span><br></pre></td></tr></table></figure>
+
+<h2 id="泛型使用"><a href="#泛型使用" class="headerlink" title="泛型使用"></a>泛型使用</h2><p>从前端获取的数据用UserDao工具类的getBean语句在数据库内查询，但是返回值是Object类。</p>
+<p>通过在BaseBao后面加泛型可以获取查询到对象是User对象，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserDao</span> <span class="keyword">extends</span> <span class="title class_">BaseDao</span>&lt;User&gt;</span><br><span class="line"><span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> <span class="built_in">this</span>.getBean(User.class,<span class="string">&quot;select password from userreg where id = ?&quot;</span> ,id);</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>Servlet</tag>
+        <tag>JavaWeb</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于mybatis-plus实现Iservice、ServiceImpl和BaseMaper的一些理解（转载）</title>
+    <url>/2024/01/01/%E5%85%B3%E4%BA%8Emybatis-plus%E5%AE%9E%E7%8E%B0Iservice%E3%80%81ServiceImpl%E5%92%8CBaseMaper%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/</url>
+    <content><![CDATA[<p>当我们实现BaseMapper的时候，MP就会帮我们把BaseMapper里的接口类全部实现代理，成为可以直接被我们调用的类，这个过程完全不需要我们去写xml，当然我们也可以在接口中写上我们自己自定义的类，但是我们自定义的类必须去写xml去映射方法，默认他会去扫描resources下的mapper文件夹下的xml，类名要于接口名一样哦这个和mybatis是一样的，其实唯一的区别就是有一些类他帮我们写了其他的和mybatis没有区别。</p>
+<p><img src="/images/MyBatis-Plus-2024_01_01_13_17.png"></p>
+<p><img src="/images/MyBatis-Plus-2024_01_01_13_20.png"></p>
+<p> 接下来就是说IService接口和ServiceImpl,其实这两个类的存在也是很合理的，你想MP帮我们去实现了mapper接口，那mapper接口是不是得有Service接口和一个Service实现类啊？所以他其实帮我们连实现类也写好了，我们只需要去实现接口和继承实现类就好了。当然Service接口中我们也可以写自己的自定义方法但是同时我们也需要在ServiceImpl中自己去写我们自定义的方法，而从IService接口中实现的方法呢？ServiceImpl其实已经帮我们实现了，我们只要继承他就可以了。</p>
+<p><img src="/images/MyBatis-Plus-2024_01_01_13_24.png"></p>
+<p><img src="/images/MyBatis-Plus-2024_01_01_13_25.png"></p>
+<p> 在多说两句，继承ServiceImpl要放入两个泛型呢，第一个其实是我们之前写的那个UserMapper，<br>为什么要传入这个呢，看下面的图：</p>
+<p><img src="/images/MyBatis-Plus-2024_01_01_13_27.png"></p>
+<p> 可以看到系统提供的这个ServiceImpl类中有一个成员变量，他被@Autowired注解修饰也就是说这个成员变量是自动注入的，可以发现他的名字叫baseMapper，懂了吧，我们那个UserMapper是继承自baseMapper的吧，所以我们把那个接口传进来，其实就是让这个实现类去自动注入我们的那个UserMapper.</p>
+<p>第二个泛型是我们的那个model类，也就是User，我们告诉ServiceImpl我们要处理的User类，ServiceImpl再去调用UserMapper告诉Usermapper我要你处理的User，这说明什么呢，Usermapper的泛型和ServiceImpl的泛型要一致哦，不能说我Usermapper处理User类，然后你给ServiceImpl传入一个Student类，那到时候ServiceImpl传一个Student给UserMapper,UserMapper肯定就处理不了。可以看下图：</p>
+<p><img src="/images/MyBatis-Plus-2024_01_01_13_29.png"></p>
+<p>画红线的地方也看出来， ServiceImpl明确要求你这个泛型M必须继承的是一个泛型为T的BaseMapper,而T就是我们传入的第二个泛型，所以很明显Usermapper的泛型和ServiceImpl传入的第二个泛型是要一致的哦，一定要注意，虽然很基础但是往往也容易出错嘛..<br>————————————————</p>
+<pre><code>                        版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。
+</code></pre>
+<p>原文链接：<a href="https://blog.csdn.net/qq_44869121/article/details/124297999">https://blog.csdn.net/qq_44869121/article/details/124297999</a></p>
+]]></content>
+      <tags>
+        <tag>MyBatis-Plus</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>对象赋值时空指针异常:Exception in thread &#39;main&#39; java.lang.NullPointerException: Cannot invoke &#39;src.com.simonf.Employee.setName(String)&#39; because &#39;employees[i]&#39; is null at src.com.simonf.test1.main(test1.java:11）</title>
+    <url>/2020/05/03/%E5%AF%B9%E8%B1%A1%E8%B5%8B%E5%80%BC%E6%97%B6%E7%A9%BA%E6%8C%87%E9%92%88%E5%BC%82%E5%B8%B8/</url>
+    <content><![CDATA[<p><font color=red>代码：</font>  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class test1 &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Employee[] employees = new Employee[3];</span><br><span class="line">        System.out.println(&quot;-----------------&quot; + &quot;添加第1个员工&quot; + &quot;--------&quot;);</span><br><span class="line">        Scanner sc = new Scanner(System.in);</span><br><span class="line">        for (int i = 0; i &lt; 3; i++) &#123;</span><br><span class="line">            int[] arr = new int[3];</span><br><span class="line">            employees[i].setName(sc.next());</span><br><span class="line">            employees[i].setGender(sc.next().charAt(0));</span><br><span class="line">            employees[i].setAge(sc.nextInt());</span><br><span class="line">            employees[i].setSalary(sc.nextDouble());</span><br><span class="line">            employees[i].setPhoneNumber(sc.next());</span><br><span class="line">            employees[i].setEmail(sc.next());</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;--------------&quot;+&quot;添加完成&quot;+&quot;--------&quot;);</span><br><span class="line">        System.out.println(&quot;--------------&quot;+&quot;员工列表&quot;+&quot;--------&quot;);</span><br><span class="line">        for (int i = 0; i &lt; 3; i++) &#123;</span><br><span class="line">            System.out.println(employees[i].toString());</span><br><span class="line">            System.out.println(&quot;--------------------------------&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;--------------&quot;+&quot;员工列表完成&quot;+&quot;--------&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>张三(控制台输入)<br>报错：  </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Exception in thread <span class="string">&quot;main&quot;</span> java.lang.NullPointerException: Cannot invoke <span class="string">&quot;src.com.simonf.Employee.setName(String)&quot;</span> because <span class="string">&quot;employees[i]&quot;</span> is <span class="literal">null</span> at src.com.simonf.test1.main(test1.java:<span class="number">11</span>）   </span><br></pre></td></tr></table></figure>
+
+<p>这段代码报错的原因是在循环中没有为 employees[i] 分配内存空间，导致其为 null。因此，在使用 employees[i] 的方法时会出现NullPointerException。     </p>
+<p>要解决这个问题，你需要为 employees[i] 分配内存空间，即创建 Employee 对象并将其赋值给 employees[i]。可以在循环之前为每个employees[i] 创建一个新的 Employee 对象，如下所示：   </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;  </span><br><span class="line">        employees[i] = <span class="keyword">new</span> <span class="title class_">Employee</span>(); <span class="comment">// 创建新的 Employee 对象  </span></span><br><span class="line">        employees[i].setName(sc.next());  </span><br><span class="line">        employees[i].setGender(sc.next().charAt(<span class="number">0</span>));  </span><br><span class="line">        employees[i].setAge(sc.nextInt());  </span><br><span class="line">        employees[i].setSalary(sc.nextDouble());  </span><br><span class="line">        employees[i].setPhoneNumber(sc.next());  </span><br><span class="line">        employees[i].setEmail(sc.next());  </span><br><span class="line">    &#125;   </span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>JavaSE</tag>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>提高代码运算效率，增加LeetCode代码通过率几种方法</title>
+    <url>/2024/04/19/%E6%8F%90%E9%AB%98%E4%BB%A3%E7%A0%81%E8%BF%90%E7%AE%97%E6%95%88%E7%8E%87%EF%BC%8C%E5%A2%9E%E5%8A%A0LeetCode%E4%BB%A3%E7%A0%81%E9%80%9A%E8%BF%87%E7%8E%87%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h2 id="note1"><a href="#note1" class="headerlink" title="note1"></a>note1</h2><p>用位运算代替乘除法提高运算效率，例如:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.out.println(<span class="number">8</span>&gt;&gt;<span class="number">1</span>); <span class="comment">//4 相当于8%(2^1)</span></span><br><span class="line">System.out.println(<span class="number">8</span>&gt;&gt;<span class="number">2</span>); <span class="comment">//2 相当于8%(2^2)</span></span><br><span class="line">System.out.println(<span class="number">8</span>&gt;&gt;<span class="number">3</span>); <span class="comment">//1 相当于8%(2^3)</span></span><br><span class="line">System.out.println(<span class="number">2</span>&lt;&lt;<span class="number">1</span>); <span class="comment">//4 相当于2*(2^1)</span></span><br><span class="line">System.out.println(<span class="number">2</span>&lt;&lt;<span class="number">2</span>); <span class="comment">//8 相当于2*(2^2)</span></span><br><span class="line">System.out.println(<span class="number">2</span>&lt;&lt;<span class="number">3</span>); <span class="comment">//16 相当于2*(2^3)</span></span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <tags>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>浏览器将路径自动转换为小写导致跳过路由守卫</title>
+    <url>/2021/12/01/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%B0%86%E8%B7%AF%E5%BE%84%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%B0%8F%E5%86%99%E5%AF%BC%E8%87%B4%E8%B7%B3%E8%BF%87%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB/</url>
+    <content><![CDATA[<p>路由设置路径中出现大写，浏览器将路径自动转换为小写导致跳过路由守卫</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> router = <span class="title function_">createRouter</span>(&#123;</span><br><span class="line">     <span class="attr">history</span>:<span class="title function_">createWebHashHistory</span>(),</span><br><span class="line"></span><br><span class="line">    <span class="attr">routes</span>:[</span><br><span class="line">        &#123;<span class="attr">path</span>:<span class="string">&#x27;/ShowSchedule&#x27;</span>,<span class="attr">component</span>:<span class="title class_">ShowSchedule</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">path</span>:<span class="string">&#x27;/Login&#x27;</span>,<span class="attr">component</span>:<span class="title class_">Login</span>&#125;,</span><br><span class="line">    ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>浏览器输入URL：<a href="view-source:http://localhost:5174/#/showschedule">view-source:localhost:5174&#x2F;#&#x2F;showschedule</a>路径自动全部转换为小写导致跳过了路由守卫，建议以后Path全小写，component首字母大写。</p>
+]]></content>
+      <tags>
+        <tag>vue</tag>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -145,102 +412,29 @@
       </tags>
   </entry>
   <entry>
-    <title>ErrMsg:Nacos Server did not start because dumpservice bean construction failure :No DataSource set</title>
-    <url>/2024/03/19/ErrMsg-Nacos-Server-did-not-start-because-dumpservice-bean-construction-failure-No-DataSource-set/</url>
-    <content><![CDATA[<p><a href="https://so.csdn.net/so/search?q=Nacos&spm=1001.2101.3001.7020">Nacos</a>有时候虽然可以正常启动，但是一访问<a href="http://192.168.6.100:8848/">http://127.0.0.1:8848/</a>进程就会stopped。<a href="https://so.csdn.net/so/search?q=%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97&spm=1001.2101.3001.7020">查看日志</a>有这么一句报错：  </p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ErrMsg:Nacos Server did not start because dumpservice bean construction failure :No DataSource set</span><br></pre></td></tr></table></figure>
+    <title>枚举和包装类案例分析</title>
+    <url>/2022/04/01/%E6%9E%9A%E4%B8%BE%E5%92%8C%E5%8C%85%E8%A3%85%E7%B1%BB%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<h2 id="枚举和包装类"><a href="#枚举和包装类" class="headerlink" title="枚举和包装类"></a>枚举和包装类</h2><h3 id="阅读代码，分析运行结果："><a href="#阅读代码，分析运行结果：" class="headerlink" title="阅读代码，分析运行结果："></a>阅读代码，分析运行结果：</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">	<span class="type">Integer</span> <span class="variable">i1</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line">	<span class="type">Integer</span> <span class="variable">i2</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line">	<span class="type">int</span> <span class="variable">i3</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line">	<span class="type">int</span> <span class="variable">i4</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line">	System.out.println(i1 == i2);</span><br><span class="line">	System.out.println(i3 == i4);</span><br><span class="line">	System.out.println(i1 == i3);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>这有可能是数据库的连接没有释放导致的，可以尝试在数据库中</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flush hosts</span><br></pre></td></tr></table></figure>
+<p>这段代码涉及到了Java中的自动装箱和拆箱的概念。</p>
+<p>首先，我们需要了解Java中的整数缓存机制。Java中对于整数类型的缓存范围是在-128到127之间。当我们使用自动装箱将一个整数赋值给一个 <code>Integer</code> 对象时，如果该整数在缓存范围内，那么会直接返回缓存中的对象，而不会创建新的对象。</p>
+<p>现在来分析代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Integer</span> <span class="variable">i1</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line"><span class="type">Integer</span> <span class="variable">i2</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">i3</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">i4</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line">System.out.println(i1 == i2);</span><br><span class="line">System.out.println(i3 == i4);</span><br><span class="line">System.out.println(i1 == i3);</span><br></pre></td></tr></table></figure>
 
-<p>再尝试连接</p>
-<p>然后可以查询下远程权限是否开放</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">select host,user from user</span><br></pre></td></tr></table></figure>
+<p>在这段代码中，我们分别创建了两个 <code>Integer</code> 对象 <code>i1</code> 和 <code>i2</code>，并将它们都赋值为 <code>128</code>。然后，我们创建了两个 <code>int</code> 类型的变量 <code>i3</code> 和 <code>i4</code>，并同样赋值为 <code>128</code>。</p>
+<p>接下来，我们分别使用 <code>==</code> 运算符进行比较。</p>
+<p>第一个比较 <code>i1 == i2</code>，由于 <code>i1</code> 和 <code>i2</code> 都是通过自动装箱得到的 <code>Integer</code> 对象，而且 <code>128</code> 不在整数缓存范围内，所以 <code>i1</code> 和 <code>i2</code> 引用的是不同的对象，因此比较结果为 <code>false</code>。</p>
+<p>第二个比较 <code>i3 == i4</code>，由于 <code>i3</code> 和 <code>i4</code> 都是基本类型的 <code>int</code>，直接进行数值比较，所以比较结果为 <code>true</code>。</p>
+<p>第三个比较 <code>i1 == i3</code>，由于 <code>i1</code> 是 <code>Integer</code> 对象，而 <code>i3</code> 是基本类型的 <code>int</code>，在比较时会进行自动拆箱，将 <code>i1</code> 转换为 <code>int</code> 类型。然后进行数值比较，所以比较结果为 <code>true</code>。</p>
+<p>总结起来，<code>i1 == i2</code> 的结果是 <code>false</code>，<code>i3 == i4</code> 和 <code>i1 == i3</code> 的结果都是 <code>true</code>。这是因为 <code>Integer</code> 对象的比较是通过自动拆箱后的数值比较来实现的。</p>
+<h3 id="阅读代码，分析运行结果：-1"><a href="#阅读代码，分析运行结果：-1" class="headerlink" title="阅读代码，分析运行结果："></a>阅读代码，分析运行结果：</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">	<span class="type">double</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">2.0</span>;</span><br><span class="line">	<span class="type">double</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">2.0</span>;</span><br><span class="line">	<span class="type">Double</span> <span class="variable">c</span> <span class="operator">=</span> <span class="number">2.0</span>;</span><br><span class="line">	<span class="type">Double</span> <span class="variable">d</span> <span class="operator">=</span> <span class="number">2.0</span>;</span><br><span class="line">	System.out.println(a == b);</span><br><span class="line">	System.out.println(c == d);</span><br><span class="line">	System.out.println(a == d);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>如果没有开放</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">update user set host=&#x27;%&#x27; where user=&#x27;root&#x27;</span><br></pre></td></tr></table></figure>
-
-<p>开放远程权限再尝试启动Nacos，这时再访问Nacos问题得以解决。<br>————————————————</p>
-<pre><code>版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。
-</code></pre>
-<p>原文链接：<a href="https://blog.csdn.net/FENGBOKE/article/details/136579894">https://blog.csdn.net/FENGBOKE/article/details/136579894</a></p>
+<p>这段代码涉及到了Java中的自动装箱和拆箱的概念，和包装类的缓存机制。Double和Float包装类没有缓存对象。所以(a&#x3D;&#x3D;b)结果为true，(c&#x3D;&#x3D;d)结果为false，(a&#x3D;&#x3D;d)结果为true。</p>
 ]]></content>
       <tags>
-        <tag>Nacos</tag>
-        <tag>微服务</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Nacos异常：No DataSource set和Client not connected, current status:STARTING</title>
-    <url>/2024/03/19/Nacos%E5%BC%82%E5%B8%B8%EF%BC%9ANo-DataSource-set%E5%92%8CClient-not-connected-current-status-STARTING/</url>
-    <content><![CDATA[<p>今天遇到一个很有意思的问题：Nacos工作的好好的，一运行程序，nacos就自动stopped了。</p>
-<p>首先日志排查，linux命令：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker logs nacos</span><br></pre></td></tr></table></figure>
-
-<p>初步怀疑是nacos启动后资源不足，但是日志里没有OutOfMemoryError等错误，但是日志里有这么一句：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">2024-03-08 22:07:25,713 ERROR Application run failed</span><br><span class="line"></span><br><span class="line">Nacos Server did not start because dumpservice bean construction failure : No DataSource set</span><br></pre></td></tr></table></figure>
-
-<p>百度了一下发现是mysql配置文件出了问题，mysql8.0之后的版本, 需要在官网文档配置mysql的基础上加上<strong>mysql时区的设置。</strong></p>
-<p><strong>像这样：</strong></p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">datasource:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">com.zaxxer.hikari.HikariDataSource</span></span><br><span class="line">  <span class="attr">driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">  <span class="attr">url:</span> <span class="string">jdbc:mysql://127.0.0.1:3306/db_spzx?characterEncoding=utf-8&amp;serverTimezone=UTC&amp;useSSL=false&amp;allowPublicKeyRetrieval=true</span></span><br></pre></td></tr></table></figure>
-
-<p>运行程序后报了新的错误：  </p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Caused by: com.alibaba.nacos.api.exception.NacosException: Client not connected, current status:STARTING</span><br></pre></td></tr></table></figure>
-
-<p>依旧是百度了一下，发现nocos不仅需要配置中心地址，还得配置服务注册中心的地址。像这样：  </p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">simonf</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">nacos:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8848</span></span><br><span class="line">      <span class="attr">config:</span></span><br><span class="line">        <span class="attr">server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8848</span></span><br></pre></td></tr></table></figure>
-
-<p>加入了服务注册中心的地址重启项目，运行成功！</p>
-<pre><code>版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。
-</code></pre>
-<p>原文链接：<a href="https://blog.csdn.net/FENGBOKE/article/details/136573527">https://blog.csdn.net/FENGBOKE/article/details/136573527</a></p>
-]]></content>
-      <tags>
-        <tag>Nacos</tag>
-        <tag>微服务</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo教程(一)|如何写文章并发布</title>
-    <url>/2024/03/18/Hexo%E6%95%99%E7%A8%8B-%E4%B8%80-%E5%A6%82%E4%BD%95%E5%86%99%E6%96%87%E7%AB%A0%E5%B9%B6%E5%8F%91%E5%B8%83/</url>
-    <content><![CDATA[<h3 id="创建新文章"><a href="#创建新文章" class="headerlink" title="创建新文章"></a><strong>创建新文章</strong></h3><p>在根目录下打开命令行，使用如下命令创建新文章：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo new &lt;title&gt;</span><br></pre></td></tr></table></figure>
-
-<p>如下图所示：</p>
-<p><img src="/images/HexoBlog_3_18.png"></p>
-<p>md文档顶部自动生成的内容称之为<code>Front-matter</code>，即前置信息，用于给 Hexo 渲染该 md 文档，有很多的配置项可以自己添加：</p>
-<p><img src="/images/HexoBlog_2024-03-18_21-13-56.png"></p>
-<p>如何添加配置项:</p>
-<p><img src="/images/HexoBlog_2024-03-18_21-17-17.png"></p>
-<h3 id="部署到GitHub"><a href="#部署到GitHub" class="headerlink" title="部署到GitHub"></a>部署到GitHub</h3><p>本地运行命令:</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-
-<p>部署命令</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-
-]]></content>
-  </entry>
-  <entry>
-    <title>关于mybatis-plus实现Iservice、ServiceImpl和BaseMaper的一些理解（转载）</title>
-    <url>/2024/01/01/%E5%85%B3%E4%BA%8Emybatis-plus%E5%AE%9E%E7%8E%B0Iservice%E3%80%81ServiceImpl%E5%92%8CBaseMaper%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/</url>
-    <content><![CDATA[<p>当我们实现BaseMapper的时候，MP就会帮我们把BaseMapper里的接口类全部实现代理，成为可以直接被我们调用的类，这个过程完全不需要我们去写xml，当然我们也可以在接口中写上我们自己自定义的类，但是我们自定义的类必须去写xml去映射方法，默认他会去扫描resources下的mapper文件夹下的xml，类名要于接口名一样哦这个和mybatis是一样的，其实唯一的区别就是有一些类他帮我们写了其他的和mybatis没有区别。</p>
-<p><img src="/images/MyBatis-Plus-2024_01_01_13_17.png"></p>
-<p><img src="/images/MyBatis-Plus-2024_01_01_13_20.png"></p>
-<p> 接下来就是说IService接口和ServiceImpl,其实这两个类的存在也是很合理的，你想MP帮我们去实现了mapper接口，那mapper接口是不是得有Service接口和一个Service实现类啊？所以他其实帮我们连实现类也写好了，我们只需要去实现接口和继承实现类就好了。当然Service接口中我们也可以写自己的自定义方法但是同时我们也需要在ServiceImpl中自己去写我们自定义的方法，而从IService接口中实现的方法呢？ServiceImpl其实已经帮我们实现了，我们只要继承他就可以了。</p>
-<p><img src="/images/MyBatis-Plus-2024_01_01_13_24.png"></p>
-<p><img src="/images/MyBatis-Plus-2024_01_01_13_25.png"></p>
-<p> 在多说两句，继承ServiceImpl要放入两个泛型呢，第一个其实是我们之前写的那个UserMapper，<br>为什么要传入这个呢，看下面的图：</p>
-<p><img src="/images/MyBatis-Plus-2024_01_01_13_27.png"></p>
-<p> 可以看到系统提供的这个ServiceImpl类中有一个成员变量，他被@Autowired注解修饰也就是说这个成员变量是自动注入的，可以发现他的名字叫baseMapper，懂了吧，我们那个UserMapper是继承自baseMapper的吧，所以我们把那个接口传进来，其实就是让这个实现类去自动注入我们的那个UserMapper.</p>
-<p>第二个泛型是我们的那个model类，也就是User，我们告诉ServiceImpl我们要处理的User类，ServiceImpl再去调用UserMapper告诉Usermapper我要你处理的User，这说明什么呢，Usermapper的泛型和ServiceImpl的泛型要一致哦，不能说我Usermapper处理User类，然后你给ServiceImpl传入一个Student类，那到时候ServiceImpl传一个Student给UserMapper,UserMapper肯定就处理不了。可以看下图：</p>
-<p><img src="/images/MyBatis-Plus-2024_01_01_13_29.png"></p>
-<p>画红线的地方也看出来， ServiceImpl明确要求你这个泛型M必须继承的是一个泛型为T的BaseMapper,而T就是我们传入的第二个泛型，所以很明显Usermapper的泛型和ServiceImpl传入的第二个泛型是要一致的哦，一定要注意，虽然很基础但是往往也容易出错嘛..<br>————————————————</p>
-<pre><code>                        版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。
-</code></pre>
-<p>原文链接：<a href="https://blog.csdn.net/qq_44869121/article/details/124297999">https://blog.csdn.net/qq_44869121/article/details/124297999</a></p>
-]]></content>
-      <tags>
-        <tag>MyBatis-Plus</tag>
+        <tag>JavaSE</tag>
+        <tag>Java</tag>
+        <tag>枚举和包装类</tag>
       </tags>
   </entry>
   <entry>
@@ -320,200 +514,6 @@
       <tags>
         <tag>JUC</tag>
         <tag>线程池</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>HTTP协议相关知识整理</title>
-    <url>/2023/12/02/HTTP%E5%8D%8F%E8%AE%AE%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/</url>
-    <content><![CDATA[<h4 id="输入URL发生了什么？"><a href="#输入URL发生了什么？" class="headerlink" title="输入URL发生了什么？"></a>输入URL发生了什么？</h4><ol>
-<li>浏览器的地址栏输入URL并按下回车。</li>
-<li>浏览器查找当前URL是否存在缓存，并比较缓存是否过期。</li>
-<li>DNS解析URL对应的IP。</li>
-<li>根据IP建立TCP（传输层）连接（三次握手）。<ul>
-<li>客户端发送⼀个<code>TCP</code>的<strong>SYN&#x3D;1</strong>，<strong>Seq&#x3D;X</strong>的包到服务器端口</li>
-<li>服务器发回<strong>SYN&#x3D;1</strong>， <strong>ACK&#x3D;X+1</strong>， <strong>Seq&#x3D;Y</strong>的响应包</li>
-<li>客户端发送<strong>ACK&#x3D;Y+1</strong>， <strong>Seq&#x3D;Z</strong></li>
-</ul>
-</li>
-<li>HTTP发起请求。</li>
-<li>服务器处理请求，浏览器接收HTTP响应。</li>
-<li>渲染页面，构建DOM树。</li>
-<li>关闭TCP连接（四次挥手）。<ul>
-<li>主动⽅发送<strong>Fin&#x3D;1</strong>， <strong>Ack&#x3D;Z</strong>， <strong>Seq&#x3D; X</strong>报⽂</li>
-<li>被动⽅发送<strong>ACK&#x3D;X+1</strong>， <strong>Seq&#x3D;Z</strong>报⽂</li>
-<li>被动⽅发送<strong>Fin&#x3D;1</strong>， <strong>ACK&#x3D;X</strong>， <strong>Seq&#x3D;Y</strong>报⽂</li>
-<li>主动⽅发送<strong>ACK&#x3D;Y</strong>， <strong>Seq&#x3D;X</strong>报⽂</li>
-</ul>
-</li>
-</ol>
-<h4 id="输入URL发生了什么？为什么要三次握手而不是两次？"><a href="#输入URL发生了什么？为什么要三次握手而不是两次？" class="headerlink" title="输入URL发生了什么？为什么要三次握手而不是两次？"></a>输入URL发生了什么？为什么要三次握手而不是两次？</h4><p>这是为了防止已经失效的请求报文突然又传到服务器产生错误。</p>
-<h4 id="HTTP协议介绍"><a href="#HTTP协议介绍" class="headerlink" title="HTTP协议介绍"></a>HTTP协议介绍</h4><p>超文本传输协议(HTTP)是一种应用层协议。</p>
-<p>HTTP是一个客户端终端（用户）和服务器端（网站）请求和应答的标准（TCP）。通过使用网页浏览器、网络爬虫或者其它的工具，客户端发起一个HTTP请求到服务器上指定端口（默认端口为80）。我们称这个客户端为用户代理程序（user agent）。应答的服务器上存储着一些资源，比如HTML文件和图像。我们称这个应答服务器为源服务器（origin server）。在用户代理和源服务器中间可能存在多个“中间层”，比如代理服务器、网关或者隧道（tunnel）。</p>
-<p>尽管TCP&#x2F;IP协议是互联网上最流行的应用，HTTP协议中，并没有规定必须使用它或它支持的层。事实上，HTTP可以在任何互联网协议上，或其他网络上实现。HTTP假定其下层协议提供可靠的传输。因此，任何能够提供这种保证的协议都可以被其使用。因此也就是其在TCP&#x2F;IP协议族使用TCP作为其传输层。</p>
-<p>通常，由HTTP客户端发起一个请求，创建一个到服务器指定端口（默认是80端口）的TCP连接。HTTP服务器则在那个端口监听客户端的请求。一旦收到请求，服务器会向客户端返回一个状态，比如”HTTP&#x2F;1.1 200 OK”，以及返回的内容，如请求的文件、错误消息、或者其它信息。</p>
-<p>HTTP协议定义Web客户端如何从Web服务器请求Web页面，以及服务器如何把Web页面传送给客户端。HTTP协议采用了请求&#x2F;响应模型。客户端向服务器发送一个请求报文，请求报文包含请求的方法、URL、协议版本、请求头部和请求数据。服务器以一个状态行作为响应，响应的内容包括协议的版本、成功或者错误代码、服务器信息、响应头部和响应数据。</p>
-<p>以下是 HTTP 请求&#x2F;响应的步骤：</p>
-<ol>
-<li>客户端连接到Web服务器<br>一个HTTP客户端，通常是浏览器，与Web服务器的HTTP端口（默认为80）建立一个TCP套接字连接。例如，<a href="http://www.simonf.cn./">http://www.simonf.cn。</a></li>
-<li>发送HTTP请求<br>通过TCP套接字，客户端向Web服务器发送一个文本的请求报文，一个请求报文由请求行、请求头部、空行和请求数据4部分组成。</li>
-<li>服务器接受请求并返回HTTP响应<br>Web服务器解析请求，定位请求资源。服务器将资源复本写到TCP套接字，由客户端读取。一个响应由状态行、响应头部、空行和响应数据4部分组成。</li>
-<li>释放连接TCP连接<br>若connection 模式为close，则服务器主动关闭TCP连接，客户端被动关闭连接，释放TCP连接;若connection 模式为keepalive，则该连接会保持一段时间，在该时间内可以继续接收请求;</li>
-<li>客户端浏览器解析HTML内容<br>客户端浏览器首先解析状态行，查看表明请求是否成功的状态代码。然后解析每一个响应头，响应头告知以下为若干字节的HTML文档和文档的字符集。客户端浏览器读取响应数据HTML，根据HTML的语法对其进行格式化，并在浏览器窗口中显示。</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>计算机网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Spring Cloud Gateway自定义全局过滤器方法</title>
-    <url>/2023/12/01/Spring-Cloud-Gateway%E8%87%AA%E5%AE%9A%E4%B9%89%E5%85%A8%E5%B1%80%E8%BF%87%E6%BB%A4%E5%99%A8%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<p>如果我们希望拦截请求，做自己的业务逻辑，Spring Cloud Gateway中默认的过滤器就没办法实现。此时，就需求使用全局过滤器，全局过滤器的作用也是处理一切进入网关的请求和微服务响应，与GatewayFilter的作用一样。区别在于GatewayFilter通过配置定义，处理逻辑是固定的；而GlobalFilter的逻辑需要自己写代码实现。</p>
-<p>以下是个配置自定义全局过滤器并在过滤器内部处理业务逻辑的示例：</p>
-<ul>
-<li>需求：定义全局过滤器，拦截请求，判断请求的参数是否满足下面条件：</li>
-</ul>
-<p><strong>请求参数中是否有username，如果满足则放行，否则拦截</strong></p>
-<ul>
-<li>步骤分析：</li>
-</ul>
-<p>1、定义一个类实现GlobalFilter接口</p>
-<p>2、重写filter方法</p>
-<p>3、将该类纳入到spring容器中</p>
-<p>4、实现Ordered接口定义该过滤器的顺序</p>
-<ul>
-<li>实现代码：</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AuthorizationFilter</span> <span class="keyword">implements</span> <span class="title class_">GlobalFilter</span>, Ordered &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//实现过滤器逻辑</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Mono&lt;Void&gt; <span class="title function_">filter</span><span class="params">(ServerWebExchange exchange, GatewayFilterChain chain)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">username</span> <span class="operator">=</span> exchange.getRequest().getQueryParams().getFirst(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span>(!StringUtils.hasText(username))&#123;</span><br><span class="line">            exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);</span><br><span class="line">            <span class="keyword">return</span> exchange.getResponse().setComplete();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> chain.filter(exchange);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//定义该过滤器的顺序</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getOrder</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>Spring Cloud Gateway</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Loombook命名的坑</title>
-    <url>/2023/10/01/Loombook%E5%91%BD%E5%90%8D%E7%9A%84%E5%9D%91/</url>
-    <content><![CDATA[<p>在写一个后台用户模块时，为了区分系统管理员和用户，命名时用使用了sUsername来命名系统管理员的名字，但是数据库注册管理员时一直没法注册成功。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Schema(description = &quot;系统管理员&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SystemUser</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Schema(description = &quot;管理员姓名&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String sUsername;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Schema(description = &quot;管理员手机号码&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String phone;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>经查源码发现sUsername的set方法在loombook中被命名为setSUsername，也就是说loombook中所有的属性的前两个字母必须小写！</p>
-]]></content>
-      <tags>
-        <tag>Java</tag>
-        <tag>Loombook</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>枚举和包装类案例分析</title>
-    <url>/2022/04/01/%E6%9E%9A%E4%B8%BE%E5%92%8C%E5%8C%85%E8%A3%85%E7%B1%BB%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90/</url>
-    <content><![CDATA[<h2 id="枚举和包装类"><a href="#枚举和包装类" class="headerlink" title="枚举和包装类"></a>枚举和包装类</h2><h3 id="阅读代码，分析运行结果："><a href="#阅读代码，分析运行结果：" class="headerlink" title="阅读代码，分析运行结果："></a>阅读代码，分析运行结果：</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">	<span class="type">Integer</span> <span class="variable">i1</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line">	<span class="type">Integer</span> <span class="variable">i2</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line">	<span class="type">int</span> <span class="variable">i3</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line">	<span class="type">int</span> <span class="variable">i4</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line">	System.out.println(i1 == i2);</span><br><span class="line">	System.out.println(i3 == i4);</span><br><span class="line">	System.out.println(i1 == i3);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这段代码涉及到了Java中的自动装箱和拆箱的概念。</p>
-<p>首先，我们需要了解Java中的整数缓存机制。Java中对于整数类型的缓存范围是在-128到127之间。当我们使用自动装箱将一个整数赋值给一个 <code>Integer</code> 对象时，如果该整数在缓存范围内，那么会直接返回缓存中的对象，而不会创建新的对象。</p>
-<p>现在来分析代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Integer</span> <span class="variable">i1</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line"><span class="type">Integer</span> <span class="variable">i2</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">i3</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">i4</span> <span class="operator">=</span> <span class="number">128</span>;</span><br><span class="line">System.out.println(i1 == i2);</span><br><span class="line">System.out.println(i3 == i4);</span><br><span class="line">System.out.println(i1 == i3);</span><br></pre></td></tr></table></figure>
-
-<p>在这段代码中，我们分别创建了两个 <code>Integer</code> 对象 <code>i1</code> 和 <code>i2</code>，并将它们都赋值为 <code>128</code>。然后，我们创建了两个 <code>int</code> 类型的变量 <code>i3</code> 和 <code>i4</code>，并同样赋值为 <code>128</code>。</p>
-<p>接下来，我们分别使用 <code>==</code> 运算符进行比较。</p>
-<p>第一个比较 <code>i1 == i2</code>，由于 <code>i1</code> 和 <code>i2</code> 都是通过自动装箱得到的 <code>Integer</code> 对象，而且 <code>128</code> 不在整数缓存范围内，所以 <code>i1</code> 和 <code>i2</code> 引用的是不同的对象，因此比较结果为 <code>false</code>。</p>
-<p>第二个比较 <code>i3 == i4</code>，由于 <code>i3</code> 和 <code>i4</code> 都是基本类型的 <code>int</code>，直接进行数值比较，所以比较结果为 <code>true</code>。</p>
-<p>第三个比较 <code>i1 == i3</code>，由于 <code>i1</code> 是 <code>Integer</code> 对象，而 <code>i3</code> 是基本类型的 <code>int</code>，在比较时会进行自动拆箱，将 <code>i1</code> 转换为 <code>int</code> 类型。然后进行数值比较，所以比较结果为 <code>true</code>。</p>
-<p>总结起来，<code>i1 == i2</code> 的结果是 <code>false</code>，<code>i3 == i4</code> 和 <code>i1 == i3</code> 的结果都是 <code>true</code>。这是因为 <code>Integer</code> 对象的比较是通过自动拆箱后的数值比较来实现的。</p>
-<h3 id="阅读代码，分析运行结果：-1"><a href="#阅读代码，分析运行结果：-1" class="headerlink" title="阅读代码，分析运行结果："></a>阅读代码，分析运行结果：</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">	<span class="type">double</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">2.0</span>;</span><br><span class="line">	<span class="type">double</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">2.0</span>;</span><br><span class="line">	<span class="type">Double</span> <span class="variable">c</span> <span class="operator">=</span> <span class="number">2.0</span>;</span><br><span class="line">	<span class="type">Double</span> <span class="variable">d</span> <span class="operator">=</span> <span class="number">2.0</span>;</span><br><span class="line">	System.out.println(a == b);</span><br><span class="line">	System.out.println(c == d);</span><br><span class="line">	System.out.println(a == d);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这段代码涉及到了Java中的自动装箱和拆箱的概念，和包装类的缓存机制。Double和Float包装类没有缓存对象。所以(a&#x3D;&#x3D;b)结果为true，(c&#x3D;&#x3D;d)结果为false，(a&#x3D;&#x3D;d)结果为true。</p>
-]]></content>
-      <tags>
-        <tag>JavaSE</tag>
-        <tag>Java</tag>
-        <tag>枚举和包装类</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>浏览器将路径自动转换为小写导致跳过路由守卫</title>
-    <url>/2021/12/01/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%B0%86%E8%B7%AF%E5%BE%84%E8%87%AA%E5%8A%A8%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%B0%8F%E5%86%99%E5%AF%BC%E8%87%B4%E8%B7%B3%E8%BF%87%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB/</url>
-    <content><![CDATA[<p>路由设置路径中出现大写，浏览器将路径自动转换为小写导致跳过路由守卫</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> router = <span class="title function_">createRouter</span>(&#123;</span><br><span class="line">     <span class="attr">history</span>:<span class="title function_">createWebHashHistory</span>(),</span><br><span class="line"></span><br><span class="line">    <span class="attr">routes</span>:[</span><br><span class="line">        &#123;<span class="attr">path</span>:<span class="string">&#x27;/ShowSchedule&#x27;</span>,<span class="attr">component</span>:<span class="title class_">ShowSchedule</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">path</span>:<span class="string">&#x27;/Login&#x27;</span>,<span class="attr">component</span>:<span class="title class_">Login</span>&#125;,</span><br><span class="line">    ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>浏览器输入URL：<a href="view-source:http://localhost:5174/#/showschedule">view-source:localhost:5174&#x2F;#&#x2F;showschedule</a>路径自动全部转换为小写导致跳过了路由守卫，建议以后Path全小写，component首字母大写。</p>
-]]></content>
-      <tags>
-        <tag>vue</tag>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Servlet学习时遇到的问题</title>
-    <url>/2020/10/01/Servlet%E5%AD%A6%E4%B9%A0%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h2 id="由于文件没有被设置成Resoureces-Root导致的空指针异常"><a href="#由于文件没有被设置成Resoureces-Root导致的空指针异常" class="headerlink" title="由于文件没有被设置成Resoureces Root导致的空指针异常"></a>由于文件没有被设置成Resoureces Root导致的空指针异常</h2><p>在前端输入信息后，点击提交按钮，控制台报错:</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">java.lang.NullPointerException: inStream parameter is null</span><br></pre></td></tr></table></figure>
-
-<p>检查后发现输入流没有读取到properties文件，将类加载器改为当前类的加载器(当前类为JDBCTools.class)，将properties文件移入到resources文件夹目录下（一定记得将resources文件夹右键Mark Directory as Resources Root），该问题解决。以下是Java代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">pro.load((JDBCTools.class.getClassLoader().getResourceAsStream(<span class="string">&quot;db.properties&quot;</span>)));</span><br></pre></td></tr></table></figure>
-
-<h2 id="泛型使用"><a href="#泛型使用" class="headerlink" title="泛型使用"></a>泛型使用</h2><p>从前端获取的数据用UserDao工具类的getBean语句在数据库内查询，但是返回值是Object类。</p>
-<p>通过在BaseBao后面加泛型可以获取查询到对象是User对象，代码如下：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserDao</span> <span class="keyword">extends</span> <span class="title class_">BaseDao</span>&lt;User&gt;</span><br><span class="line"><span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> <span class="built_in">this</span>.getBean(User.class,<span class="string">&quot;select password from userreg where id = ?&quot;</span> ,id);</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>Servlet</tag>
-        <tag>JavaWeb</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>对象赋值时空指针异常:Exception in thread &#39;main&#39; java.lang.NullPointerException: Cannot invoke &#39;src.com.simonf.Employee.setName(String)&#39; because &#39;employees[i]&#39; is null at src.com.simonf.test1.main(test1.java:11）</title>
-    <url>/2020/05/03/%E5%AF%B9%E8%B1%A1%E8%B5%8B%E5%80%BC%E6%97%B6%E7%A9%BA%E6%8C%87%E9%92%88%E5%BC%82%E5%B8%B8/</url>
-    <content><![CDATA[<p><font color=red>代码：</font>  </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">public class test1 &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Employee[] employees = new Employee[3];</span><br><span class="line">        System.out.println(&quot;-----------------&quot; + &quot;添加第1个员工&quot; + &quot;--------&quot;);</span><br><span class="line">        Scanner sc = new Scanner(System.in);</span><br><span class="line">        for (int i = 0; i &lt; 3; i++) &#123;</span><br><span class="line">            int[] arr = new int[3];</span><br><span class="line">            employees[i].setName(sc.next());</span><br><span class="line">            employees[i].setGender(sc.next().charAt(0));</span><br><span class="line">            employees[i].setAge(sc.nextInt());</span><br><span class="line">            employees[i].setSalary(sc.nextDouble());</span><br><span class="line">            employees[i].setPhoneNumber(sc.next());</span><br><span class="line">            employees[i].setEmail(sc.next());</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;--------------&quot;+&quot;添加完成&quot;+&quot;--------&quot;);</span><br><span class="line">        System.out.println(&quot;--------------&quot;+&quot;员工列表&quot;+&quot;--------&quot;);</span><br><span class="line">        for (int i = 0; i &lt; 3; i++) &#123;</span><br><span class="line">            System.out.println(employees[i].toString());</span><br><span class="line">            System.out.println(&quot;--------------------------------&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(&quot;--------------&quot;+&quot;员工列表完成&quot;+&quot;--------&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>张三(控制台输入)<br>报错：  </p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Exception in thread <span class="string">&quot;main&quot;</span> java.lang.NullPointerException: Cannot invoke <span class="string">&quot;src.com.simonf.Employee.setName(String)&quot;</span> because <span class="string">&quot;employees[i]&quot;</span> is <span class="literal">null</span> at src.com.simonf.test1.main(test1.java:<span class="number">11</span>）   </span><br></pre></td></tr></table></figure>
-
-<p>这段代码报错的原因是在循环中没有为 employees[i] 分配内存空间，导致其为 null。因此，在使用 employees[i] 的方法时会出现NullPointerException。     </p>
-<p>要解决这个问题，你需要为 employees[i] 分配内存空间，即创建 Employee 对象并将其赋值给 employees[i]。可以在循环之前为每个employees[i] 创建一个新的 Employee 对象，如下所示：   </p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;  </span><br><span class="line">        employees[i] = <span class="keyword">new</span> <span class="title class_">Employee</span>(); <span class="comment">// 创建新的 Employee 对象  </span></span><br><span class="line">        employees[i].setName(sc.next());  </span><br><span class="line">        employees[i].setGender(sc.next().charAt(<span class="number">0</span>));  </span><br><span class="line">        employees[i].setAge(sc.nextInt());  </span><br><span class="line">        employees[i].setSalary(sc.nextDouble());  </span><br><span class="line">        employees[i].setPhoneNumber(sc.next());  </span><br><span class="line">        employees[i].setEmail(sc.next());  </span><br><span class="line">    &#125;   </span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>JavaSE</tag>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>JavaSE常见问题汇总</title>
-    <url>/2020/05/02/JavaSE%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB/</url>
-    <content><![CDATA[<h2 id="note1"><a href="#note1" class="headerlink" title="note1"></a>note1</h2><p><font color=red>以下合法的标识符是？</font>(A,E,F,G)<br>A.flag_3<br>B.my code<br>C.discount%<br>D.234rate<br>E.$name<br>F.println<br>G.main  </p>
-<p><font style ="background: black"><font color=yellow>解释：Java的关键字不能用做标识符，但是println,main不属于标识符（标识符一般在编辑器中会被高亮成紫色）。</font></font></p>
-<h2 id="note2"><a href="#note2" class="headerlink" title="note2"></a>note2</h2><p>标识符的命名规范<br>1）见名知意</p>
-<p>（2）类名、接口名等：每个单词的首字母都大写（大驼峰法则），形式：XxxYyyZzz，</p>
-<p>例如：HelloWorld，String，System等</p>
-<p>（3）变量、方法名等：从第二个单词开始首字母大写（小驼峰法则），其余字母小写，形式：xxxYyyZzz，</p>
-<p>例如：age,name,bookName,main</p>
-<p>（4）包名等：每一个单词都小写，单词之间使用点.分割，形式：xxx.yyy.zzz，</p>
-<p>例如：java.lang</p>
-<p>（5）常量名等：每一个单词都大写，单词之间使用下划线_分割，形式：XXX_YYY_ZZZ，</p>
-<p>例如：MAX_VALUE,PI</p>
-<h2 id="note3"><a href="#note3" class="headerlink" title="note3"></a>note3</h2><p><font style ="background: black"><font color=yellow>Java报错：</font></font> 类class 是公共的, 应在名为 .java 的文件中声明<br>原因：public修饰的class必须与.java的文件名一致</p>
-<h2 id="note4"><a href="#note4" class="headerlink" title="note4"></a>note4</h2><p><font color=red>分析以下代码：</font><br>short s1 &#x3D; 120;<br>short s2 &#x3D; 8;<br>byte s3 &#x3D; (byte)(s1+s2); </p>
-<p><font style ="background: black"><font color=yellow>输出s3结果为-128(两个short做运算结果是int)。因为s1+s2&#x3D;128。int(占四个字节,32个2进制位) 128的二进制为00000000 00000000 00000000 10000000，若要转换成byte(1个字节，8个二进制位）则为10000000(-128),因为有符号二进制存储第一个数为1，代表负数，先求10000000的反码为01111111，在加1得到10000000，该数的十进制数为128。则s3对应的数为-128。</font></font><br>同理 byte b &#x3D; (byte)129;<br>b的输出值为-127，因为int 129的二进制数为00000000 00000000 00000000 10000001，转换为byte类型,其二进制数为10000001，第一个数字为1表明该二进制数对应的十进制数字为负数，按照负数的转换规则，先求10000001的反码为01111110，再加1，得到01111111，该数为127，则b的值为-127。</p>
-<h2 id="note5"><a href="#note5" class="headerlink" title="note5"></a>note5</h2><p>byte b1 &#x3D; 3;<br>byte b2 &#x3D; 4;<br>byte b3 &#x3D; b1 + b2;<br>byte b4 &#x3D; 3 + 4;<br><font style ="background: black"><font color=yellow>运行以上的代码，b3会报错，因为b1 + b2默认是int类型，（byte，short，char运算的值默认为int类型），存储范围大的变量不能直接赋值给存储范围小的变量。<br>b4不会报错，因为3和4是两个常量值，会自动运算为7，与变量不一样，可以直接赋值给b3。</font></font></p>
-<h2 id="note6"><a href="#note6" class="headerlink" title="note6"></a>note6</h2><p>int i &#x3D; 10;<br>i &#x3D; i++;<br>System.out.println(“i &#x3D;”+i);<br><font style ="background: black"><font color=yellow>输出结果i &#x3D; 10,因为i的值一开始为10，先把10这个值取出来找个地方存储，然后i++，i的值变为11，再把10这个值赋给等号左侧的i，所以i的输出值为10。</font></font></p>
-<h2 id="note7"><a href="#note7" class="headerlink" title="note7"></a>note7</h2><p><font color=red>分析以下代码：</font><br>byte b&#x3D; 127;<br>b &#x3D; b + 1;<br>b +&#x3D; 1; </p>
-<p><font style ="background: black"><font color=yellow>b &#x3D; b + 1; 这行代码会报错，因为b + 1的运算结果是int类型，不能赋值给byte类型的b。但是如果运行 b +&#x3D; 1则可以运行，但是输出的结果b &#x3D; -128。因为 +&#x3D; 操作实际上进行了强制类型转换，但是byte的取值范围为-128到127，强制类型转换为byte就导致128变成了-128。</font></font>  </p>
-<p>同理<br>int i &#x3D; 1;<br>i *&#x3D;0.1;<br>System.out.println(i);<br>输出的结果为i &#x3D; 0，因为i *&#x3D; 0.1;实际上的操作为i &#x3D; (int) i * 0.1; 即(int)1 * 0.1 &#x3D; 0;  </p>
-<h2 id="note8"><a href="#note8" class="headerlink" title="note8"></a>note8</h2><p>右移运算符 ：一个数右移n位，结果为这个数除以2的n次幂，<font color=red>除不尽向下取整。</font><br>System.out.println(-9&gt;&gt;2);输出的数为-3，因为-9&#x2F;2^2 &#x3D; -2.25,向下取整得到的就是-3。<br>System.out.println(-9&gt;&gt;&gt;2);输出的数为1073741821，因为&gt;&gt;&gt;为无符号右移，最高为补0,结果为正数，该数的求法是通过算补码得到的。<br>System.out.println(3&lt;&lt;33);输出的数为6，因为int类型4个字节，32位，移动33位相当于移动一位。每超过32位，得到的数相当于3 * 2^(33%32) 。 </p>
-<h2 id="note9"><a href="#note9" class="headerlink" title="note9"></a>note9</h2><p>int x &#x3D; 5;<br>int y &#x3D; 7;<br>x &#x3D; x^y;<br>y &#x3D; x^y;<br>x &#x3D; x^y;<br>System.out.println(x);<br>System.out.println(y);<br><font style ="background: black"><font color=yellow>该运算操作相当于交换两个变量的值。</font></font> </p>
-<h2 id="note10"><a href="#note10" class="headerlink" title="note10"></a>note10</h2><p><font color=red>数组的声明：</font><br>数据类型[] 数组名;<br><font color=red>数组的几种定义方式：</font>  </p>
-<ol>
-<li>静态初始化：<br>数据类型[] 数组名 &#x3D; new 数据类型[]{元素1，元素2，…};<br>数据类型[] 数组名 &#x3D; {元素1，元素2，…};</li>
-<li>动态初始化：<br>数据类型[] 数组名 &#x3D; new 数据类型[长度];</li>
-</ol>
-<h2 id="note11"><a href="#note11" class="headerlink" title="note11"></a>note11</h2><p><font color=red>Java虚拟机的内存划分</font><br>常用到的三部分：方法区、堆内存、虚拟机栈。<br>方法区：存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。<br>堆内存：存储对象（包括数组对象），new来创建的，都存储在堆内存。<br>虚拟机栈：用于存储正在执行的每个Java方法的局部变量表等。<br />局部变量表存放了编译期可知长度的各种基本数据类型、对象引用，方法执行完，自动释放。</p>
-]]></content>
-      <tags>
-        <tag>JavaSE</tag>
       </tags>
   </entry>
 </search>
