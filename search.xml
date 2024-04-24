@@ -221,6 +221,29 @@
 ]]></content>
   </entry>
   <entry>
+    <title>关于mybatis-plus实现Iservice、ServiceImpl和BaseMaper的一些理解（转载）</title>
+    <url>/2024/01/01/%E5%85%B3%E4%BA%8Emybatis-plus%E5%AE%9E%E7%8E%B0Iservice%E3%80%81ServiceImpl%E5%92%8CBaseMaper%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/</url>
+    <content><![CDATA[<p>当我们实现BaseMapper的时候，MP就会帮我们把BaseMapper里的接口类全部实现代理，成为可以直接被我们调用的类，这个过程完全不需要我们去写xml，当然我们也可以在接口中写上我们自己自定义的类，但是我们自定义的类必须去写xml去映射方法，默认他会去扫描resources下的mapper文件夹下的xml，类名要于接口名一样哦这个和mybatis是一样的，其实唯一的区别就是有一些类他帮我们写了其他的和mybatis没有区别。</p>
+<p><img src="/images/MyBatis-Plus-2024_01_01_13_17.png"></p>
+<p><img src="/images/MyBatis-Plus-2024_01_01_13_20.png"></p>
+<p> 接下来就是说IService接口和ServiceImpl,其实这两个类的存在也是很合理的，你想MP帮我们去实现了mapper接口，那mapper接口是不是得有Service接口和一个Service实现类啊？所以他其实帮我们连实现类也写好了，我们只需要去实现接口和继承实现类就好了。当然Service接口中我们也可以写自己的自定义方法但是同时我们也需要在ServiceImpl中自己去写我们自定义的方法，而从IService接口中实现的方法呢？ServiceImpl其实已经帮我们实现了，我们只要继承他就可以了。</p>
+<p><img src="/images/MyBatis-Plus-2024_01_01_13_24.png"></p>
+<p><img src="/images/MyBatis-Plus-2024_01_01_13_25.png"></p>
+<p> 在多说两句，继承ServiceImpl要放入两个泛型呢，第一个其实是我们之前写的那个UserMapper，<br>为什么要传入这个呢，看下面的图：</p>
+<p><img src="/images/MyBatis-Plus-2024_01_01_13_27.png"></p>
+<p> 可以看到系统提供的这个ServiceImpl类中有一个成员变量，他被@Autowired注解修饰也就是说这个成员变量是自动注入的，可以发现他的名字叫baseMapper，懂了吧，我们那个UserMapper是继承自baseMapper的吧，所以我们把那个接口传进来，其实就是让这个实现类去自动注入我们的那个UserMapper.</p>
+<p>第二个泛型是我们的那个model类，也就是User，我们告诉ServiceImpl我们要处理的User类，ServiceImpl再去调用UserMapper告诉Usermapper我要你处理的User，这说明什么呢，Usermapper的泛型和ServiceImpl的泛型要一致哦，不能说我Usermapper处理User类，然后你给ServiceImpl传入一个Student类，那到时候ServiceImpl传一个Student给UserMapper,UserMapper肯定就处理不了。可以看下图：</p>
+<p><img src="/images/MyBatis-Plus-2024_01_01_13_29.png"></p>
+<p>画红线的地方也看出来， ServiceImpl明确要求你这个泛型M必须继承的是一个泛型为T的BaseMapper,而T就是我们传入的第二个泛型，所以很明显Usermapper的泛型和ServiceImpl传入的第二个泛型是要一致的哦，一定要注意，虽然很基础但是往往也容易出错嘛..<br>————————————————</p>
+<pre><code>                        版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。
+</code></pre>
+<p>原文链接：<a href="https://blog.csdn.net/qq_44869121/article/details/124297999">https://blog.csdn.net/qq_44869121/article/details/124297999</a></p>
+]]></content>
+      <tags>
+        <tag>MyBatis-Plus</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>自定义线程池</title>
     <url>/2023/12/10/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0/</url>
     <content><![CDATA[<p>最近看到牛客网一个帖子”面试官让我手撕一个线程池，二十分钟没手撕出来面试流程就终止了”。忽然意识到自己也手撕不出来线程池，遂加急补习了一下JUC和线程池相关的知识。下面做个全面的总结：</p>
@@ -377,8 +400,8 @@
 <p>经查源码发现sUsername的set方法在loombook中被命名为setSUsername，也就是说loombook中所有的属性的前两个字母必须小写！</p>
 ]]></content>
       <tags>
-        <tag>Loombook</tag>
         <tag>Java</tag>
+        <tag>Loombook</tag>
       </tags>
   </entry>
   <entry>

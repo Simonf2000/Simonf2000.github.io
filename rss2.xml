@@ -220,6 +220,30 @@
     </item>
     
     <item>
+      <title>关于mybatis-plus实现Iservice、ServiceImpl和BaseMaper的一些理解（转载）</title>
+      <link>https://simonf.cn/2024/01/01/%E5%85%B3%E4%BA%8Emybatis-plus%E5%AE%9E%E7%8E%B0Iservice%E3%80%81ServiceImpl%E5%92%8CBaseMaper%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/</link>
+      <guid>https://simonf.cn/2024/01/01/%E5%85%B3%E4%BA%8Emybatis-plus%E5%AE%9E%E7%8E%B0Iservice%E3%80%81ServiceImpl%E5%92%8CBaseMaper%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/</guid>
+      <pubDate>Mon, 01 Jan 2024 05:13:08 GMT</pubDate>
+      
+        
+        
+      <description>&lt;p&gt;当我们实现BaseMapper的时候，MP就会帮我们把BaseMapper里的接口类全部实现代理，成为可以直接被我们调用的类，这个过程完全不需要我们去写xml，当然我们也可以在接口中写上我们自己自定义的类，但是我们自定义的类必须去写xml去映射方法，默认他会去扫描resou</description>
+        
+      
+      
+      
+      <content:encoded><![CDATA[<p>当我们实现BaseMapper的时候，MP就会帮我们把BaseMapper里的接口类全部实现代理，成为可以直接被我们调用的类，这个过程完全不需要我们去写xml，当然我们也可以在接口中写上我们自己自定义的类，但是我们自定义的类必须去写xml去映射方法，默认他会去扫描resources下的mapper文件夹下的xml，类名要于接口名一样哦这个和mybatis是一样的，其实唯一的区别就是有一些类他帮我们写了其他的和mybatis没有区别。</p><p><img src="/images/MyBatis-Plus-2024_01_01_13_17.png"></p><p><img src="/images/MyBatis-Plus-2024_01_01_13_20.png"></p><p> 接下来就是说IService接口和ServiceImpl,其实这两个类的存在也是很合理的，你想MP帮我们去实现了mapper接口，那mapper接口是不是得有Service接口和一个Service实现类啊？所以他其实帮我们连实现类也写好了，我们只需要去实现接口和继承实现类就好了。当然Service接口中我们也可以写自己的自定义方法但是同时我们也需要在ServiceImpl中自己去写我们自定义的方法，而从IService接口中实现的方法呢？ServiceImpl其实已经帮我们实现了，我们只要继承他就可以了。</p><p><img src="/images/MyBatis-Plus-2024_01_01_13_24.png"></p><p><img src="/images/MyBatis-Plus-2024_01_01_13_25.png"></p><p> 在多说两句，继承ServiceImpl要放入两个泛型呢，第一个其实是我们之前写的那个UserMapper，<br>为什么要传入这个呢，看下面的图：</p><p><img src="/images/MyBatis-Plus-2024_01_01_13_27.png"></p><p> 可以看到系统提供的这个ServiceImpl类中有一个成员变量，他被@Autowired注解修饰也就是说这个成员变量是自动注入的，可以发现他的名字叫baseMapper，懂了吧，我们那个UserMapper是继承自baseMapper的吧，所以我们把那个接口传进来，其实就是让这个实现类去自动注入我们的那个UserMapper.</p><p>第二个泛型是我们的那个model类，也就是User，我们告诉ServiceImpl我们要处理的User类，ServiceImpl再去调用UserMapper告诉Usermapper我要你处理的User，这说明什么呢，Usermapper的泛型和ServiceImpl的泛型要一致哦，不能说我Usermapper处理User类，然后你给ServiceImpl传入一个Student类，那到时候ServiceImpl传一个Student给UserMapper,UserMapper肯定就处理不了。可以看下图：</p><p><img src="/images/MyBatis-Plus-2024_01_01_13_29.png"></p><p>画红线的地方也看出来， ServiceImpl明确要求你这个泛型M必须继承的是一个泛型为T的BaseMapper,而T就是我们传入的第二个泛型，所以很明显Usermapper的泛型和ServiceImpl传入的第二个泛型是要一致的哦，一定要注意，虽然很基础但是往往也容易出错嘛..<br>————————————————</p><pre><code>                        版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。</code></pre><p>原文链接：<a href="https://blog.csdn.net/qq_44869121/article/details/124297999">https://blog.csdn.net/qq_44869121/article/details/124297999</a></p>]]></content:encoded>
+      
+      
+      
+      <category domain="https://simonf.cn/tags/MyBatis-Plus/">MyBatis-Plus</category>
+      
+      
+      <comments>https://simonf.cn/2024/01/01/%E5%85%B3%E4%BA%8Emybatis-plus%E5%AE%9E%E7%8E%B0Iservice%E3%80%81ServiceImpl%E5%92%8CBaseMaper%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
       <title>自定义线程池</title>
       <link>https://simonf.cn/2023/12/10/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0/</link>
       <guid>https://simonf.cn/2023/12/10/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0/</guid>
@@ -243,32 +267,6 @@
       
       
       <comments>https://simonf.cn/2023/12/10/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>HTTP协议相关知识整理</title>
-      <link>https://simonf.cn/2023/12/02/HTTP%E5%8D%8F%E8%AE%AE%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/</link>
-      <guid>https://simonf.cn/2023/12/02/HTTP%E5%8D%8F%E8%AE%AE%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/</guid>
-      <pubDate>Sat, 02 Dec 2023 05:01:25 GMT</pubDate>
-      
-        
-        
-      <description>&lt;h4 id=&quot;输入URL发生了什么？&quot;&gt;&lt;a href=&quot;#输入URL发生了什么？&quot; class=&quot;headerlink&quot; title=&quot;输入URL发生了什么？&quot;&gt;&lt;/a&gt;输入URL发生了什么？&lt;/h4&gt;&lt;ol&gt;
-&lt;li&gt;浏览器的地址栏输入URL并按下回车。&lt;/li&gt;
-&lt;li&gt;</description>
-        
-      
-      
-      
-      <content:encoded><![CDATA[<h4 id="输入URL发生了什么？"><a href="#输入URL发生了什么？" class="headerlink" title="输入URL发生了什么？"></a>输入URL发生了什么？</h4><ol><li>浏览器的地址栏输入URL并按下回车。</li><li>浏览器查找当前URL是否存在缓存，并比较缓存是否过期。</li><li>DNS解析URL对应的IP。</li><li>根据IP建立TCP（传输层）连接（三次握手）。<ul><li>客户端发送⼀个<code>TCP</code>的<strong>SYN&#x3D;1</strong>，<strong>Seq&#x3D;X</strong>的包到服务器端口</li><li>服务器发回<strong>SYN&#x3D;1</strong>， <strong>ACK&#x3D;X+1</strong>， <strong>Seq&#x3D;Y</strong>的响应包</li><li>客户端发送<strong>ACK&#x3D;Y+1</strong>， <strong>Seq&#x3D;Z</strong></li></ul></li><li>HTTP发起请求。</li><li>服务器处理请求，浏览器接收HTTP响应。</li><li>渲染页面，构建DOM树。</li><li>关闭TCP连接（四次挥手）。<ul><li>主动⽅发送<strong>Fin&#x3D;1</strong>， <strong>Ack&#x3D;Z</strong>， <strong>Seq&#x3D; X</strong>报⽂</li><li>被动⽅发送<strong>ACK&#x3D;X+1</strong>， <strong>Seq&#x3D;Z</strong>报⽂</li><li>被动⽅发送<strong>Fin&#x3D;1</strong>， <strong>ACK&#x3D;X</strong>， <strong>Seq&#x3D;Y</strong>报⽂</li><li>主动⽅发送<strong>ACK&#x3D;Y</strong>， <strong>Seq&#x3D;X</strong>报⽂</li></ul></li></ol><h4 id="输入URL发生了什么？为什么要三次握手而不是两次？"><a href="#输入URL发生了什么？为什么要三次握手而不是两次？" class="headerlink" title="输入URL发生了什么？为什么要三次握手而不是两次？"></a>输入URL发生了什么？为什么要三次握手而不是两次？</h4><p>这是为了防止已经失效的请求报文突然又传到服务器产生错误。</p><h4 id="HTTP协议介绍"><a href="#HTTP协议介绍" class="headerlink" title="HTTP协议介绍"></a>HTTP协议介绍</h4><p>超文本传输协议(HTTP)是一种应用层协议。</p><p>HTTP是一个客户端终端（用户）和服务器端（网站）请求和应答的标准（TCP）。通过使用网页浏览器、网络爬虫或者其它的工具，客户端发起一个HTTP请求到服务器上指定端口（默认端口为80）。我们称这个客户端为用户代理程序（user agent）。应答的服务器上存储着一些资源，比如HTML文件和图像。我们称这个应答服务器为源服务器（origin server）。在用户代理和源服务器中间可能存在多个“中间层”，比如代理服务器、网关或者隧道（tunnel）。</p><p>尽管TCP&#x2F;IP协议是互联网上最流行的应用，HTTP协议中，并没有规定必须使用它或它支持的层。事实上，HTTP可以在任何互联网协议上，或其他网络上实现。HTTP假定其下层协议提供可靠的传输。因此，任何能够提供这种保证的协议都可以被其使用。因此也就是其在TCP&#x2F;IP协议族使用TCP作为其传输层。</p><p>通常，由HTTP客户端发起一个请求，创建一个到服务器指定端口（默认是80端口）的TCP连接。HTTP服务器则在那个端口监听客户端的请求。一旦收到请求，服务器会向客户端返回一个状态，比如”HTTP&#x2F;1.1 200 OK”，以及返回的内容，如请求的文件、错误消息、或者其它信息。</p><p>HTTP协议定义Web客户端如何从Web服务器请求Web页面，以及服务器如何把Web页面传送给客户端。HTTP协议采用了请求&#x2F;响应模型。客户端向服务器发送一个请求报文，请求报文包含请求的方法、URL、协议版本、请求头部和请求数据。服务器以一个状态行作为响应，响应的内容包括协议的版本、成功或者错误代码、服务器信息、响应头部和响应数据。</p><p>以下是 HTTP 请求&#x2F;响应的步骤：</p><ol><li>客户端连接到Web服务器<br>一个HTTP客户端，通常是浏览器，与Web服务器的HTTP端口（默认为80）建立一个TCP套接字连接。例如，<a href="http://www.simonf.cn./">http://www.simonf.cn。</a></li><li>发送HTTP请求<br>通过TCP套接字，客户端向Web服务器发送一个文本的请求报文，一个请求报文由请求行、请求头部、空行和请求数据4部分组成。</li><li>服务器接受请求并返回HTTP响应<br>Web服务器解析请求，定位请求资源。服务器将资源复本写到TCP套接字，由客户端读取。一个响应由状态行、响应头部、空行和响应数据4部分组成。</li><li>释放连接TCP连接<br>若connection 模式为close，则服务器主动关闭TCP连接，客户端被动关闭连接，释放TCP连接;若connection 模式为keepalive，则该连接会保持一段时间，在该时间内可以继续接收请求;</li><li>客户端浏览器解析HTML内容<br>客户端浏览器首先解析状态行，查看表明请求是否成功的状态代码。然后解析每一个响应头，响应头告知以下为若干字节的HTML文档和文档的字符集。客户端浏览器读取响应数据HTML，根据HTML的语法对其进行格式化，并在浏览器窗口中显示。</li></ol>]]></content:encoded>
-      
-      
-      
-      <category domain="https://simonf.cn/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</category>
-      
-      
-      <comments>https://simonf.cn/2023/12/02/HTTP%E5%8D%8F%E8%AE%AE%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/#disqus_thread</comments>
       
     </item>
     

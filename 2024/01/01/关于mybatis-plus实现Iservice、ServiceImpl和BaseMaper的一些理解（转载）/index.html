@@ -22,19 +22,27 @@
     var CONFIG = {"hostname":"simonf.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="努力学习的后端工程师">
-<meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="https://simonf.cn/categories/index.html">
+  <meta name="description" content="当我们实现BaseMapper的时候，MP就会帮我们把BaseMapper里的接口类全部实现代理，成为可以直接被我们调用的类，这个过程完全不需要我们去写xml，当然我们也可以在接口中写上我们自己自定义的类，但是我们自定义的类必须去写xml去映射方法，默认他会去扫描resources下的mapper文件夹下的xml，类名要于接口名一样哦这个和mybatis是一样的，其实唯一的区别就是有一些类他帮我们">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于mybatis-plus实现Iservice、ServiceImpl和BaseMaper的一些理解（转载）">
+<meta property="og:url" content="https://simonf.cn/2024/01/01/%E5%85%B3%E4%BA%8Emybatis-plus%E5%AE%9E%E7%8E%B0Iservice%E3%80%81ServiceImpl%E5%92%8CBaseMaper%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/index.html">
 <meta property="og:site_name" content="SimonFeng的木屋">
-<meta property="og:description" content="努力学习的后端工程师">
+<meta property="og:description" content="当我们实现BaseMapper的时候，MP就会帮我们把BaseMapper里的接口类全部实现代理，成为可以直接被我们调用的类，这个过程完全不需要我们去写xml，当然我们也可以在接口中写上我们自己自定义的类，但是我们自定义的类必须去写xml去映射方法，默认他会去扫描resources下的mapper文件夹下的xml，类名要于接口名一样哦这个和mybatis是一样的，其实唯一的区别就是有一些类他帮我们">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-02-10T14:07:08.000Z">
-<meta property="article:modified_time" content="2024-03-18T09:56:12.656Z">
+<meta property="og:image" content="https://simonf.cn/images/MyBatis-Plus-2024_01_01_13_17.png">
+<meta property="og:image" content="https://simonf.cn/images/MyBatis-Plus-2024_01_01_13_20.png">
+<meta property="og:image" content="https://simonf.cn/images/MyBatis-Plus-2024_01_01_13_24.png">
+<meta property="og:image" content="https://simonf.cn/images/MyBatis-Plus-2024_01_01_13_25.png">
+<meta property="og:image" content="https://simonf.cn/images/MyBatis-Plus-2024_01_01_13_27.png">
+<meta property="og:image" content="https://simonf.cn/images/MyBatis-Plus-2024_01_01_13_29.png">
+<meta property="article:published_time" content="2024-01-01T05:13:08.000Z">
+<meta property="article:modified_time" content="2024-04-24T05:30:30.058Z">
 <meta property="article:author" content="simonf">
+<meta property="article:tag" content="MyBatis-Plus">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://simonf.cn/images/MyBatis-Plus-2024_01_01_13_17.png">
 
-<link rel="canonical" href="https://simonf.cn/categories/">
+<link rel="canonical" href="https://simonf.cn/2024/01/01/%E5%85%B3%E4%BA%8Emybatis-plus%E5%AE%9E%E7%8E%B0Iservice%E3%80%81ServiceImpl%E5%92%8CBaseMaper%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/">
 
 
 <script id="page-configurations">
@@ -42,13 +50,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>分类 | SimonFeng的木屋
-</title>
+  <title>关于mybatis-plus实现Iservice、ServiceImpl和BaseMaper的一些理解（转载） | SimonFeng的木屋</title>
   
 
 
@@ -190,55 +197,199 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-  
-  
 
-          <div class="content page posts-expand">
+          <div class="content post posts-expand">
             
 
     
-    
-    
-    <div class="post-block" lang="zh-CN">
-      <header class="post-header">
-
-<h1 class="post-title" itemprop="name headline">分类
-</h1>
-
-<div class="post-meta">
   
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://simonf.cn/2024/01/01/%E5%85%B3%E4%BA%8Emybatis-plus%E5%AE%9E%E7%8E%B0Iservice%E3%80%81ServiceImpl%E5%92%8CBaseMaper%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/">
 
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="simonf">
+      <meta itemprop="description" content="努力学习的后端工程师">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SimonFeng的木屋">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          关于mybatis-plus实现Iservice、ServiceImpl和BaseMaper的一些理解（转载）
+        </h1>
+
+        <div class="post-meta">
+		
+		  
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-01-01 13:13:08" itemprop="dateCreated datePublished" datetime="2024-01-01T13:13:08+08:00">2024-01-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-04-24 13:30:30" itemprop="dateModified" datetime="2024-04-24T13:30:30+08:00">2024-04-24</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>当我们实现BaseMapper的时候，MP就会帮我们把BaseMapper里的接口类全部实现代理，成为可以直接被我们调用的类，这个过程完全不需要我们去写xml，当然我们也可以在接口中写上我们自己自定义的类，但是我们自定义的类必须去写xml去映射方法，默认他会去扫描resources下的mapper文件夹下的xml，类名要于接口名一样哦这个和mybatis是一样的，其实唯一的区别就是有一些类他帮我们写了其他的和mybatis没有区别。</p>
+<p><img src="/images/MyBatis-Plus-2024_01_01_13_17.png"></p>
+<p><img src="/images/MyBatis-Plus-2024_01_01_13_20.png"></p>
+<p> 接下来就是说IService接口和ServiceImpl,其实这两个类的存在也是很合理的，你想MP帮我们去实现了mapper接口，那mapper接口是不是得有Service接口和一个Service实现类啊？所以他其实帮我们连实现类也写好了，我们只需要去实现接口和继承实现类就好了。当然Service接口中我们也可以写自己的自定义方法但是同时我们也需要在ServiceImpl中自己去写我们自定义的方法，而从IService接口中实现的方法呢？ServiceImpl其实已经帮我们实现了，我们只要继承他就可以了。</p>
+<p><img src="/images/MyBatis-Plus-2024_01_01_13_24.png"></p>
+<p><img src="/images/MyBatis-Plus-2024_01_01_13_25.png"></p>
+<p> 在多说两句，继承ServiceImpl要放入两个泛型呢，第一个其实是我们之前写的那个UserMapper，<br>为什么要传入这个呢，看下面的图：</p>
+<p><img src="/images/MyBatis-Plus-2024_01_01_13_27.png"></p>
+<p> 可以看到系统提供的这个ServiceImpl类中有一个成员变量，他被@Autowired注解修饰也就是说这个成员变量是自动注入的，可以发现他的名字叫baseMapper，懂了吧，我们那个UserMapper是继承自baseMapper的吧，所以我们把那个接口传进来，其实就是让这个实现类去自动注入我们的那个UserMapper.</p>
+<p>第二个泛型是我们的那个model类，也就是User，我们告诉ServiceImpl我们要处理的User类，ServiceImpl再去调用UserMapper告诉Usermapper我要你处理的User，这说明什么呢，Usermapper的泛型和ServiceImpl的泛型要一致哦，不能说我Usermapper处理User类，然后你给ServiceImpl传入一个Student类，那到时候ServiceImpl传一个Student给UserMapper,UserMapper肯定就处理不了。可以看下图：</p>
+<p><img src="/images/MyBatis-Plus-2024_01_01_13_29.png"></p>
+<p>画红线的地方也看出来， ServiceImpl明确要求你这个泛型M必须继承的是一个泛型为T的BaseMapper,而T就是我们传入的第二个泛型，所以很明显Usermapper的泛型和ServiceImpl传入的第二个泛型是要一致的哦，一定要注意，虽然很基础但是往往也容易出错嘛..<br>————————————————</p>
+<pre><code>                        版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。
+</code></pre>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44869121/article/details/124297999">https://blog.csdn.net/qq_44869121/article/details/124297999</a></p>
+
+    </div>
+
+    
+    
+    
+	
+    
+      <div>
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      </div>
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="simonf 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
 </div>
 
-</header>
-
-      
-      
-      
-      <div class="post-body">
-          <div class="category-all-page">
-            <div class="category-all-title">
-              暂无分类
-            </div>
-            <div class="category-all">
-              
-            </div>
-          </div>
         
-      </div>
-      
-      
-      
-    </div>
-    
 
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>simonf
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://simonf.cn/2024/01/01/%E5%85%B3%E4%BA%8Emybatis-plus%E5%AE%9E%E7%8E%B0Iservice%E3%80%81ServiceImpl%E5%92%8CBaseMaper%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%EF%BC%88%E8%BD%AC%E8%BD%BD%EF%BC%89/" title="关于mybatis-plus实现Iservice、ServiceImpl和BaseMaper的一些理解（转载）">https://simonf.cn/2024/01/01/关于mybatis-plus实现Iservice、ServiceImpl和BaseMaper的一些理解（转载）/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/MyBatis-Plus/" rel="tag"># MyBatis-Plus</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/12/10/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0/" rel="prev" title="自定义线程池">
+      <i class="fa fa-chevron-left"></i> 自定义线程池
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/03/18/Hexo%E6%95%99%E7%A8%8B-%E4%B8%80-%E5%A6%82%E4%BD%95%E5%86%99%E6%96%87%E7%AB%A0%E5%B9%B6%E5%8F%91%E5%B8%83/" rel="next" title="Hexo教程(一)|如何写文章并发布">
+      Hexo教程(一)|如何写文章并发布 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
     
-    
-    
+  </article>
+  
+  
+  
+
 
 
           </div>
           
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81OTY0OC8zNjExMA=="></div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -490,6 +641,21 @@ $(document).ready(function() {
 
   
 
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
 
 </body>
 </html>
